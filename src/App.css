@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+:root {
+    --color-secondary: #12496E;
+    --color-primary : #2EB2C2;
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+.bg-custom-secondary {
+    background-color: var(--color-secondary);
+}
+
+.bg-custom-toska {
+    background-color: var(--color-primary);
+}
