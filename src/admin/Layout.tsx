@@ -4,7 +4,7 @@ import '../App.css';
 
 const Layout = () => {
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       <Sidebar />
       <div className="flex-grow overflow-auto p-10 md:p-30 sm:p-10 lg:p-24">
         <Outlet />
