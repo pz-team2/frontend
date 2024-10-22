@@ -1,6 +1,7 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-const FormRegister = () => {
+const FormRegister: React.FC = () => {
   return (
     <>
       <form className="space-y-4">
@@ -51,7 +52,7 @@ const FormRegister = () => {
 
       <div className="text-sm text-center pt-2">
         Sudah Mempunyai Akun?{" "}
-        <Link to="/" className="text-blue-500 hover:underline">
+        <Link to="/login" className="text-blue-500 hover:underline">
           Login disini !!
         </Link>
       </div>

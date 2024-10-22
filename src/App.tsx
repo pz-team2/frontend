@@ -9,6 +9,7 @@ import { Dashboard } from "./admin/components/Dashboard";
 import { Organizer } from "./admin/components/Organizer";
 import './App.css';
 import LoadingScreen from "./LoadingScreen"; // Komponen loading
+import Events from "./user/Events";
 
 export default function App() {
   const [loading, setLoading] = useState(true); // State untuk loading
@@ -37,7 +38,8 @@ export default function App() {
     <div className="bg-white">
       <Router>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Events />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/*" element={<Layout />}>
             <Route path="dashboard" element={<Dashboard />} />
