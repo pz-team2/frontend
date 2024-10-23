@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Login from "./Login";
@@ -8,31 +8,33 @@ import DetailOragnizer from "./admin/components/DetailOragnizer";
 import { Dashboard } from "./admin/components/Dashboard";
 import { Organizer } from "./admin/components/Organizer";
 import './App.css';
-import LoadingScreen from "./LoadingScreen"; // Komponen loading
+// import LoadingScreen from "./LoadingScreen"; // Komponen loading
 import Events from "./user/Events";
+import { ProtectedRoute } from "./services/ProtectedRoute";
+import { Logout } from "./Logout";
 
 export default function App() {
-  const [loading, setLoading] = useState(true); // State untuk loading
-  const loadingDuration = 3000; // Atur durasi loading screen 
+  // const [loading, setLoading] = useState(true); // State untuk loading
+  // const loadingDuration = 1000; // Atur durasi loading screen 
 
-  // Gunakan window.onload dan setTimeout untuk mengontrol durasi loading
-  useEffect(() => {
-    const handleLoad = () => {
-      // Setelah website selesai diload, tambahkan delay menggunakan setTimeout
-      setTimeout(() => {
-        setLoading(false); // Set loading ke false setelah delay
-      }, loadingDuration);
-    };
+  // // Gunakan window.onload dan setTimeout untuk mengontrol durasi loading
+  // useEffect(() => {
+  //   const handleLoad = () => {
+  //     // Setelah website selesai diload, tambahkan delay menggunakan setTimeout
+  //     setTimeout(() => {
+  //       setLoading(false); // Set loading ke false setelah delay
+  //     }, loadingDuration);
+  //   };
 
-    window.addEventListener('load', handleLoad);
+  //   window.addEventListener('load', handleLoad);
 
-    // Cleanup listener setelah selesai
-    return () => window.removeEventListener('load', handleLoad);
-  }, [loadingDuration]);
+  //   // Cleanup listener setelah selesai
+  //   return () => window.removeEventListener('load', handleLoad);
+  // }, [loadingDuration]);
 
-  if (loading) {
-    return <LoadingScreen />; // Menampilkan loading screen
-  }
+  // if (loading) {
+  //   return <LoadingScreen />; // Menampilkan loading screen
+  // }
 
   return (
     <div className="bg-white">
@@ -41,7 +43,8 @@ export default function App() {
           <Route path="/" element={<Events />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/*" element={<Layout />}>
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="detail" element={<DetailOragnizer />} />
             <Route path="organizer" element={<Organizer />} />
