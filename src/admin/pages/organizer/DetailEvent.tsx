@@ -9,7 +9,10 @@ import { IoChevronBackOutline } from "react-icons/io5";
 export const DetailEvent = () => {
     return (
         <div>
-            <Link to='/admin/organizer/detail' className='text-black '> <IoChevronBackOutline  size={24}/> </Link>
+            <Link to='/admin/organizer/detail' className='text-black flex items-center gap-2 mb-5'>
+                <IoChevronBackOutline size={24} />
+                <span>Back to Event</span>
+            </Link>
             <h1 className="mb-5 text-2xl font-extrabold mt-4 text-black">Detail Organizer - By Fauzio</h1>
             <div className="card shadow-xl p-6">
                 <div className='grid grid-cols-2 lg:grid-cols-2 md:grid-cols-2'>

@@ -7,7 +7,10 @@ import { Link } from 'react-router-dom';
 const UpdateEvent = () => {
     return (
         <div>
-            <Link to='/admin/organizer/detail' className='text-black '> <IoChevronBackOutline  size={24}/> </Link>
+            <Link to='/admin/organizer/detail' className='text-black flex items-center gap-2 mb-5'>
+                <IoChevronBackOutline size={24} />
+                <span>Back to Event</span>
+            </Link>
             <h1 className="mb-5 text-2xl font-extrabold mt-4 text-black">Update Event</h1>
             <div className="grid lg:grid-cols-2 gap-16 text-black">
                 <div className="card">

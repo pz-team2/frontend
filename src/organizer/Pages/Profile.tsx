@@ -2,7 +2,7 @@
 export const Profile = () => {
     return (
         <div>
-            <h1 className="mb-5 text-2xl font-extrabold text-black">Detail Organizer</h1>
+            <h1 className="mb-5 text-2xl font-extrabold text-black">Profile Organizer</h1>
             <div className="card bg-white shadow-lg p-6 md:p-9">
                 <table className="table-auto text-left w-full md:w-auto lg:w-96">
                     <tbody className="font-semibold text-black">

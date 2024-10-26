@@ -10,6 +10,7 @@ export const LayoutOrg = () => {
         { text: 'Dashboard', icon: <AiFillHome size={20} />, path: '/organizer/dashboard' },
         { text: 'Event', icon: <FaCalendarCheck size={20} />, path: '/organizer/event' },
         { text: 'Profile', icon: <BiSolidUserRectangle size={20} />, path: '/organizer/event/profile' },
+        // { text: 'Profile', icon: <BiSolidUserRectangle size={20} />, path: '/organizer/event/profile' },
 
     ]
     return (
@@ -18,7 +19,6 @@ export const LayoutOrg = () => {
             <div className="flex-grow overflow-auto p-10 md:p-28 sm:p-10 lg:p-16 pb-40">
                 <Outlet />
             </div>
-
         </div>
     )
 }
