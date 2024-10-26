@@ -13,7 +13,7 @@ const FormLogin: React.FC = () => {
     const token = localStorage.getItem('token');
     if (token) {
       // Jika sudah ada token, arahkan ke dashboard
-      navigate('/dashboard');
+      navigate('/admin/dashboard');
     }
   },[navigate]);
 
@@ -35,7 +35,7 @@ const FormLogin: React.FC = () => {
       });
 
       // Navigasi ke dashboard sesuai dengan peran pengguna
-      user.role === 'admin' ? navigate('/dashboard') : navigate('/dashboard');
+      user.role === 'admin' ? navigate('/admin/dashboard') : navigate('/admin/dashboard');
     } catch (error: any) {
         setMessage('Terjadi kesalahan, silakan coba lagi.');
 

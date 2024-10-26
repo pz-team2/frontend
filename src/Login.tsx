@@ -1,4 +1,4 @@
-import FormLogin from "./components/FormLogin";
+import FormLogin from "./auth/FormLogin";
 import gambar from "./assets/img/goevent.png";
 import { AuthLayout } from "./layouts/AuthLayout";
 

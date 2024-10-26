@@ -4,14 +4,24 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Login";
 import Layout from "./admin/Layout";
 import Register from "./Register";
-import DetailOragnizer from "./admin/components/DetailOragnizer";
-import { Dashboard } from "./admin/components/Dashboard";
-import { Organizer } from "./admin/components/Organizer";
+import DetailOragnizer from "./admin/pages/organizer/DetailOragnizer";
+import { Dashboard } from "./admin/pages/Dashboard";
+import { Organizer } from "./admin/pages/organizer/Organizer";
 import './App.css';
 // import LoadingScreen from "./LoadingScreen"; // Komponen loading
 import Events from "./user/Events";
-import { ProtectedRoute } from "./services/ProtectedRoute";
+// import { ProtectedRoute } from "./services/ProtectedRoute";
 import { Logout } from "./Logout";
+import { DetailEvent } from "./admin/pages/organizer/DetailEvent";
+import { TambahEvent } from "./admin/pages/organizer/TambahEvent";
+import UpdateEvent from "./admin/pages/organizer/UpdateEvent";
+import { DataUser } from "./admin/pages/user/DataUser";
+import { Kategori } from "./admin/pages/kategori/Kategori";
+import { LayoutOrg } from "./organizer/LayoutOrg";
+import { DashboardOrganizer } from "./organizer/Pages/Dashboard";
+import { Event } from "./organizer/Pages/Event";
+import { Detail } from "./organizer/Pages/Detail";
+import { Profile } from "./organizer/Pages/Profile";
 
 export default function App() {
   // const [loading, setLoading] = useState(true); // State untuk loading
@@ -44,10 +54,25 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="detail" element={<DetailOragnizer />} />
-            <Route path="organizer" element={<Organizer />} />
+          
+          /* Routing Untuk  Admin */
+          <Route path="/" element={<Layout />}>
+            <Route path="admin/dashboard" element={<Dashboard />} />
+            <Route path="admin/organizer/detail" element={<DetailOragnizer />} />
+            <Route path="admin/organizer" element={<Organizer />} />
+            <Route path="admin/organizer/event/detail" element={<DetailEvent />} />
+            <Route path="admin/organizer/event/tambah" element={<TambahEvent />} />
+            <Route path="admin/organizer/event/update" element={<UpdateEvent />} />
+            <Route path="admin/user" element={<DataUser />} />
+            <Route path="admin/kategori" element={<Kategori />} />
+          </Route>
+
+          /* Routing  untuk organizer */
+          <Route path="/" element={<LayoutOrg />} >
+            <Route path="organizer/dashboard" element={<DashboardOrganizer />} />
+            <Route path="organizer/event" element={<Event />} />
+            <Route path="organizer/event/detail" element={<Detail />} />
+            <Route path="organizer/event/profile" element={<Profile />} />
           </Route>
         </Routes>
       </Router>

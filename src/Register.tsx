@@ -1,5 +1,5 @@
 import { AuthLayout } from "./layouts/AuthLayout";
-import FormRegister from "./components/FormRegister";
+import FormRegister from "./auth/FormRegister";
 import gambar from "./assets/img/goevent.png";
 
 const Register = () => {
