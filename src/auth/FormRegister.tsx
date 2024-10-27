@@ -102,7 +102,7 @@ const FormRegister: React.FC = () => {
 
       <div className="text-sm text-center pt-2">
         Sudah Mempunyai Akun?{" "}
-        <Link to="/login" className="text-blue-500 hover:underline">
+        <Link to="/user/login" className="text-blue-500 hover:underline">
           Login disini !!
         </Link>
       </div>

@@ -22,6 +22,7 @@ import { DashboardOrganizer } from "./organizer/Pages/Dashboard";
 import { Event } from "./organizer/Pages/Event";
 import { Detail } from "./organizer/Pages/Detail";
 import { Profile } from "./organizer/Pages/Profile";
+import { Pages } from "./Pages";
 
 export default function App() {
   // const [loading, setLoading] = useState(true); // State untuk loading
@@ -51,9 +52,11 @@ export default function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Events />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/user/login" element={<Login />} />
+          <Route path="/user/register" element={<Register />} />
+          <Route path="/organizer/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/page" element={<Pages />} />
           
           /* Routing Untuk  Admin */
           <Route path="/" element={<Layout />}>

@@ -93,7 +93,7 @@ const FormLogin: React.FC = () => {
 
       <div className="text-sm text-center pt-2">
         Belum punya akun?{' '}
-        <Link to="/register" className="text-blue-500 hover:underline">
+        <Link to="/user/register" className="text-blue-500 hover:underline">
           Daftar
         </Link>
       </div>
