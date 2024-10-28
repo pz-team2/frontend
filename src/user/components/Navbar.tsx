@@ -39,20 +39,28 @@ const Navbar = () => {
 
       {/* Navigasi & Avatar (Desktop & Mobile) */}
       <div className="hidden md:flex items-center gap-8 text-sm">
-        <Link to="/my-ticket" className="flex items-center space-x-2 text-white">
+        <Link
+          to="/user/ticket"
+          className="flex items-center space-x-2 text-white"
+        >
           <GiTicket size={25} />
           <span>My Ticket</span>
         </Link>
-        <Link to="/transaksi" className="flex items-center space-x-2 text-white">
+        <Link
+          to="/user/riwayat-transaksi"
+          className="flex items-center space-x-2 text-white"
+        >
           <FaMoneyCheckDollar size={25} />
           <span>Transaksi</span>
         </Link>
-        <Link to="/hubungi-kami" className="flex items-center space-x-2 text-white">
+        <Link
+          to="/hubungi-kami"
+          className="flex items-center space-x-2 text-white"
+        >
           <BiSolidPhoneCall size={25} />
           <span>Hubungi Kami</span>
         </Link>
 
-        
         <div className="dropdown dropdown-end">
           <label
             tabIndex={0}
@@ -74,13 +82,13 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/informasi-pribadi" className="text-white">
-              <FaUserEdit size={20} />
+              <Link to="/user/profile" className="text-white">
+                <FaUserEdit size={20} />
                 Informasi Pribadi
               </Link>
             </li>
             <li>
-              <Link to="/logout" className="text-white"> 
+              <Link to="/logout" className="text-white">
                 <IoIosLogOut size={20} />
                 Logout
               </Link>
@@ -101,34 +109,50 @@ const Navbar = () => {
         {isOpen && (
           <ul className="menu menu-compact absolute right-4 top-16 bg-custom-secondary rounded-box w-52 p-2 shadow z-20">
             <li>
-              <Link to="/profile" className="flex items-center space-x-2 text-white">
+              <Link
+                to="/profile"
+                className="flex items-center space-x-2 text-white"
+              >
                 <CgProfile size={20} />
                 <span>Profile</span>
               </Link>
             </li>
             <li>
-              <Link to="/my-ticket" className="flex items-center space-x-2 text-white">
+              <Link
+                to="/my-ticket"
+                className="flex items-center space-x-2 text-white"
+              >
                 <GiTicket size={20} />
                 <span>My Ticket</span>
               </Link>
             </li>
             <li>
-              <Link to="/transaksi" className="flex items-center space-x-2 text-white">
+              <Link
+                to="/transaksi"
+                className="flex items-center space-x-2 text-white"
+              >
                 <FaMoneyCheckDollar size={20} />
                 <span>Transaksi</span>
               </Link>
             </li>
             <li>
-              <Link to="/hubungi-kami" className="flex items-center space-x-2 text-white">
+              <Link
+                to="/hubungi-kami"
+                className="flex items-center space-x-2 text-white"
+              >
                 <BiSolidPhoneCall size={20} />
                 <span>Hubungi Kami</span>
               </Link>
             </li>
             <li>
-              <Link to="/settings" className="text-white">Settings</Link>
+              <Link to="/settings" className="text-white">
+                Settings
+              </Link>
             </li>
             <li>
-              <Link to="/login" className="text-white">Logout</Link>
+              <Link to="/login" className="text-white">
+                Logout
+              </Link>
             </li>
           </ul>
         )}
