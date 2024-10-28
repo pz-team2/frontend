@@ -3,10 +3,10 @@ import { IoIosCalendar, IoIosPricetags } from "react-icons/io";
 import { FaLocationDot } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-const Card = () => {
+const CardUnggulan = () => {
   return (
     <>
-      <div className="card bg-[#f4f4f4] w-[300px] lg:w-[338px] shadow-xl">
+      <div className="card bg-[#f4f4f4] w-[300px] lg:w-[546px] shadow-xl">
         <figure>
           <img
             src={banner}
@@ -37,4 +37,4 @@ const Card = () => {
   );
 };
 
-export default Card;
+export default CardUnggulan;

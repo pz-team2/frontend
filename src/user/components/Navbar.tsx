@@ -14,7 +14,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // Toggle untuk mobile menu
 
   return (
-    <div className="navbar bg-custom-secondary py-4 px-4 md:px-20">
+    <div className="navbar bg-primary py-4 px-4 md:px-20">
       {/* Logo */}
       <div className="flex-1">
         <Link to="/" className="btn btn-ghost text-xl">
@@ -25,20 +25,20 @@ const Navbar = () => {
       {/* <div className="flex gap-4">
         <Link
           to="/login" // Mengarahkan ke halaman login
-          className="border border-[#2EB2C2] text-[#2EB2C2] px-4 py-2 rounded hover:bg-[#1B9AAB] hover:text-white active:bg-[#188A99] focus:outline-none focus:ring focus:ring-teal-300"
+          className="border border-primary text-primary px-4 py-2 rounded hover:bg-[#1B9AAB] hover:text-white active:bg-[#188A99] focus:outline-none focus:ring focus:ring-teal-300"
         >
           Login
         </Link>
         <Link
           to="/register" // Mengarahkan ke halaman register
-          className="bg-[#2EB2C2] text-white px-4 py-2 rounded hover:bg-[#28A4B1] active:bg-[#238F9D] focus:outline-none focus:ring focus:ring-teal-300"
+          className="bg-primary text-white px-4 py-2 rounded hover:bg-[#28A4B1] active:bg-[#238F9D] focus:outline-none focus:ring focus:ring-teal-300"
         >
           Sign Up
         </Link>
       </div> */}
 
       {/* Navigasi & Avatar (Desktop & Mobile) */}
-      <div className="hidden md:flex items-center gap-8">
+      <div className="hidden md:flex items-center gap-8 text-sm">
         <Link to="/my-ticket" className="flex items-center space-x-2 text-white">
           <GiTicket size={25} />
           <span>My Ticket</span>
@@ -80,7 +80,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/login" className="text-white"> 
+              <Link to="/logout" className="text-white"> 
                 <IoIosLogOut size={20} />
                 Logout
               </Link>

@@ -21,24 +21,24 @@ const ImageSlider: React.FC = () => {
   ];
 
   return (
-    <div className="relative w-ful py-10">
+    <div className="relative w-full py-4 lg:py-10">
       <div className="w-full mx-auto relative">
-        {/* Navigation Buttons */}
+        {/* Navigation Buttons - Hidden on mobile */}
         <button
-          className="custom-prev-button absolute left-8 top-1/2 -translate-y-1/2 z-10 bg-white/30 hover:bg-white/70 p-4 rounded-full transition-all duration-300"
+          className="custom-prev-button hidden md:flex absolute left-2 lg:left-8 top-1/2 -translate-y-1/2 z-10 bg-white/30 hover:bg-white/70 p-2 lg:p-4 rounded-full transition-all duration-300"
           aria-label="Previous slide"
         >
-          <ChevronLeft className="h-8 w-8 text-white" />
+          <ChevronLeft className="h-4 w-4 lg:h-8 lg:w-8 text-white" />
         </button>
         <button
-          className="custom-next-button absolute right-8 top-1/2 -translate-y-1/2 z-10 bg-white/30 hover:bg-white/70 p-4 rounded-full transition-all duration-300"
+          className="custom-next-button hidden md:flex absolute right-2 lg:right-8 top-1/2 -translate-y-1/2 z-10 bg-white/30 hover:bg-white/70 p-2 lg:p-4 rounded-full transition-all duration-300"
           aria-label="Next slide"
         >
-          <ChevronRight className="h-8 w-8 text-white" />
+          <ChevronRight className="h-4 w-4 lg:h-8 lg:w-8 text-white" />
         </button>
 
         <Swiper
-          slidesPerView="auto"
+          slidesPerView={1}
           centeredSlides={true}
           loop={true}
           autoplay={{
@@ -50,17 +50,33 @@ const ImageSlider: React.FC = () => {
             nextEl: '.custom-next-button',
             prevEl: '.custom-prev-button',
           }}
-          spaceBetween={30} /* Memberikan jarak antar slide */
+          breakpoints={{
+            // Mobile first approach
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            // Tablet
+            768: {
+              slidesPerView: 'auto',
+              spaceBetween: 20,
+            },
+            // Desktop
+            1024: {
+              slidesPerView: 'auto',
+              spaceBetween: 30,
+            },
+          }}
           modules={[Navigation, Autoplay]}
           className="w-full"
         >
           {images.map((image) => (
             <SwiperSlide key={image.id} className="w-auto">
-              <div className="relative">
+              <div className="relative px-4 md:px-0">
                 <img
                   src={image.url}
                   alt={image.alt}
-                  className="w-[992px] h-[248px] object-cover rounded-xl shadow-lg"
+                  className="w-full md:w-[768px] lg:w-[992px] h-[150px] md:h-[200px] lg:h-[248px] object-cover rounded-xl shadow-lg"
                 />
               </div>
             </SwiperSlide>
