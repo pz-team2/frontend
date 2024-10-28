@@ -3,7 +3,7 @@ import ImageSlider from "../components/ImageSlider";
 import CardUnggulan from "../components/CardUnggulan";
 import Card from "../components/Card";
 import { Link } from "react-router-dom";
-import logo from "../assets/img/goevent-w.png";
+import logo from "../../assets/img/goevent-w.png";
 import Search from "../components/Search";
 
 const Events = () => {

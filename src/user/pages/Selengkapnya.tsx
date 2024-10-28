@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import Card from "../components/Card";
 import { Link } from "react-router-dom";
-import logo from "../assets/img/goevent-w.png";
+import logo from "../../assets/img/goevent-w.png";
 import Search from "../components/Search";
 
 const Selengkapnya = () => {

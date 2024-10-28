@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import banner from "../assets/img/banner.png";
+import banner from "../../assets/img/banner.png";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoIosCalendar } from "react-icons/io";
 import TicketCounter from "../components/TicketCounter";
