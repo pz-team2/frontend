@@ -25,6 +25,12 @@ import { Profile } from "./organizer/Pages/Profile";
 import { Hubungi } from "./user/pages/Hubungi";
 import Selengkapnya from "./user/pages/Selengkapnya";
 import Transaksi from "./user/pages/Transaksi";
+import InformasiPribadi from "./user/components/InformasiPribadi";
+import UserLayout from "./user/pages/UserLayout";
+import TiketSaya from "./user/components/TiketSaya";
+import DetailTiket from "./user/components/DetailTiket";
+import RiwayatTransaksi from "./user/components/RiwayatTransaksi";
+import UbahSandi from "./user/components/UbahSandi";
 
 export default function App() {
   // const [loading, setLoading] = useState(true); // State untuk loading
@@ -61,6 +67,13 @@ export default function App() {
           <Route path="/selengkapnya" element={<Selengkapnya />} />
           <Route path="/hubungi-kami" element={<Hubungi />} />
           <Route path="/transaksi" element={<Transaksi />} />
+          <Route path="/user" element={<UserLayout />}>
+            <Route path="profile" element={<InformasiPribadi />} />
+            <Route path="ticket" element={<TiketSaya />} />
+            <Route path="tiket/:id" element={<DetailTiket />} />
+            <Route path="ubah-sandi" element={<UbahSandi />} />
+            <Route path="riwayat-transaksi" element={<RiwayatTransaksi />} />
+          </Route>
           /* Routing Untuk Admin */
           <Route path="/" element={<Layout />}>
             <Route path="admin/dashboard" element={<Dashboard />} />
