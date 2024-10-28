@@ -54,8 +54,9 @@ export default function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Events />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/user/login" element={<Login />} />
+          <Route path="/user/register" element={<Register />} />
+          <Route path="/organizer/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/selengkapnya" element={<Selengkapnya />} />
           <Route path="/hubungi-kami" element={<Hubungi />} />
