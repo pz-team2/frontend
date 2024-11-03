@@ -7,5 +7,4 @@ export interface authState {
     isRegistered: boolean;
     isverified:  boolean;
     verifyMessage: string
-
 }

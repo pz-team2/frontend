@@ -22,7 +22,7 @@ const FormRegister: React.FC = () => {
     } else if (message) {
       Swal.fire({
         title: "Pendaftaran Gagal",
-        text: "Terjadi kesalahan, silakan coba lagi.",
+        text: message,
         icon: "error",
         confirmButtonText: "Ok"
       });
