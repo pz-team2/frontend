@@ -1,6 +1,8 @@
 import { FaCirclePlus } from "react-icons/fa6";
 
 export const TambahKategori = () => {
+
+    
     return (
         <div>
             <button className="btn mb-4 border-0 text-white bg-secondary hover:bg-cyan-900" onClick={() => { const modal = document.getElementById('my_modal_1') as HTMLDialogElement; if (modal) { modal.showModal(); } }}><FaCirclePlus /> Tambah Kategori</button>

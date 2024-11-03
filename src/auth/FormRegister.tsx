@@ -1,21 +1,16 @@
-import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import api from '../services/api';
 import Swal from "sweetalert2";
+import { useAppDispatch, useAppSelector } from '../Redux/hook';
+import { useEffect } from 'react';
+import { setUsername, setPassword, setEmail, register } from '../Redux/features/auth/authslice';
 
 const FormRegister: React.FC = () => {
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { username, email, password, message, isRegistered } = useAppSelector((state) => state.auth);
 
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      await api.post('/auth/register', { email, password, username });
-
+  useEffect(() => {
+    if (isRegistered) {
       Swal.fire({
         title: "Pendaftaran Berhasil!",
         text: "Anda berhasil mendaftar, silakan login.",
@@ -24,27 +19,20 @@ const FormRegister: React.FC = () => {
       }).then(() => {
         navigate("/verify");
       });
-
-    } catch (error: any) {
-      // Cek Email Terdaftar
-      if ( error.response.status === 400) {
-        Swal.fire({
-          title: "Email Sudah Terdaftar",
-          text: "Email yang Anda gunakan sudah terdaftar, silakan gunakan email lain.",
-          icon: "error",
-          confirmButtonText: "Ok"
-        });
-      } else {
-        Swal.fire({
-          title: "Pendaftaran Gagal",
-          text: "Terjadi kesalahan, silakan coba lagi.",
-          icon: "error",
-          confirmButtonText: "Ok"
-        });
-      }
-      console.error(error);
+    } else if (message) {
+      Swal.fire({
+        title: "Pendaftaran Gagal",
+        text: "Terjadi kesalahan, silakan coba lagi.",
+        icon: "error",
+        confirmButtonText: "Ok"
+      });
     }
-  };
+  }, [isRegistered, message, navigate]);
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(register({ email, password, username }));
+  }
 
   return (
     <>
@@ -56,7 +44,7 @@ const FormRegister: React.FC = () => {
           <input
             type="text"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => dispatch(setUsername(e.target.value))} // Dispatch setUsername
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-800 bg-white text-sm"
             required
             placeholder="Masukan Username"
@@ -70,7 +58,7 @@ const FormRegister: React.FC = () => {
           <input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => dispatch(setEmail(e.target.value))} // Dispatch setEmail
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-800 bg-white text-sm"
             required
             placeholder="Masukan Email"
@@ -84,7 +72,7 @@ const FormRegister: React.FC = () => {
           <input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => dispatch(setPassword(e.target.value))} // Dispatch setPassword
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-800 bg-white text-sm"
             required
             placeholder="Masukan Password"

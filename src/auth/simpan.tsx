@@ -1,13 +1,13 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { useAppDispatch, useAppSelector } from '../Redux/hook';
-import { setEmail, setPassword, login } from '../Redux/features/auth/authslice';
+import api from '../services/api';
 
 const FormLogin: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  const { email, password, message, isLogged } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -16,29 +16,47 @@ const FormLogin: React.FC = () => {
     }
   }, [navigate]);
 
-  useEffect(() => {
-    if (isLogged) {
-      Swal.fire({
-        title: 'Login Berhasil!',
-        text: 'Selamat, Anda berhasil login.',
-        icon: 'success',
-        confirmButtonText: 'OK',
-      }).then(() => {
-        navigate("/admin/dashboard");
-      });
-    } else if (message) {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await api.post('auth/login', { email, password });
+      
+      if (response.data.success) {
+        const { token } = response.data.data; // Mengambil token dari response.data.data
+
+        // Simpan token ke localStorage
+        localStorage.setItem('token', token);
+
+        Swal.fire({
+          title: 'Login Berhasil!',
+          text: 'Selamat, Anda berhasil login.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        }).then(() => {
+          navigate("/admin/dashboard");
+        });
+
+        // Navigasi ke dashboard sesuai dengan peran pengguna
+      } else {
+        setMessage(response.data.message || 'Login gagal');
+        Swal.fire({
+          title: 'Login Gagal!',
+          text: message || 'Email atau password salah.',
+          icon: 'error',
+          confirmButtonText: 'Coba Lagi',
+        });
+      }
+    } catch (error: any) {
+      setMessage('Terjadi kesalahan, silakan coba lagi.');
+
       Swal.fire({
         title: 'Login Gagal!',
-        text: message,
+        text: message || 'Email atau password salah.',
         icon: 'error',
         confirmButtonText: 'Coba Lagi',
       });
     }
-  }, [isLogged, message, navigate]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    dispatch(login({ email, password }));
   };
 
   return (
@@ -50,7 +68,7 @@ const FormLogin: React.FC = () => {
             type="email"
             name="email"
             value={email}
-            onChange={(e) => dispatch(setEmail(e.target.value))}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-800 bg-white text-sm"
             required
             placeholder="Masukan Email"
@@ -62,7 +80,7 @@ const FormLogin: React.FC = () => {
             type="password"
             name="password"
             value={password}
-            onChange={(e) => dispatch(setPassword(e.target.value))}
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-800 bg-white text-sm"
             required
             placeholder="Masukan Password"
