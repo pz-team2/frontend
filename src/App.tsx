@@ -10,11 +10,10 @@ import { Organizer } from "./admin/pages/organizer/Organizer";
 import "./App.css";
 // import LoadingScreen from "./LoadingScreen"; // Komponen loading
 import Events from "./user/pages/Events";
-// import { ProtectedRoute } from "./services/ProtectedRoute";
 import { Logout } from "./Logout";
 import { DetailEvent } from "./admin/pages/organizer/DetailEvent";
 import { TambahEvent } from "./admin/pages/organizer/TambahEvent";
-import UpdateEvent from "./admin/pages/organizer/UpdateEvent";
+import { UpdateEvent } from "./admin/pages/organizer/UpdateEvent";
 import { DataUser } from "./admin/pages/user/DataUser";
 import { Kategori } from "./admin/pages/kategori/Kategori";
 import { LayoutOrg } from "./organizer/LayoutOrg";
@@ -31,6 +30,10 @@ import TiketSaya from "./user/components/TiketSaya";
 import DetailTiket from "./user/components/DetailTiket";
 import RiwayatTransaksi from "./user/components/RiwayatTransaksi";
 import UbahSandi from "./user/components/UbahSandi";
+import VerifyEmail from "./verifyEmail";
+import { Verify } from "./Verify";
+import { ProtectedRoute } from "./services/ProtectedRoute";
+import { Pages } from "./Pages";
 
 export default function App() {
   // const [loading, setLoading] = useState(true); // State untuk loading
@@ -60,13 +63,19 @@ export default function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Events />} />
+          <Route path="/page" element={<Pages />} />
           <Route path="/user/login" element={<Login />} />
           <Route path="/user/register" element={<Register />} />
           <Route path="/organizer/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/verify/:token" element={<VerifyEmail />} />
+          <Route path="/verify" element={<Verify />} />
           <Route path="/selengkapnya" element={<Selengkapnya />} />
           <Route path="/hubungi-kami" element={<Hubungi />} />
           <Route path="/transaksi" element={<Transaksi />} />
+
+          {/* User Layout */}
+
           <Route path="/user" element={<UserLayout />}>
             <Route path="profile" element={<InformasiPribadi />} />
             <Route path="ticket" element={<TiketSaya />} />
@@ -74,35 +83,22 @@ export default function App() {
             <Route path="ubah-sandi" element={<UbahSandi />} />
             <Route path="riwayat-transaksi" element={<RiwayatTransaksi />} />
           </Route>
-          /* Routing Untuk Admin */
-          <Route path="/" element={<Layout />}>
+
+          {/* Admin Layout */}
+          <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
             <Route path="admin/dashboard" element={<Dashboard />} />
-            <Route
-              path="admin/organizer/detail"
-              element={<DetailOragnizer />}
-            />
+            <Route path="admin/organizer/detail" element={<DetailOragnizer />} />
             <Route path="admin/organizer" element={<Organizer />} />
-            <Route
-              path="admin/organizer/event/detail"
-              element={<DetailEvent />}
-            />
-            <Route
-              path="admin/organizer/event/tambah"
-              element={<TambahEvent />}
-            />
-            <Route
-              path="admin/organizer/event/update"
-              element={<UpdateEvent />}
-            />
+            <Route path="admin/organizer/event/detail" element={<DetailEvent />} />
+            <Route path="admin/organizer/event/tambah" element={<TambahEvent />} />
+            <Route path="admin/organizer/event/update" element={<UpdateEvent />} />
             <Route path="admin/user" element={<DataUser />} />
             <Route path="admin/kategori" element={<Kategori />} />
           </Route>
-          /* Routing untuk organizer */
+          {/* Organizer Layout */}
           <Route path="/" element={<LayoutOrg />}>
-            <Route
-              path="organizer/dashboard"
-              element={<DashboardOrganizer />}
-            />
+            <Route path="organizer/dashboard"
+              element={<DashboardOrganizer />} />
             <Route path="organizer/event" element={<Event />} />
             <Route path="organizer/event/detail" element={<Detail />} />
             <Route path="organizer/event/profile" element={<Profile />} />

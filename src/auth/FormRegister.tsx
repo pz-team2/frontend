@@ -14,7 +14,7 @@ const FormRegister: React.FC = () => {
     e.preventDefault();
 
     try {
-      await api.post('/register', { email, password, username });
+      await api.post('/auth/register', { email, password, username });
 
       Swal.fire({
         title: "Pendaftaran Berhasil!",
@@ -22,7 +22,7 @@ const FormRegister: React.FC = () => {
         icon: "success",
         confirmButtonText: "Ok"
       }).then(() => {
-        navigate("/login");
+        navigate("/verify");
       });
 
     } catch (error: any) {

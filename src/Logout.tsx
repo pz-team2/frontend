@@ -4,9 +4,9 @@ export const Logout = () => {
 
     useEffect(() => {
         localStorage.removeItem('token')
-        window.location.href = '/login'
+        window.location.href = '/user/login'
     }, [])
   return (
-    <div>Logout</div>
+    <div></div>
   )
 }

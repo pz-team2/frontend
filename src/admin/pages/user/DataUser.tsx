@@ -1,5 +1,5 @@
 // import { Link } from "react-router-dom";
-import { Table } from "../../../components/Table"
+import { Table } from "../../../components/Layout/Table"
 
 export const DataUser = () => {
 

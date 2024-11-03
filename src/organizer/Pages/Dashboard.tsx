@@ -1,4 +1,4 @@
-import Card from "../../components/Card"
+import Card from "../../components/Layout/Card"
 import { FaMoneyBillWave } from "react-icons/fa6";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { MdConfirmationNumber } from "react-icons/md";

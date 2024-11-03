@@ -1,9 +1,10 @@
-// import { useState } from "react";
+
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { AiFillPlusCircle } from "react-icons/ai";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom';
+import { Input } from '../../../components/Fragments/Input';
 
 export const TambahEvent = () => {
     return (
@@ -15,21 +16,15 @@ export const TambahEvent = () => {
             <h1 className="mb-5 text-2xl font-extrabold text-black mt-4"> Tambah Event</h1>
             <div className="grid lg:grid-cols-2 gap-9 text-black">
                 <div className="card">
-                    <span className="mt-3 mb-2">Judul</span>
-                    <input type="text" placeholder="Masukan Judul" className="input input-bordered w-full bg-slate-100 border-0" />
-                    <span className="mt-3 mb-2">Kuota</span>
-                    <input type="text" placeholder="Masukan Kuota" className="input input-bordered w-full bg-slate-100 border-0" />
-                    <span className="mt-3 mb-2">Harga</span>
-                    <input type="text" placeholder="Masukan Harga" className="input input-bordered w-full bg-slate-100 border-0" />
-
+                    <Input label={"Judul"} type={"text"} name={"judul"} title={"Masukan Event"} variant={'bg-slate-100'} />
+                    <Input label={"Kuota"} type={"text"} name={"kuota"} title={"Masukan Event"} variant={'bg-slate-100'} />
+                    <Input label={"Harga"} type={"text"} name={"harga"} title={"Masukan Event"} variant={'bg-slate-100'} />
                     <div className='grid grid-cols-2 gap-4'>
                         <div className="flex flex-col">
-                            <span className="mt-3 mb-2">Waktu - Mulai</span>
-                            <input type="time" placeholder="Waktu Mulai" className="input input-bordered bg-primary border-0 text-white" />
+                           <Input label={"Waktu Mulai"} name={"waktu-mulai"} type={"time"} title={"Masukan Event"} variant={'bg-primary text-white'} />
                         </div>
                         <div className="flex flex-col">
-                            <span className="mt-3 mb-2">Waktu - Selesai</span>
-                            <input type="time" placeholder="Waktu Selesai" className="input input-bordered bg-primary border-0 text-white" />
+                           <Input label={"Waktu Mulai"} name={"waktu-mulai"} type={"time"} title={"Masukan Event"} variant={'bg-primary text-white'} />
                         </div>
                     </div>
                     <span className="mt-3 mb-2">Tanggal</span>

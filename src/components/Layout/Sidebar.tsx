@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { AiOutlineBars } from "react-icons/ai";
 import { Link, useLocation } from 'react-router-dom';
 import { FaSignOutAlt } from 'react-icons/fa';
-import gambar from '../assets/img/goevent.png';
+import gambar from '../../assets/img/goevent.png';
 
 interface MenuItem {
   text: string;

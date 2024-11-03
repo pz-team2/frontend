@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/Layout/Sidebar";
 import '../App.css';
 import { VscOrganization } from "react-icons/vsc";
 import { FaRegUser } from "react-icons/fa6";

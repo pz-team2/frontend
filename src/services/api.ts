@@ -5,10 +5,8 @@ const api = axios.create({
   baseURL: 'http://127.0.0.1:3500/api/',
 });
 
-// Interceptor untuk menangani respons
 api.interceptors.response.use(
   (response) => {
-    // Jika respons sukses, lanjutkan prosesnya
     return response;
   },
   (error) => {
@@ -22,16 +20,11 @@ api.interceptors.response.use(
 
         // Hapus token dari localStorage
         localStorage.removeItem("token");
-
-        // Arahkan kembali ke halaman login
-        window.location.href = "/login";
+        window.location.href = "/user/login";
       } else {
-        // Tangani error selain 401 dan 403
         console.error("An error occurred:", error.response.data);
       }
     }
-
-    // Lanjutkan melempar error agar bisa ditangani di tempat lain
     return Promise.reject(error);
   }
 );

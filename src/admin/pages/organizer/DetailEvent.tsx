@@ -6,7 +6,7 @@ import { BiSolidUserRectangle } from "react-icons/bi";
 import { Link } from 'react-router-dom';
 import { IoChevronBackOutline } from "react-icons/io5";
 
-export const DetailEvent = () => {
+export const DetailEvent = () => {  
     return (
         <div>
             <Link to='/admin/organizer/detail' className='text-black flex items-center gap-2 mb-5'>

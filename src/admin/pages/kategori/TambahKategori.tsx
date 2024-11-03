@@ -3,7 +3,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 export const TambahKategori = () => {
     return (
         <div>
-            <button className="btn mb-4 border-0 text-white bg-secondary hover:bg-cyan-900" onClick={() => { const modal = document.getElementById('my_modal_1') as HTMLDialogElement; if (modal) { modal.showModal(); } }}><FaCirclePlus /> Tambah Event</button>
+            <button className="btn mb-4 border-0 text-white bg-secondary hover:bg-cyan-900" onClick={() => { const modal = document.getElementById('my_modal_1') as HTMLDialogElement; if (modal) { modal.showModal(); } }}><FaCirclePlus /> Tambah Kategori</button>
             <dialog id="my_modal_1" className="modal">
                 <div className="modal-box bg-white">
                     <h3 className="font-bold text-lg text-black text-center"> Tambah Kategori Event</h3>

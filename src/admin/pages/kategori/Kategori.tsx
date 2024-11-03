@@ -1,5 +1,5 @@
 
-import { Table } from "../../../components/Table"
+import { Table } from "../../../components/Layout/Table"
 import { Link } from "react-router-dom";
 import { TambahKategori } from "./TambahKategori";
 import { FaTrashCan } from "react-icons/fa6";

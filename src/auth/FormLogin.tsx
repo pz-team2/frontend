@@ -12,32 +12,43 @@ const FormLogin: React.FC = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      // Jika sudah ada token, arahkan ke dashboard
       navigate('/admin/dashboard');
     }
-  },[navigate]);
+  }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
-      const response = await api.post('/login', { email, password });
-      const { token, user } = response.data;
+      const response = await api.post('auth/login', { email, password });
+      
+      if (response.data.success) {
+        const { token } = response.data.data; // Mengambil token dari response.data.data
 
-      // Simpan token ke localStorage
-      localStorage.setItem('token', token);
+        // Simpan token ke localStorage
+        localStorage.setItem('token', token);
 
-      Swal.fire({
-        title: 'Login Berhasil!',
-        text: 'Selamat, Anda berhasil login.',
-        icon: 'success',
-        confirmButtonText: 'OK',
-      });
+        Swal.fire({
+          title: 'Login Berhasil!',
+          text: 'Selamat, Anda berhasil login.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        }).then(() => {
+          navigate("/admin/dashboard");
+        });
 
-      // Navigasi ke dashboard sesuai dengan peran pengguna
-      user.role === 'admin' ? navigate('/admin/dashboard') : navigate('/admin/dashboard');
+        // Navigasi ke dashboard sesuai dengan peran pengguna
+      } else {
+        setMessage(response.data.message || 'Login gagal');
+        Swal.fire({
+          title: 'Login Gagal!',
+          text: message || 'Email atau password salah.',
+          icon: 'error',
+          confirmButtonText: 'Coba Lagi',
+        });
+      }
     } catch (error: any) {
-        setMessage('Terjadi kesalahan, silakan coba lagi.');
+      setMessage('Terjadi kesalahan, silakan coba lagi.');
 
       Swal.fire({
         title: 'Login Gagal!',
