@@ -6,13 +6,15 @@ interface InputProps {
     title : string;
     variant: string;
     name: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Input:React.FC<InputProps> = ({label, type, title, variant, name}) => {
+export const Input:React.FC<InputProps> = ({label, type, title, variant, name, value, onChange}) => {
     return (
         <div className='mt-3'>
             <span className="mt-6 mb-2">{label}</span>
-            <input type={type} placeholder={title} name={name} className={`input input-bordered w-full mt-2 ${variant}  border-0`}/>
+            <input type={type} placeholder={title} value={value} onChange={onChange} name={name} className={`input input-bordered w-full mt-2 ${variant}  border-0`}/>
         </div>
     )
 }
