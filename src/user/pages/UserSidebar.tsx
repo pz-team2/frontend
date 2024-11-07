@@ -1,4 +1,3 @@
-// UserSidebar.tsx
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaUser, FaTicketAlt, FaExchangeAlt, FaKey } from "react-icons/fa";
@@ -10,7 +9,11 @@ interface MenuItem {
   path: string;
 }
 
-const UserSidebar: React.FC = () => {
+interface UserSidebarProps {
+  onClose?: () => void;
+}
+
+const UserSidebar: React.FC<UserSidebarProps> = ({ onClose }) => {
   const location = useLocation();
 
   const menuItems: MenuItem[] = [
@@ -38,21 +41,30 @@ const UserSidebar: React.FC = () => {
 
   return (
     <div className="bg-[#12496E] text-white w-64 min-h-screen flex flex-col">
-      {/* Logo */}
-      <div className="p-4 mb-8 flex justify-center">
-        <Link to="/">
-          <img src={logo} alt="GoEvent Logo" className="w-32" />
+      {/* Close button for mobile */}
+      <button
+        className="md:hidden absolute top-4 right-4 text-white"
+        onClick={onClose}
+      >
+        ✕
+      </button>
+
+      
+      <div className="p-4 mb-4 md:mb-8 flex justify-center">
+        <Link to="/" onClick={onClose}>
+          <img src={logo} alt="GoEvent Logo" className="w-24 md:w-32" />
         </Link>
       </div>
 
       {/* Menu Items */}
       <nav className="flex-1">
-        <ul className="space-y-2">
+        <ul className="space-y-1 md:space-y-2">
           {menuItems.map((item, index) => (
             <li key={index}>
               <Link
                 to={item.path}
-                className={`flex items-center gap-3 px-6 py-3 text-lg transition-colors
+                onClick={onClose}
+                className={`flex items-center gap-3 px-4 md:px-6 py-2 md:py-3 text-base md:text-lg transition-colors
                   ${
                     location.pathname === item.path
                       ? "bg-white/10"

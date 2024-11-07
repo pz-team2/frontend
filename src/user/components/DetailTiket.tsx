@@ -10,12 +10,10 @@ interface TicketDetails {
   status: "AVAILABLE" | "USED" | "EXPIRED";
 }
 
-// Remove props interface since we'll get the ID from URL params
+
 const DetailTiket: React.FC = () => {
   const navigate = useNavigate();
-//   const { id } = useParams<{ id: string }>(); // Get the ID from URL params
 
-  // Sample data - replace with your actual data fetching logic
   const ticketDetails: TicketDetails = {
     eventName: "Konser Cosmyc Fest",
     ticketNumber: "TICKET 1",
@@ -27,50 +25,50 @@ const DetailTiket: React.FC = () => {
   return (
     <div className="min-h-screen bg-white p-8">
       {/* Header with navigation */}
-      <div className="mb-8">
-        <div className="flex items-center gap-4 text-[#12496E] mb-6">
+      <div className="mb-4 md:mb-8">
+        <div className="flex items-center gap-2 md:gap-4 text-[#12496E] mb-3 md:mb-6">
           <button
-            className="text-2xl hover:opacity-80 transition-opacity"
+            className="text-lg md:text-2xl hover:opacity-80 transition-opacity"
             onClick={() => navigate("/user/ticket")}
           >
             MY TICKETS
           </button>
-          <span className="text-2xl">{">"}</span>
-          <span className="text-2xl font-bold">DETAILS</span>
+          <span className="text-lg md:text-2xl">{">"}</span>
+          <span className="text-lg md:text-2xl font-bold">DETAILS</span>
         </div>
-        <h2 className="text-[#12496E] text-3xl font-bold">
+        <h2 className="text-[#12496E] text-xl md:text-3xl font-bold">
           {ticketDetails.eventName}
         </h2>
       </div>
 
       {/* Ticket Card */}
-      <div className="bg-white rounded-xl shadow-lg p-6 max-w-2xl">
-        <div className="flex items-start space-x-8">
+      <div className="bg-white rounded-xl shadow-lg p-4 md:p-6 max-w-2xl">
+        <div className="flex flex-col md:flex-row items-center md:items-start md:space-x-8 space-y-4 md:space-y-0">
           {/* QR Code */}
-          <div className="w-40 h-40 bg-gray-200">
-            <img
-              src={qr}
-              alt="QR Code"
-              className="w-full h-full object-cover"
-            />
+          <div className="w-full md:w-40 h-40 bg-gray-200 flex items-center justify-center">
+            <img src={qr} alt="QR Code" className="w-40 h-40 object-cover" />
           </div>
 
           {/* Ticket Details */}
-          <div className="flex-1 space-y-4">
+          <div className="flex-1 space-y-4 text-center md:text-left w-full">
             <div>
-              <h3 className="text-2xl font-bold text-gray-800">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-800">
                 {ticketDetails.ticketNumber}
               </h3>
-              <p className="text-gray-500 mt-1">{ticketDetails.ticketId}</p>
+              <p className="text-gray-500 mt-1 text-sm md:text-base break-all">
+                {ticketDetails.ticketId}
+              </p>
             </div>
 
             <div>
-              <p className="text-gray-700 text-lg">{ticketDetails.ownerName}</p>
+              <p className="text-gray-700 text-base md:text-lg">
+                {ticketDetails.ownerName}
+              </p>
             </div>
 
             <div>
               <span
-                className={`inline-block px-4 py-2 rounded-lg font-semibold
+                className={`inline-block px-3 md:px-4 py-1.5 md:py-2 rounded-lg font-semibold text-sm md:text-base
                   ${
                     ticketDetails.status === "AVAILABLE"
                       ? "bg-[#30BFCA] text-white"
