@@ -72,7 +72,7 @@ export default function App() {
           <Route path="/verify" element={<Verify />} />
           <Route path="/selengkapnya" element={<Selengkapnya />} />
           <Route path="/hubungi-kami" element={<Hubungi />} />
-          <Route path="/transaksi" element={<Transaksi />} />
+          <Route path="/transaksi/:id" element={<Transaksi />} />
 
           {/* User Layout */}
 

@@ -1,3 +1,4 @@
+// TicketCounter.tsx
 import React, { useState } from "react";
 
 interface TicketCounterProps {
@@ -14,7 +15,6 @@ const TicketCounter: React.FC<TicketCounterProps> = ({ ticketType, price }) => {
 
   return (
     <div className="flex flex-col md:flex-row items-center w-full gap-2 md:gap-4 p-2 md:p-4">
-      
       <div className="w-full md:w-1/2 flex items-center justify-between border border-primary rounded-lg px-3 py-2 md:px-4 md:py-2">
         <div className="flex flex-col">
           <span className="font-semibold text-primary text-base md:text-lg">{ticketType}</span>
@@ -46,7 +46,6 @@ const TicketCounter: React.FC<TicketCounterProps> = ({ ticketType, price }) => {
       <button className="w-full md:w-[10%] btn btn-lg bg-primary text-white text-sm font-semibold rounded-lg px-3 py-2 md:px-6 md:py-2">
         LANJUTKAN
       </button>
-      
     </div>
   );
 };
