@@ -1,6 +1,6 @@
 import api from '../../../services/api';
 
-export interface Organizer {
+export interface IOrganizer {
   _id: string;
   username: string;
   email: string;
@@ -9,7 +9,7 @@ export interface Organizer {
   password?: string;
 }
 
-export const addOrganizerApi = async (data: Omit<Organizer, '_id'>) => {
+export const addOrganizerApi = async (data: Omit<IOrganizer, '_id'>) => {
   try {
     const response = await api.post('organizers/add', data);
     return response.data;
@@ -25,6 +25,17 @@ export const getOrganizersApi = async () => {
     return response.data;
   } catch (error) {
     console.error('Gagal Mengambil Data Organizer', error);
+    return { success: false, message: 'Gagal Mengambil Data Organizer' };
+  }
+};
+
+// Fungsi untuk mengambil detail organizer berdasarkan ID
+export const getOrganizerByIdApi = async (id: string) => {
+  try {
+    const response = await api.get(`organizers/${id}`);  // Mengambil data berdasarkan ID
+    return response.data;
+  } catch (error) {
+    console.error('Gagal Mengambil Data Organizer berdasarkan ID', error);
     return { success: false, message: 'Gagal Mengambil Data Organizer' };
   }
 };

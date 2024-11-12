@@ -87,7 +87,7 @@ export default function App() {
           {/* Admin Layout */}
           <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
             <Route path="admin/dashboard" element={<Dashboard />} />
-            <Route path="admin/organizer/detail" element={<DetailOragnizer />} />
+            <Route path="admin/organizer/detail/:id" element={<DetailOragnizer />} />
             <Route path="admin/organizer" element={<Organizer />} />
             <Route path="admin/organizer/event/detail" element={<DetailEvent />} />
             <Route path="admin/organizer/event/tambah" element={<TambahEvent />} />

@@ -1,14 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '../../../Redux/store';
-import { addOrganizer, selectOrganizerErrorAndLoading, selectOrganizerMessage, setMessage } from '../../../Redux/features/organizer/organizerSlice';
-import { Organizer } from '../../../Redux/features/type';
-import { Input } from '../../../components/Fragments/Input';
-import { FaCirclePlus } from 'react-icons/fa6';
-import Swal from 'sweetalert2';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../../Redux/store";
+import {
+  addOrganizer,
+  selectOrganizerErrorAndLoading,
+  selectOrganizerMessage,
+  setMessage,
+} from "../../../Redux/features/organizer/organizerSlice";
+import { Organizer } from "../../../Redux/features/type";
+import { Input } from "../../../components/Fragments/Input";
+import { FaCirclePlus } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
-export const TambahOrganizer = () => {
+interface TambahOrganizerProps {
+  onAdd: () => void;
+}
+
+export const TambahOrganizer = ({ onAdd }: TambahOrganizerProps) => {
   const dispatch: AppDispatch = useDispatch();
 
   // Menggunakan selector untuk error dan loading
@@ -17,17 +26,17 @@ export const TambahOrganizer = () => {
   // Menggunakan selector untuk mendapatkan message
   const message = useSelector(selectOrganizerMessage);
 
-  const [formData, setFormData] = useState<Omit<Organizer, '_id'>>({
-    username: '',
-    email: '',
-    organizerName: '',
-    phoneNumber: '',
-    password: '',
+  const [formData, setFormData] = useState<Omit<Organizer, "_id">>({
+    username: "",
+    email: "",
+    organizerName: "",
+    phoneNumber: "",
+    password: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (name === 'phoneNumber' && !/^\d*$/.test(value)) return;
+    if (name === "phoneNumber" && !/^\d*$/.test(value)) return;
 
     setFormData((prevData: any) => ({
       ...prevData,
@@ -43,48 +52,49 @@ export const TambahOrganizer = () => {
     // Mengambil status dari hasil dispatch
     if (addOrganizer.fulfilled.match(resultAction)) {
       Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        text: 'Organizer berhasil ditambahkan.',
+        icon: "success",
+        title: "Berhasil!",
+        text: "Organizer berhasil ditambahkan.",
       });
+      onAdd(); // Memanggil fungsi onAdd untuk memperbarui data tabel
     } else {
       Swal.fire({
-        icon: 'error',
-        title: 'Gagal!',
-        text: error || 'Terjadi kesalahan saat menambahkan organizer.',
+        icon: "error",
+        title: "Gagal!",
+        text: error || "Terjadi kesalahan saat menambahkan organizer.",
       });
     }
 
     // Menutup modal setelah berhasil atau gagal
-    const modal = document.getElementById('my_modal_1') as HTMLDialogElement;
+    const modal = document.getElementById("my_modal_1") as HTMLDialogElement;
     if (modal) modal.close();
 
-    // Reset form data
     setFormData({
-      username: '',
-      email: '',
-      organizerName: '',
-      phoneNumber: '',
-      password: '',
+      username: "",
+      email: "",
+      organizerName: "",
+      phoneNumber: "",
+      password: "",
     });
 
-    // Reset pesan setelah modal ditutup
-    dispatch(setMessage(''));
+    dispatch(setMessage(""));
   };
 
   const handleCloseModal = () => {
-    const modal = document.getElementById('my_modal_1') as HTMLDialogElement;
+    const modal = document.getElementById("my_modal_1") as HTMLDialogElement;
     if (modal) modal.close();
-    dispatch(setMessage(''));
+    dispatch(setMessage(""));
   };
 
   const handleOpenModal = () => {
-    const modal = document.getElementById('my_modal_1') as HTMLDialogElement;
+    const modal = document.getElementById("my_modal_1") as HTMLDialogElement;
     if (modal) modal.showModal();
   };
 
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
-  const isFormValid = Object.values(formData).every((field) => field.trim() !== '') && isEmailValid;
+  const isFormValid =
+    Object.values(formData).every((field) => field.trim() !== "") &&
+    isEmailValid;
 
   return (
     <div>
@@ -96,8 +106,12 @@ export const TambahOrganizer = () => {
       </button>
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box bg-white">
-          <h3 className="font-bold text-lg text-black text-center">Tambah Data</h3>
-          {message && <p className="text-green-500 text-center mb-4">{message}</p>}
+          <h3 className="font-bold text-lg text-black text-center">
+            Tambah Data
+          </h3>
+          {message && (
+            <p className="text-green-500 text-center mb-4">{message}</p>
+          )}
           {error && <p className="text-red-500 text-center mb-4">{error}</p>}
           <div className="card text-black">
             <Input
@@ -128,15 +142,13 @@ export const TambahOrganizer = () => {
               onChange={handleChange}
             />
             <Input
-              label="No Handphone"
+              label="Nomor Telepon"
               type="text"
-              title="Masukkan No Handphone"
+              title="Masukkan Nomor Telepon"
               variant="bg-slate-100"
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleChange}
-              inputMode="numeric"
-              pattern="[0-9]*"
             />
             <Input
               label="Password"
@@ -147,21 +159,21 @@ export const TambahOrganizer = () => {
               value={formData.password}
               onChange={handleChange}
             />
-          </div>
-          <div className="modal-action">
+            <div className="modal-action">
             <button
-              className="btn text-white bg-primary hover:bg-blue-950"
-              onClick={handleCloseModal}
-            >
-              Close
-            </button>
-            <button
-              className="btn border-0 text-white bg-secondary hover:bg-cyan-900"
-              onClick={handleSubmit}
-              disabled={!isFormValid || loading}
-            >
-              {loading ? 'Loading...' : 'Tambah Organizer'}
-            </button>
+                className="btn border-0 text-white bg-secondary hover:bg-cyan-900"
+                onClick={handleSubmit}
+                disabled={!isFormValid || loading}
+              >
+                {loading ? "Loading..." : "Tambah Organizer"}
+              </button>
+              <button
+                className="btn text-white bg-primary hover:bg-blue-950"
+                onClick={handleCloseModal}
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </dialog>
