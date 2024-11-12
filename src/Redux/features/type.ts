@@ -23,3 +23,21 @@ export interface categoryState {
     datacategory: category[];
     _id: string;
 }
+
+export interface Organizer {
+    _id: string;
+    username: string;
+    email: string;
+    organizerName: string;
+    phoneNumber: string;
+    password: string;
+  }
+  
+  export interface OrganizerState {
+    organizers: Organizer[];
+    isOrganizer: boolean;
+    message: string;
+    loading: boolean;
+  }
+  
+  
