@@ -1,34 +1,71 @@
-
+import { useState } from 'react';
+import { FaUsersCog } from "react-icons/fa";
+import UpdateProfile from './UpdateProfile';
+import { UpdatePassword } from './UpdatePassword';
+import { FaUserEdit } from "react-icons/fa";
+import { RiLockPasswordFill } from "react-icons/ri";
 export const Profile = () => {
+    // State untuk melacak bagian yang aktif
+    const [activeTab, setActiveTab] = useState('profile'); // 'profile' atau 'password'
+
     return (
         <div>
-            <h1 className="mb-5 text-2xl font-extrabold text-black">Profile Organizer</h1>
-            <div className="card bg-white shadow-lg p-6 md:p-9">
-                <table className="table-auto text-left w-full md:w-auto lg:w-96">
-                    <tbody className="font-semibold text-black">
-                        <tr>
-                            <th className="py-2">Username</th>
-                            <td className="px-2">:</td>
-                            <td className="font-medium py-2">Fauzan</td>
-                        </tr>
-                        <tr>
-                            <th className="font-semibold text-black py-2">Email</th>
-                            <td className="px-2">:</td>
-                            <td className="font-medium py-2">Fauzan@gmail.com</td>
-                        </tr>
-                        <tr>
-                            <th className="font-semibold text-black py-2">Nama Organizer</th>
-                            <td className="px-2">:</td>
-                            <td className="font-medium py-2">Fauziono</td>
-                        </tr>
-                        <tr>
-                            <th className="font-semibold text-black py-2">No-Telephone</th>
-                            <td className="px-2">:</td>
-                            <td className="font-medium py-2">0835787533</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-4 md:gap-9">
+
+                {/* Latest Events Card (kiri kecil) */}
+                <div className="w-full lg:w-80  ">
+                    <div className="grid grid-cols-1 ">
+                        <div className="card shadow-lg p-4 md:p-6 text-center">
+                            <h1 className="text-2xl font-extrabold text-black mt-4">Profile Data</h1>
+                            <h1 className="text-2xl font-extrabold text-black mt-4">Organizer Fauzio</h1>
+                        </div>
+                        <div className="card shadow-lg p-4 md:p-6">
+                            <h1 className="flex items-center text-black text-lg font-bold mt-3">
+                                <FaUsersCog size={30} className="mr-3" />
+                                Profile
+                            </h1>
+                            <hr className="border-t-2 border-gray-300 my-4 mt-1" />
+                            <div className="">
+                                <ul className="">
+                                    <li className='mb-4 mt-2 flex items-center'>
+                                        <a
+                                            href="#update-profile"
+                                            className={`text-black text-md font-semibold flex items-center gap-4  ${activeTab === 'profile' ? 'bg-secondary p-3 rounded-3xl text-white' : ''} `}
+                                            onClick={() => setActiveTab('profile')}
+                                        >
+                                           <FaUserEdit size={25}/> Profile Data Organizer
+                                        </a>
+                                    </li>
+                                    <hr className="border-t-2 border-gray-300 my-4 mt-1" />
+                                    <li className='mt-5'>
+                                        <a
+                                            href="#update-password"
+                                            className={`text-black text-md font-semibold flex items-center gap-4 ${activeTab === 'password' ? 'bg-secondary p-3 rounded-3xl text-white' : ''} `}
+                                            onClick={() => setActiveTab('password')}
+                                        >
+                                           <RiLockPasswordFill size={25}/> Update Password
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div className="card shadow-md borde w-full overflow-hidden p-3">
+                    {/* Conditional Render: Update Profile Form */}
+                    {activeTab === 'profile' && (
+                        <UpdateProfile/>
+                    )}
+
+                    {/* Conditional Render: Update Password Form */}
+                    {activeTab === 'password' && (
+                        <UpdatePassword/>
+                    )}
+                </div>
             </div>
+
         </div>
-    )
-}
+    );
+};

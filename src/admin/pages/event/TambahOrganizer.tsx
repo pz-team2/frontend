@@ -12,6 +12,7 @@ import { Organizer } from "../../../Redux/features/type";
 import { Input } from "../../../components/Fragments/Input";
 import { FaCirclePlus } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import {useNavigate } from "react-router-dom";
 
 interface TambahOrganizerProps {
   onAdd: () => void;
@@ -22,6 +23,7 @@ export const TambahOrganizer = ({ onAdd }: TambahOrganizerProps) => {
 
   // Menggunakan selector untuk error dan loading
   const { error, loading } = useSelector(selectOrganizerErrorAndLoading);
+  const navigate = useNavigate(); 
 
   // Menggunakan selector untuk mendapatkan message
   const message = useSelector(selectOrganizerMessage);
@@ -56,6 +58,7 @@ export const TambahOrganizer = ({ onAdd }: TambahOrganizerProps) => {
         title: "Berhasil!",
         text: "Organizer berhasil ditambahkan.",
       });
+      navigate('/admin/organizer');
       onAdd(); // Memanggil fungsi onAdd untuk memperbarui data tabel
     } else {
       Swal.fire({
