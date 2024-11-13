@@ -4,16 +4,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Login";
 import Layout from "./admin/Layout";
 import Register from "./Register";
-import DetailOragnizer from "./admin/pages/organizer/DetailOragnizer";
 import { Dashboard } from "./admin/pages/Dashboard";
-import { Organizer } from "./admin/pages/organizer/Organizer";
+import { Organizer } from "./admin/pages/event/Organizer";
 import "./App.css";
 // import LoadingScreen from "./LoadingScreen"; // Komponen loading
 import Events from "./user/pages/Events";
 import { Logout } from "./Logout";
-import { DetailEvent } from "./admin/pages/organizer/DetailEvent";
-import { TambahEvent } from "./admin/pages/organizer/TambahEvent";
-import { UpdateEvent } from "./admin/pages/organizer/UpdateEvent";
+import { DetailEvent } from "./admin/pages/event/DetailEvent";
+import { TambahEvent } from "./admin/pages/event/TambahEvent";
+import { UpdateEvent } from "./admin/pages/event/UpdateEvent";
 import { DataUser } from "./admin/pages/user/DataUser";
 import { Kategori } from "./admin/pages/kategori/Kategori";
 import { LayoutOrg } from "./organizer/LayoutOrg";
@@ -34,6 +33,8 @@ import VerifyEmail from "./verifyEmail";
 import { Verify } from "./Verify";
 import { ProtectedRoute } from "./services/ProtectedRoute";
 import { Pages } from "./Pages";
+import DetailOrganizer from "./admin/pages/event/DetailOragnizer";
+import LoginOrganizer from "./LoginOrganizer";
 
 export default function App() {
   // const [loading, setLoading] = useState(true); // State untuk loading
@@ -66,13 +67,13 @@ export default function App() {
           <Route path="/page" element={<Pages />} />
           <Route path="/user/login" element={<Login />} />
           <Route path="/user/register" element={<Register />} />
-          <Route path="/organizer/login" element={<Login />} />
+          <Route path="/organizer/login" element={<LoginOrganizer />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/verify/:token" element={<VerifyEmail />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/selengkapnya" element={<Selengkapnya />} />
           <Route path="/hubungi-kami" element={<Hubungi />} />
-          <Route path="/transaksi/:id" element={<Transaksi />} />
+          <Route path="/transaksi" element={<Transaksi />} />
 
           {/* User Layout */}
 
@@ -87,7 +88,7 @@ export default function App() {
           {/* Admin Layout */}
           <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
             <Route path="admin/dashboard" element={<Dashboard />} />
-            <Route path="admin/organizer/detail/:id" element={<DetailOragnizer />} />
+            <Route path="admin/organizer/detail" element={<DetailOrganizer />} />
             <Route path="admin/organizer" element={<Organizer />} />
             <Route path="admin/organizer/event/detail" element={<DetailEvent />} />
             <Route path="admin/organizer/event/tambah" element={<TambahEvent />} />

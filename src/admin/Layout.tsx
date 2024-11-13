@@ -4,6 +4,7 @@ import '../App.css';
 import { VscOrganization } from "react-icons/vsc";
 import { FaRegUser } from "react-icons/fa6";
 import { IoHomeOutline, IoSettingsSharp } from "react-icons/io5";
+import gambar from '../assets/img/admin.png'
 
 
 const Layout = () => {
@@ -17,7 +18,7 @@ const Layout = () => {
 
   return (
     <div className="flex h-screen">
-      <Sidebar menuItems={Menu} />
+      <Sidebar menuItems={Menu} gambar={gambar} />
       <div className="flex-grow overflow-auto p-10 md:p-28 sm:p-10 lg:p-16 pb-40">
         <Outlet />
       </div>

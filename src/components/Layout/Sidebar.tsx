@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { AiOutlineBars } from "react-icons/ai";
 import { Link, useLocation } from 'react-router-dom';
 import { FaSignOutAlt } from 'react-icons/fa';
-import gambar from '../../assets/img/goevent.png';
+// import gambar from '../../assets/img/goevent.png';
 
 interface MenuItem {
   text: string;
@@ -12,9 +12,10 @@ interface MenuItem {
 
 interface dataSidebar {
   menuItems: MenuItem[];
+  gambar: string
 }
 
-const Sidebar: React.FC<dataSidebar> = ({ menuItems }) => {
+const Sidebar: React.FC<dataSidebar> = ({ menuItems, gambar }) => {
 
   const [open, setOpen] = useState<boolean>(false);
   const location = useLocation();
@@ -30,7 +31,7 @@ const Sidebar: React.FC<dataSidebar> = ({ menuItems }) => {
           <button onClick={handleToggle} className="focus:outline-none">
             {open ? (
               <div className="flex flex-col items-center justify-center ">
-                <img src={gambar} alt="Logo" className='w-32 mx-auto' />
+                <img src={gambar} alt="Logo" className='w-40 mx-auto' />
               </div>
             ) : (
               <div className='p-4 rounded-lg bg-slate-50 shadow-xl transition-shadow duration-500 ease-in-out'>
@@ -40,7 +41,7 @@ const Sidebar: React.FC<dataSidebar> = ({ menuItems }) => {
           </button>
         </div>
 
-        <ul className='mt-3 space-y-3 flex-1 p-2'>
+        <ul className=' space-y-3 flex-1 p-2'>
           {menuItems.map((item, index) => (
             <li key={index} className={`${open ? 'w-60' : 'w-20'}`}>
               <Link to={item.path} className={` transition-transform duration-700 ease-in-out flex items-center ml-4 mr-7 p-2 font-medium g-none ${location.pathname === item.path ? 'bg-primary rounded-full text-center shadow-md text-white' : 'text-gray-600 hover:bg-slate-200 hover:text-gray-800'} 

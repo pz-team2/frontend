@@ -1,3 +1,4 @@
+
 export interface authState {
     email: string;
     password: string;
@@ -38,6 +39,14 @@ export interface Organizer {
     isOrganizer: boolean;
     message: string;
     loading: boolean;
+  }
+
+  export interface loginOragnizerState {
+    email: string;
+    password: string;
+    role: string;
+    message: string;
+    isLogged: boolean
   }
   
   

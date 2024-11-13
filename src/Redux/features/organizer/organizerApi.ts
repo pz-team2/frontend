@@ -9,6 +9,22 @@ export interface IOrganizer {
   password?: string;
 }
 
+export interface login {
+  email: string;
+  password: string;
+  role: string;
+}
+
+
+export const apiLoginOrganizer = async (data: login) => {
+  try {
+    const response = await api.post('organizers/login', data);
+    return response.data
+  }catch(error){
+    console.error(error);
+  }
+}
+
 export const addOrganizerApi = async (data: Omit<IOrganizer, '_id'>) => {
   try {
     const response = await api.post('organizers/add', data);
@@ -32,7 +48,7 @@ export const getOrganizersApi = async () => {
 // Fungsi untuk mengambil detail organizer berdasarkan ID
 export const getOrganizerByIdApi = async (id: string) => {
   try {
-    const response = await api.get(`organizers/${id}`);  // Mengambil data berdasarkan ID
+    const response = await api.get(`organizers/detail/${id}`);  // Mengambil data berdasarkan ID
     return response.data;
   } catch (error) {
     console.error('Gagal Mengambil Data Organizer berdasarkan ID', error);
@@ -42,7 +58,7 @@ export const getOrganizerByIdApi = async (id: string) => {
 
 export const deleteOrganizerApi = async (id: string) => {
   try {
-    const response = await api.delete(`organizers/${id}`);
+    const response = await api.delete(`organizers/delete/${id}`);
     return response.data;
   } catch (error) {
     console.error('Gagal Menghapus Organizer', error);

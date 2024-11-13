@@ -3,6 +3,7 @@ import Sidebar from "../components/Layout/Sidebar"
 import { BiSolidUserRectangle } from "react-icons/bi";;
 import { FaCalendarCheck } from "react-icons/fa6";
 import { AiFillHome } from "react-icons/ai";
+import gambar from "../assets/img/organizer.png"
 
 export const LayoutOrg = () => {
 
@@ -15,7 +16,7 @@ export const LayoutOrg = () => {
     ]
     return (
         <div className="flex h-screen">
-            <Sidebar menuItems={Menu} />
+            <Sidebar menuItems={Menu} gambar={gambar} />
             <div className="flex-grow overflow-auto p-10 md:p-28 sm:p-10 lg:p-16 pb-40">
                 <Outlet />
             </div>

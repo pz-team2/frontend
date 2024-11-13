@@ -1,22 +1,24 @@
 import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '../Redux/hook';
-import { setEmail, setPassword, login } from '../Redux/features/auth/authslice';
+import { loginOragnizer, setEmail, setPassword } from '../Redux/features/organizer/loginOrganizerSlice';
 
-const FormLogin: React.FC = () => {
+const FormLoginOrganizer: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { email, password, message, isLogged } = useAppSelector((state) => state.auth);
+  const { email, password, message, role, isLogged } = useAppSelector((state) => state.loginOrganizer);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      navigate('/');
+      navigate('/admin/dashboard');
     }
   }, [navigate]);
 
   useEffect(() => {
+    console.log("isLoggedIn:", isLogged);
+    console.log("role:", role);
     if (isLogged) {
       Swal.fire({
         title: 'Login Berhasil!',
@@ -24,7 +26,15 @@ const FormLogin: React.FC = () => {
         icon: 'success',
         confirmButtonText: 'OK',
       }).then(() => {
-        navigate("/");
+        // Cek role pengguna
+        if (role === 'admin') {
+          navigate("/admin/dashboard");
+        } else if (role === 'organizer') {
+          navigate("/organizer/dashboard");
+        } else {
+          // Jika role tidak dikenali, arahkan ke halaman default
+          navigate("/");
+        }
       });
     } else if (message) {
       Swal.fire({
@@ -38,7 +48,7 @@ const FormLogin: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(login({ email, password }));
+    dispatch(loginOragnizer({ email, password, role }));
   };
 
   return (
@@ -83,15 +93,8 @@ const FormLogin: React.FC = () => {
           {message}
         </div>
       )}
-
-      <div className="text-sm text-center pt-2">
-        Belum punya akun?{' '}
-        <Link to="/user/register" className="text-blue-500 hover:underline">
-          Daftar
-        </Link>
-      </div>
     </>
   );
 };
 
-export default FormLogin;
+export default FormLoginOrganizer;
