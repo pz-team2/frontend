@@ -13,6 +13,7 @@
     "@ckeditor/ckeditor5-build-classic": "^43.2.0",
     "@ckeditor/ckeditor5-react": "^9.3.1",
     "@reduxjs/toolkit": "^2.3.0",
+    "@tinymce/tinymce-react": "^5.1.1",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.7.7",
     "chart.js": "^4.4.5",

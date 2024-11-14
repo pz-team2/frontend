@@ -64,7 +64,7 @@ const DetailOrganizer = () => {
         
         <div className="flex flex-col sm:flex-row mt-5 gap-3 sm:gap-5">
           <Button 
-            to="/admin/organizer/event/detail" 
+            to={`/admin/organizer/event/tambah/${organizer?._id}`} 
             variant={`bg-secondary text-md p-3`} 
             icon={<FaCirclePlus />}
           >

@@ -1,12 +1,12 @@
 
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { AiFillPlusCircle } from "react-icons/ai";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import { Input } from '../../../components/Fragments/Input';
+import { Editor as TinyMCEEditor } from '@tinymce/tinymce-react';
 
 export const TambahEvent = () => {
+
     return (
         <div>
             <Link to='/admin/organizer/detail' className='text-black flex items-center gap-2 mb-5'>
@@ -21,10 +21,10 @@ export const TambahEvent = () => {
                     <Input label={"Harga"} type={"text"} name={"harga"} title={"Masukan Event"} variant={'bg-slate-100'} />
                     <div className='grid grid-cols-2 gap-4'>
                         <div className="flex flex-col">
-                           <Input label={"Waktu Mulai"} name={"waktu-mulai"} type={"time"} title={"Masukan Event"} variant={'bg-primary text-white'} />
+                            <Input label={"Waktu Mulai"} name={"waktu-mulai"} type={"time"} title={"Masukan Event"} variant={'bg-primary text-white'} />
                         </div>
                         <div className="flex flex-col">
-                           <Input label={"Waktu Mulai"} name={"waktu-mulai"} type={"time"} title={"Masukan Event"} variant={'bg-primary text-white'} />
+                            <Input label={"Waktu Mulai"} name={"waktu-mulai"} type={"time"} title={"Masukan Event"} variant={'bg-primary text-white'} />
                         </div>
                     </div>
                     <span className="mt-3 mb-2">Tanggal</span>
@@ -60,12 +60,23 @@ export const TambahEvent = () => {
 
             <div className='mt-5 text-black'>
                 <h1> Deskripsi </h1>
-                <CKEditor
-                    editor={ClassicEditor}
-                // Uncomment lines below if you want to capture editor data
-                // onChange={(event, editor) => {
-                //     const data = editor.getData();
-                // }}
+                <TinyMCEEditor
+                    apiKey='xu5tz2ib9tp0r3otmaybvtnhn1j0ngozghdb6bpueetbrico'
+                    initialValue="<p>This is the initial content of the editor.</p>"
+                    init={{
+                        height: 500,
+                        menubar: false,
+                        plugins: [
+                            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                            'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                        ],
+                        toolbar: 'undo redo | blocks | ' +
+                            'bold italic forecolor | alignleft aligncenter ' +
+                            'alignright alignjustify | bullist numlist outdent indent | ' +
+                            'removeformat | help',
+                        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                    }}
                 />
             </div>
             <div className='justify-end flex'>

@@ -49,6 +49,7 @@ export interface loginOragnizerState {
   message: string;
   isLogged: boolean
 }
+
 export interface EventData {
   id: string;
   title: string;
@@ -69,5 +70,21 @@ export interface datastatic {
     totalOrganizers: number;
   };
   events: EventData[];  // Array event
+}
+
+export interface eventType {
+  _id: string;
+  organizerId: string
+  category: String,
+  title: String,
+  date: Date,
+  address: String,
+  description: string,
+  status: string,
+  quota: number,
+  price: number,
+  startTime: string,
+  finishTime: string,
+  picture: string
 }
 

@@ -25,18 +25,20 @@ export const Dashboard = () => {
       name: event.organizerName,
       tanggal: event.date,
       tiket: `${event.ticketsSold} Tiket`,
-      // gambar: <div><img src={`http://localhost:3500/${event.picture}`} alt={'gagal data img'} className="w-20 h-14 rounded-xl" /></div>,
-      status: <div className="bg-red-300 text-center rounded-xl text-white">{event.status}</div>,
+      event: `${event.title}`,
+      gambar: <div><img src={`http://localhost:3500/${event.picture}`} alt={'gagal data img'} className="w-20 h-14 rounded-xl" /></div>,
+      status: <div className="bg-red-300 text-center rounded-2xl p-1 text-white">{event.status}</div>,
     }))
     : [];
 
   // Kolom tabel
   const columns = [
-    // { key: 'gambar', label: 'Gambar' },
+    { key: 'gambar', label: 'Gambar' },
     { key: 'name', label: 'Nama Organizer' },
-    { key: 'tanggal', label: 'Tanggal Event' },
+    { key: 'event', label: 'Nama Event' },
     { key: 'tiket', label: 'Tiket Terjual' },
     { key: 'status', label: 'Status' },
+    { key: 'tanggal', label: 'Tanggal Event' },
   ];
 
   return (
@@ -44,7 +46,7 @@ export const Dashboard = () => {
       <h1 className="mb-5 text-xl md:text-2xl font-extrabold text-black">Welcome To Dashboard</h1>
 
       {loading === "loading" ? (
-        <p>Loading...</p>
+        <span className="loading loading-dots loading-lg"></span>
       ) : isSucces && stats ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-11">
           <Card title={"Organizer"} jumlah={stats.totalUsers.toString()} icons={<VscOrganization />} />

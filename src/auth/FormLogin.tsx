@@ -9,14 +9,16 @@ const FormLogin: React.FC = () => {
   const navigate = useNavigate();
   const { email, password, message, isLogged } = useAppSelector((state) => state.auth);
 
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       navigate('/');
     }
   }, [navigate]);
-
+  
   useEffect(() => {
+    console.log(isLogged);
     if (isLogged) {
       Swal.fire({
         title: 'Login Berhasil!',

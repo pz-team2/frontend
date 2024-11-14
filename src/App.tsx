@@ -88,20 +88,22 @@ export default function App() {
           {/* Admin Layout */}
           <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
             <Route path="admin/dashboard" element={<Dashboard />} />
-            <Route path="admin/organizer/detail" element={<DetailOrganizer />} />
+            <Route path="admin/organizer/detail/:id" element={<DetailOrganizer />} />
             <Route path="admin/organizer" element={<Organizer />} />
-            <Route path="admin/organizer/event/detail" element={<DetailEvent />} />
-            <Route path="admin/organizer/event/tambah" element={<TambahEvent />} />
+            <Route path="admin/organizer/event/detaild" element={<DetailEvent />} />
+            <Route path="admin/organizer/event/tambah/:id" element={<TambahEvent />} />
             <Route path="admin/organizer/event/update" element={<UpdateEvent />} />
             <Route path="admin/user" element={<DataUser />} />
             <Route path="admin/kategori" element={<Kategori />} />
           </Route>
+
           {/* Organizer Layout */}
           <Route path="/" element={<LayoutOrg />}>
             <Route path="organizer/dashboard"
               element={<DashboardOrganizer />} />
             <Route path="organizer/event" element={<Event />} />
             <Route path="organizer/event/detail" element={<Detail />} />
+            {/* <Route path="organizer/event/detail/:id" element={<Detail />} /> */}
             <Route path="organizer/event/profile" element={<Profile />} />
           </Route>
         </Routes>

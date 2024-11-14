@@ -1,29 +1,33 @@
 import axios from "axios";
 
-// Buat instance Axios dengan konfigurasi baseURL
+const API_URL = 'http://localhost:3500/api/';
+
 const api = axios.create({
-  baseURL: 'http://127.0.0.1:3500/api/',
+  baseURL: API_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-api.interceptors.response.use(
-  (response) => {
-    return response;
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
   },
   (error) => {
-    // Jika ada error
-    if (error.response) {
-      const { status } = error.response;
+    return Promise.reject(error);
+  }
+);
 
-      // Cek jika status 401 atau 403, yang berarti token sudah kadaluarsa atau akses ditolak
-      if (status === 401 || status === 403) {
-        console.error("Session expired or unauthorized access");
-
-        // Hapus token dari localStorage
-        localStorage.removeItem("token");
-        window.location.href = "/user/login";
-      } else {
-        console.error("An error occurred:", error.response.data);
-      }
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem("token");
+      window.location.href = "/page";
     }
     return Promise.reject(error);
   }

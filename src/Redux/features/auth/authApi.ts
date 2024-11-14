@@ -19,6 +19,7 @@ interface verifyResponse{
 export const apiLogin = async (data: login) => {
     try{
         const respone = await api.post('auth/login', data);
+        console.log(respone)
         return respone.data
     }catch(erorr){
         return console.log('Terjadi Kesalahan Saat Login', erorr)

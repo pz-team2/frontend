@@ -21,7 +21,7 @@ export const dataDashbord = async () => {
         // return console.log(response.data)
         return response.data;
     } catch (error) {
-        console.error('Gagal Mengambil Data Kategori', error);
-        return { success: false, message: 'Gagal Mengambil Data Kategori' };
+        // console.error('Gagal Mengambil Data Kategori', error);
+        // return { success: false, message: 'Gagal Mengambil Data Kategori' };
     }
 }

@@ -77,7 +77,7 @@ export const Organizer = () => {
     email: organizer.email,
     status: (
       <div className={`bg-${organizer.email ? 'green' : 'red'}-300 text-center rounded-xl text-white px-3 py-1`}>
-        {organizer.email ? 'active' : 'Tidak Aktif'}
+        {organizer.email ? 'aktif' : 'Tidak Aktif'}
       </div>
     ),
     aksi: (
