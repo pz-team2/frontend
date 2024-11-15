@@ -71,19 +71,32 @@ export interface datastatic {
   events: EventData[];
 }
 
+export interface Category {
+  _id: string;
+  name: string;
+}
+
+export interface Organizer {
+  _id: string;
+  organizerName: string;
+}
+
 export interface Events {
   _id : string,
+  categoryy: Category;
   category: String,
   title: string,
   date: Date,
   address: String,
   description: string,
+  organizer: Organizer
   status: string,
   quota: number,
   price: number,
   startTime: string,
   finishTime: string,
   picture: string,
+  name: string;
 
 }
 
@@ -97,6 +110,7 @@ export interface PaginationData {
 
 export interface eventType {
   events: Events[];
+  selectedEvent: Events | null
   isEvent: boolean
   message: string
   loading: boolean

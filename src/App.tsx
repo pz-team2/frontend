@@ -90,7 +90,7 @@ export default function App() {
             <Route path="admin/dashboard" element={<Dashboard />} />
             <Route path="admin/organizer/detail/:id" element={<DetailOrganizer />} />
             <Route path="admin/organizer" element={<Organizer />} />
-            <Route path="admin/organizer/event/detaild" element={<DetailEvent  />} />
+            <Route path="admin/organizer/event/detail/:id" element={<DetailEvent  />} />
             <Route path="admin/organizer/event/tambah/:id" element={<TambahEvent/>} />
             <Route path="admin/organizer/event/update" element={<UpdateEvent />} />
             <Route path="admin/user" element={<DataUser />} />

@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaCirclePlus } from "react-icons/fa6";
 import { Search } from "../../../components/Layout/Search";
 import { Button } from "../../../components/Fragments/Button";
@@ -7,23 +7,24 @@ import { CardEvent } from "../../../components/Layout/CardEvent";
 import { getOrganizerByIdApi, IOrganizer } from "../../../Redux/features/organizer/organizerApi";
 import { CardProfile } from "../../../components/Layout/CardProfile";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hook";
-import { getEventsByOrganizer } from "../../../Redux/features/event/eventSlice"; // Mengambil action untuk mendapatkan event
+import { deleteEventById, getEventsByOrganizer } from "../../../Redux/features/event/eventSlice"; // Mengambil action untuk mendapatkan event
 import { RootState } from "../../../Redux/store";
+import { format } from 'date-fns';
+import Swal from "sweetalert2";
 
 const DetailOrganizer = () => {
+
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
 
   const [organizer, setOrganizer] = useState<IOrganizer | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
-  const { events, loading: eventsLoading, pagination } = useAppSelector(
+  const { events, loading: eventsLoading, pagination, message, isEvent } = useAppSelector(
     (state: RootState) => state.event
   );
-
-  // Log ID untuk memastikan ID diterima dengan benar
-  console.log("Organizer ID: ", id);
 
   const fetchOrganizerDetail = useCallback(async () => {
     if (!id) {
@@ -35,7 +36,6 @@ const DetailOrganizer = () => {
     setError('');
     try {
       const data = await getOrganizerByIdApi(id);  // Fetch data from the API
-      console.log("Organizer data: ", data); // Log data yang diterima
       if (data.success) {
         setOrganizer(data.data);
       } else {
@@ -47,6 +47,33 @@ const DetailOrganizer = () => {
       setLoading(false);
     }
   }, [id]);
+
+  const deleteEvent = async (eventId: string) => {
+    const result = await Swal.fire({
+      title: 'Apakah Anda yakin?',
+      text: 'Anda tidak dapat mengembalikan data yang dihapus!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Ya, hapus!',
+    });
+
+    if (result.isConfirmed) {
+      dispatch(deleteEventById(eventId));
+      Swal.fire('Terhapus!', 'Event telah dihapus.', 'success');
+    }
+  };
+
+  useEffect(() => {
+    if (isEvent) {
+      fetchEvents(1); // Refresh event list after deletion
+      navigate(`/admin/organizer/detail/${organizer?._id}`);
+    }
+  }, [isEvent, message, organizer, dispatch, navigate]);
+
+
+
 
   // Ambil data event berdasarkan organizerId
   const fetchEvents = (page: number) => {
@@ -65,6 +92,7 @@ const DetailOrganizer = () => {
   const handlePageChange = (page: number) => {
     fetchEvents(page); // Mengganti halaman event
   };
+
 
   // Handling loading and error states
   if (loading) return <div>Loading organizer...</div>;
@@ -100,7 +128,7 @@ const DetailOrganizer = () => {
 
       <h1 className="mt-6 mb-5 text-2xl font-extrabold text-black">Event</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {eventsLoading ? (
           <div>Loading events...</div>
         ) : events.length > 0 ? (
@@ -109,7 +137,9 @@ const DetailOrganizer = () => {
               key={event._id}
               gambar={`http://localhost:3500/${event.picture}`}
               title={event.title}
-              date={event.date ? new Date(event.date).toDateString() : "No date available"}
+              date={format(new Date(event.date), "d MMMM yyyy")}
+              id={event._id}
+              onclick={() => deleteEvent(event._id)}
             />
           ))
         ) : (
@@ -140,4 +170,4 @@ const DetailOrganizer = () => {
 
 export default DetailOrganizer;
 
-{/* <div dangerouslySetInnerHTML={{ __html: event.description }} /> */}
+{/* <div dangerouslySetInnerHTML={{ __html: event.description }} /> */ }

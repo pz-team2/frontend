@@ -32,20 +32,44 @@ export const getDataEventApi = async () => {
     try {
         const respon = await api.get('events/list')
         return respon.data
-    }catch(error){
+    } catch (error) {
         return Response.error
     }
 }
 
-// export const getEventByIdApi = async (id: string) => {
-// }
-
-export const getEventByOrganizerApi = async(organizerId: string, page: number) => {
+export const getEventByOrganizerApi = async (organizerId: string, page: number) => {
     try {
-
-        const respon = await api.get(`events/listevent/${organizerId}`, {params: {page}})
+        const respon = await api.get(`events/listevent/${organizerId}`, { params: { page } })
         return respon.data
-    }catch(error){
+    } catch (error) {
+        return Response.error
+    }
+}
+
+export const getEventByIdApi = async (id: string) => {
+    try {
+        const response = await api.get(`events/detail/${id}`)
+        return response.data
+    } catch (error) {
+        return Response.error
+    }
+}
+
+export const deleteEventApi = async (id: string) => {
+    try {
+        const respon = await api.delete(`events/delete/${id}`)
+        return respon.data
+    } catch (error) {
+        return Response.error
+    }
+}
+
+export const updateEventApi = async (id: string, data: eventType) => {
+    try {
+        const respon = await api.put(`events/update/${id}`)
+        return respon.data
+
+    } catch (error) {
         return Response.error
     }
 }
