@@ -18,9 +18,9 @@ export const Dashboard = () => {
     dispatch(dataterbaru());
   }, [dispatch]);
 
-  const limitPage = events.slice(0, 8)
+  const limitPage = events.slice(0, 5)
 
-  const eventData = isSucces && events
+  const eventData = isSucces && limitPage
     ? limitPage.map(event => ({
       name: event.organizerName,
       tanggal: event.date,

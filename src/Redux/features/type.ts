@@ -68,24 +68,56 @@ export interface datastatic {
     totalEvents: number;
     totalOrganizers: number;
   };
-  events: EventData[]; // Array event
+  events: EventData[];
+}
+
+export interface Events {
+  _id : string,
+  category: String,
+  title: string,
+  date: Date,
+  address: String,
+  description: string,
+  status: string,
+  quota: number,
+  price: number,
+  startTime: string,
+  finishTime: string,
+  picture: string,
+
+}
+
+export interface PaginationData {
+  total: number;
+  page: number;
+  lastPage: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
 }
 
 export interface eventType {
-  _id: string;
-  organizerId: string;
-  category: String;
-  title: String;
-  date: Date;
-  address: String;
-  description: string;
-  status: string;
-  quota: number;
-  price: number;
-  startTime: string;
-  finishTime: string;
-  picture: string;
+  events: Events[];
+  isEvent: boolean
+  message: string
+  loading: boolean
+  pagination: PaginationData
 }
+
+// export interface eventType {
+//   _id: string;
+//   organizerId: string;
+//   category: String;
+//   title: String;
+//   date: Date;
+//   address: String;
+//   description: string;
+//   status: string;
+//   quota: number;
+//   price: number;
+//   startTime: string;
+//   finishTime: string;
+//   picture: string;
+// }
 
 export interface Ticket {
   _id: number;
