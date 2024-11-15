@@ -127,12 +127,12 @@ const eventSlice = createSlice({
                 state.message = "Berhasil Mengambil Data Event";
                 state.isEvent = true;
                 state.loading = false;
-            })
-            .addCase(getEventsByOrganizer.rejected, (state, action) => {
+              })
+              .addCase(getEventsByOrganizer.rejected, (state, action) => {
                 state.message = action.payload as string;
                 state.loading = false;
                 state.isEvent = false;
-            });
+              });
 
     }
 });

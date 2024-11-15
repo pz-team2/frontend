@@ -1,5 +1,3 @@
-;
-
 export interface authState {
   email: string;
   password: string;
@@ -8,7 +6,7 @@ export interface authState {
   username: string;
   isRegistered: boolean;
   isverified: boolean;
-  verifyMessage: string
+  verifyMessage: string;
 }
 
 export interface category {
@@ -47,7 +45,7 @@ export interface loginOragnizerState {
   password: string;
   role: string;
   message: string;
-  isLogged: boolean
+  isLogged: boolean;
 }
 
 export interface EventData {
@@ -64,7 +62,8 @@ export interface datastatic {
   isSucces: boolean;
   message: string;
   loading: string;
-  stats: {  // Statistik tambahan
+  stats: {
+    // Statistik tambahan
     totalUsers: number;
     totalEvents: number;
     totalOrganizers: number;
@@ -104,3 +103,50 @@ export interface eventType {
   pagination: PaginationData
 }
 
+// export interface eventType {
+//   _id: string;
+//   organizerId: string;
+//   category: String;
+//   title: String;
+//   date: Date;
+//   address: String;
+//   description: string;
+//   status: string;
+//   quota: number;
+//   price: number;
+//   startTime: string;
+//   finishTime: string;
+//   picture: string;
+// }
+
+export interface Ticket {
+  _id: number;
+  name: string;
+  code: string;
+  payment: {
+    _id: number;
+    event: {
+      title: string;
+      date: string;
+      address: string;
+      description: string;
+      status: string;
+      startTime: string;
+      finishTime: string;
+      picture: string;
+    };
+    user: {
+      fullname: string;
+      username: string;
+    };
+  };
+  qrcode: string;
+  status: string;
+}
+
+export interface TicketState {
+  tickets: Ticket[];
+  isTicket: boolean;
+  message: string;
+  loading: boolean;
+}
