@@ -4,6 +4,7 @@ import categoryReducer from './features/category/categorySlice'
 import organizerReducer  from './features/organizer/organizerSlice'
 import loginOrganizerReducer  from './features/organizer/loginOrganizerSlice'
 import dashboardReducer  from './features/dashboard/dashboardSlice'
+import eventReducer  from './features/event/eventSlice';
  
 
 const store = configureStore({
@@ -12,7 +13,8 @@ const store = configureStore({
         category: categoryReducer,
         organizer: organizerReducer,
         loginOrganizer: loginOrganizerReducer,
-        dashboard: dashboardReducer
+        dashboard: dashboardReducer,
+        event: eventReducer,
     }
 })
 

@@ -7,6 +7,7 @@ import { dataCategory, deletecategory } from '../../../Redux/features/category/c
 
 interface FormattedCategory {
   no: number;
+  id: string;
   name: string;
   keterangan: string;
   aksi: JSX.Element;
@@ -36,6 +37,7 @@ export const Kategori: React.FC = () => {
 
   const formattedCategories: FormattedCategory[] = datacategory.map((category, index) => ({
     no: index + 1,
+    id: category._id,
     name: category.name,
     keterangan: category.description,
     aksi: (

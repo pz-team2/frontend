@@ -91,7 +91,14 @@ const Navbar: React.FC = () => {
           </div>
         ) : (
           // When not logged in, show login and signup buttons
-          <div className="hidden md:flex gap-4">
+          <div className="hidden md:flex gap-6">
+            <Link
+              to="/hubungi-kami"
+              className="flex items-center space-x-2 text-white"
+            >
+              <BiSolidPhoneCall size={25} />
+              <span>Hubungi Kami</span>
+            </Link>
             <Link
               to="/user/login"
               className="flex items-center justify-center border-2 border-white text-white px-6 py-2 rounded-md text-sm font-medium hover:border-none hover:bg-[#1B9AAB] hover:text-white active:bg-[#188A99] transition-all duration-300"
@@ -104,6 +111,7 @@ const Navbar: React.FC = () => {
             >
               Sign Up
             </Link>
+
           </div>
         )}
       </div>

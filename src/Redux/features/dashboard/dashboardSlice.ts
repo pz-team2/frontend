@@ -36,7 +36,6 @@ export const dataterbaru = createAsyncThunk('dashboard/terbaru',
             const response = await dataDashbord();
             if (response.success) {
                 return response.data;
-                console.log(response.data)
             } else {
                 return rejectWithValue(response.message);
             }

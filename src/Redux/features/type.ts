@@ -69,14 +69,13 @@ export interface datastatic {
     totalEvents: number;
     totalOrganizers: number;
   };
-  events: EventData[];  // Array event
+  events: EventData[];
 }
 
-export interface eventType {
-  _id: string;
-  organizerId: string
+export interface Events {
+  _id : string,
   category: String,
-  title: String,
+  title: string,
   date: Date,
   address: String,
   description: string,
@@ -85,6 +84,23 @@ export interface eventType {
   price: number,
   startTime: string,
   finishTime: string,
-  picture: string
+  picture: string,
+
+}
+
+export interface PaginationData {
+  total: number;
+  page: number;
+  lastPage: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+}
+
+export interface eventType {
+  events: Events[];
+  isEvent: boolean
+  message: string
+  loading: boolean
+  pagination: PaginationData
 }
 
