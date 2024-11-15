@@ -92,7 +92,7 @@ export default function App() {
             <Route path="admin/organizer" element={<Organizer />} />
             <Route path="admin/organizer/event/detail/:id" element={<DetailEvent  />} />
             <Route path="admin/organizer/event/tambah/:id" element={<TambahEvent/>} />
-            <Route path="admin/organizer/event/update" element={<UpdateEvent />} />
+            <Route path="admin/organizer/event/update/:id" element={<UpdateEvent />} />
             <Route path="admin/user" element={<DataUser />} />
             <Route path="admin/kategori" element={<Kategori />} />
           </Route>

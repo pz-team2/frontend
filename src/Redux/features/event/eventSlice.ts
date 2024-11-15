@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { deleteEventApi, getDataEventApi, getEventByIdApi, getEventByOrganizerApi, tambahEventApi } from "./eventApi";
+import { deleteEventApi, getDataEventApi, getEventByIdApi, getEventByOrganizerApi, tambahEventApi, updateEventApi } from "./eventApi";
 import { eventType, Events } from "../type";
 import { RootState } from "../../store";
 
@@ -105,21 +105,37 @@ export const getEventById = createAsyncThunk(
 // 8. Function Untuk Menghapus Data Event
 export const deleteEventById = createAsyncThunk(
     'delete/event',
-    async(id:string, {rejectWithValue}) => {
+    async (id: string, { rejectWithValue }) => {
         try {
             const respon = await deleteEventApi(id)
-            if(respon.success){
+            if (respon.success) {
                 return respon.data
-            }else {
+            } else {
                 return rejectWithValue(respon.message)
             }
-        }catch(error){
+        } catch (error) {
             return rejectWithValue('Terjadi kesalahan Saat Hapus Event')
         }
     }
 )
 
 // 9. Function Untuk Mengupdate Data Event
+export const updateEventById = createAsyncThunk(
+    'update/event',
+    async ({ id, data }: { id: string, data: Events }, { rejectWithValue }) => {
+        try {
+            const respon = await updateEventApi(id, data)
+            if(respon.success){
+                return respon.data
+            }else{
+                return rejectWithValue(respon.message)
+            }
+        }catch(error){
+            return rejectWithValue('Terjadi kesalahan Saat Update Event')
+        }
+    }
+)
+
 
 // 8. Membuat Sebuah Redux Untuk Membuat / Menangani Sebuah State dan Untuk Membuat Action Pada Function
 const eventSlice = createSlice({
@@ -136,10 +152,12 @@ const eventSlice = createSlice({
                 state.events.push(action.payload);
                 state.message = "Berhasil Menambahkan Event";
                 state.isEvent = true;
+                state.loading = false;
             })
             .addCase(tambahEvent.rejected, (state, action) => {
                 state.message = action.payload as string;
                 state.message = "Gagal menambahkan event";
+                state.loading = false;
             })
             .addCase(getDataEvent.fulfilled, (state, action) => {
                 state.events = action.payload;
@@ -183,6 +201,18 @@ const eventSlice = createSlice({
             .addCase(deleteEventById.rejected, (state, action) => {
                 state.message = action.payload as string
                 state.isEvent = false;
+            })
+            .addCase(updateEventById.fulfilled, (state, action) => {
+                const index = state.events.findIndex((event) => event._id === action.payload._id);
+                if (index !== -1) {
+                    state.events[index] = action.payload;
+                }
+                state.message = 'Data Event Berhasil Diupdate'
+                state.isEvent = true
+            })
+            .addCase(updateEventById.rejected, (state, action) => {
+                state.message = action.payload as string
+                state.isEvent = false
             })
     }
 });

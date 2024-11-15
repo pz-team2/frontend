@@ -24,7 +24,7 @@ export const tambahEventApi = async (id: string, data: eventType,) => {
         })
         return respon.data
     } catch (error) {
-        return Response.error
+        return 'terjadi kesalahan'
     }
 }
 
@@ -33,7 +33,7 @@ export const getDataEventApi = async () => {
         const respon = await api.get('events/list')
         return respon.data
     } catch (error) {
-        return Response.error
+        return 'terjadi kesalahan'
     }
 }
 
@@ -42,7 +42,7 @@ export const getEventByOrganizerApi = async (organizerId: string, page: number) 
         const respon = await api.get(`events/listevent/${organizerId}`, { params: { page } })
         return respon.data
     } catch (error) {
-        return Response.error
+        return 'terjadi kesalahan'
     }
 }
 
@@ -51,7 +51,7 @@ export const getEventByIdApi = async (id: string) => {
         const response = await api.get(`events/detail/${id}`)
         return response.data
     } catch (error) {
-        return Response.error
+        return 'terjadi kesalahan'
     }
 }
 
@@ -60,16 +60,16 @@ export const deleteEventApi = async (id: string) => {
         const respon = await api.delete(`events/delete/${id}`)
         return respon.data
     } catch (error) {
-        return Response.error
+         return 'terjadi kesalahan'
     }
 }
 
 export const updateEventApi = async (id: string, data: eventType) => {
     try {
-        const respon = await api.put(`events/update/${id}`)
+        const respon = await api.put(`events/update/${id}`, data)
         return respon.data
 
     } catch (error) {
-        return Response.error
+         return 'terjadi kesalahan'
     }
 }

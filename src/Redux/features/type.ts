@@ -71,32 +71,20 @@ export interface datastatic {
   events: EventData[];
 }
 
-export interface Category {
-  _id: string;
-  name: string;
-}
-
-export interface Organizer {
-  _id: string;
-  organizerName: string;
-}
-
 export interface Events {
   _id : string,
-  categoryy: Category;
   category: String,
+  organizer?: string,
   title: string,
   date: Date,
   address: String,
   description: string,
-  organizer: Organizer
   status: string,
   quota: number,
   price: number,
   startTime: string,
   finishTime: string,
   picture: string,
-  name: string;
 
 }
 
