@@ -117,8 +117,8 @@ export const DetailEvent = () => {
                 </div>
 
                 <div className='mt-8 text-gray-800'>
-                    <h1 className='font-bold text-xl tracking-wide'>Deskripsi</h1>
-                    {selectedEvent.description}
+                    <h1 className='font-bold text-xl tracking-wide mb-4'>Deskripsi</h1>
+                    <div dangerouslySetInnerHTML={{ __html: selectedEvent.description }} />
                 </div>
             </div>
         </div>

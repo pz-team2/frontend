@@ -36,6 +36,7 @@ const DetailOrganizer = () => {
     setError('');
     try {
       const data = await getOrganizerByIdApi(id);  // Fetch data from the API
+      console.log('data :', data)
       if (data.success) {
         setOrganizer(data.data);
       } else {
@@ -67,13 +68,10 @@ const DetailOrganizer = () => {
 
   useEffect(() => {
     if (isEvent) {
-      fetchEvents(1); // Refresh event list after deletion
+      fetchEvents(1);
       navigate(`/admin/organizer/detail/${organizer?._id}`);
     }
   }, [isEvent, message, organizer, dispatch, navigate]);
-
-
-
 
   // Ambil data event berdasarkan organizerId
   const fetchEvents = (page: number) => {
@@ -102,12 +100,14 @@ const DetailOrganizer = () => {
     <div>
       <h1 className="mb-5 text-2xl font-extrabold text-black">Detail Organizer</h1>
       {organizer ? (
-        <CardProfile
-          username={organizer.username}
-          namaOrganizer={organizer.organizerName}
-          email={organizer.email}
-          no={organizer.phoneNumber}
-        />
+       
+          <CardProfile
+            username={organizer._id}
+            namaOrganizer={organizer.organizerName}
+            email={organizer.email}
+            no={organizer.phoneNumber}
+          />
+
       ) : (
         <div>Organizer tidak ditemukan.</div>
       )}
@@ -170,4 +170,3 @@ const DetailOrganizer = () => {
 
 export default DetailOrganizer;
 
-{/* <div dangerouslySetInnerHTML={{ __html: event.description }} /> */ }

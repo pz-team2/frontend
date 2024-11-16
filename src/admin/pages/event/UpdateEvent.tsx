@@ -13,7 +13,7 @@ import { dataCategory } from "../../../Redux/features/category/categorySlice";
 export const UpdateEvent = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const id = useParams<{ id: string }>().id || "";  // Gunakan nilai default "" jika undefined
+    const id = useParams<{ id: string }>().id || "";
     const { error, loading } = useSelector(EventErrorAndLoading);
     const message = useSelector(EventMessage);
 
@@ -33,10 +33,10 @@ export const UpdateEvent = () => {
         picture: '',
     });
 
-    // 2. Fetch Event Data Based on ID (Update Event)
+    // 2. Fetch Event Data Untuk Menampilkan Data Event
     useEffect(() => {
         if (id) {
-            dispatch(getEventById(id)); // Fetch event by ID when the component is mounted
+            dispatch(getEventById(id));
         }
     }, [id, dispatch]);
 
@@ -102,15 +102,14 @@ export const UpdateEvent = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
     
-        // Jika gambar baru tidak diunggah, tetap menggunakan gambar yang lama
+        // Jika Gambar Tidak di Update maka, Ambil Gambar dari Event Data
         const eventDataToUpdate = {
             ...formEvent,
-            picture: formEvent.picture || eventData.picture, // gunakan gambar lama jika tidak ada gambar baru
+            picture: formEvent.picture || eventData.picture,
         };
     
     
         if (!eventDataToUpdate.picture && !formEvent.picture) {
-            // Jika tidak ada gambar yang diunggah, lanjutkan tanpa memvalidasi gambar
             Swal.fire({
                 icon: "warning",
                 title: "Peringatan!",
