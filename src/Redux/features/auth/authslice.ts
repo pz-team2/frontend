@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { apiLogin, apiRegister, verifyEmail } from "./authApi";
-import { authState } from "../type";
+import { authState } from "../../types/auth.types";
 
 const initialState: authState = {
     email: '',

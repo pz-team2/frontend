@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice, PayloadAction, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
-import { OrganizerState, Organizer } from '../type';
 import { addOrganizerApi, getOrganizersApi, deleteOrganizerApi } from './organizerApi';
 import { RootState } from '../../store';
+import { OrganizerState, Organizer } from '../../types/organizer.types';
 
 const initialState: OrganizerState = {
   organizers: [],

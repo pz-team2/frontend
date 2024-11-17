@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { datastatic } from "../type";
 import { dataDashbord, staticApi } from "./dashboardApi";
+import { datastatic } from "../../types/dashboard.types";
 
 const initialState: datastatic = {
     isSucces: false,

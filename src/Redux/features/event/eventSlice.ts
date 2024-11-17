@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { deleteEventApi, getDataEventApi, getEventByIdApi, getEventByOrganizerApi, tambahEventApi, updateEventApi } from "./eventApi";
-import { eventType, Events } from "../type";
 import { RootState } from "../../store";
+import { eventType, Events } from "../../types/event.types";
 
 const initialState: eventType = {
     events: [],

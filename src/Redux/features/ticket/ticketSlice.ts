@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { TicketState } from "../type";
 import { getTicketsByUserId, getTicketByPaymentId } from "./ticketApi";
+import { TicketState } from "../../types/tiket.type";
 
 const initialState: TicketState = {
   tickets: [],
