@@ -1,4 +1,4 @@
-import React, { useState } from "react"; // Tambahkan useState
+import React, { useState } from "react"; 
 import { Eye, EyeOff } from "lucide-react";
 import { InputProps } from "./Input";
 
@@ -13,7 +13,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
   // show = false,
   // onToggleShow,
   minLength = 8,
-  // requireSpecialChar = true,
+  requireSpecialChar = true,
   error,
   ...props
 }) => {
@@ -23,9 +23,9 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
     if (value && value.length < minLength) {
       return `Password must be at least ${minLength} characters long`;
     }
-    // if (requireSpecialChar && !/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
-    //   return "Password must contain at least one special character";
-    // }
+    if (requireSpecialChar && !/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+      return "Password must contain at least one special character";
+    }
     return undefined;
   };
 
