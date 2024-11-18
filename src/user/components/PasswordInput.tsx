@@ -1,5 +1,6 @@
+import React, { useState } from "react"; // Tambahkan useState
 import { Eye, EyeOff } from "lucide-react";
-import { InputProps } from "./Input"; // Add import
+import { InputProps } from "./Input";
 
 interface PasswordInputProps extends Omit<InputProps, "type"> {
   show?: boolean;
@@ -9,20 +10,22 @@ interface PasswordInputProps extends Omit<InputProps, "type"> {
 }
 
 const PasswordInput: React.FC<PasswordInputProps> = ({
-  show = false,
-  onToggleShow,
+  // show = false,
+  // onToggleShow,
   minLength = 8,
-  requireSpecialChar = true,
+  // requireSpecialChar = true,
   error,
   ...props
 }) => {
+  const [show, setShow] = useState(false);
+
   const validatePassword = (value: string): string | undefined => {
     if (value && value.length < minLength) {
       return `Password must be at least ${minLength} characters long`;
     }
-    if (requireSpecialChar && !/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
-      return "Password must contain at least one special character";
-    }
+    // if (requireSpecialChar && !/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+    //   return "Password must contain at least one special character";
+    // }
     return undefined;
   };
 
@@ -42,12 +45,12 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
           className={`w-full px-4 md:px-6 py-3 md:py-4 text-base md:text-lg border-2 
             ${combinedError ? "border-red-500" : "border-gray-300"} 
             rounded-xl focus:outline-none focus:ring-2 focus:ring-[#30BFCA] focus:border-transparent bg-white 
-            pr-12`} // Added pr-12 to prevent text overlap with icon
+            pr-12`}
           {...props}
         />
         <button
           type="button"
-          onClick={onToggleShow}
+          onClick={() => setShow(!show)}
           className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#30BFCA] rounded-lg p-1"
           aria-label={show ? "Hide password" : "Show password"}
         >
