@@ -64,7 +64,7 @@ const DetailTiket: React.FC = () => {
                     {ticket.name}
                   </h3>
                   <p className="text-gray-500 mt-1 text-sm md:text-base break-all">
-                    {ticket.payment?._id}
+                    {ticket._id}
                   </p>
                 </div>
 

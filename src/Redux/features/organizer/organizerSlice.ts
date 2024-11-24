@@ -1,14 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSlice, PayloadAction, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
-import { addOrganizerApi, getOrganizersApi, deleteOrganizerApi } from './organizerApi';
-import { RootState } from '../../store';
-import { OrganizerState, Organizer } from '../../types/organizer.types';
+import {
+  createSlice,
+  PayloadAction,
+  createAsyncThunk,
+  createSelector,
+} from "@reduxjs/toolkit";
+import {
+  addOrganizerApi,
+  getOrganizersApi,
+  deleteOrganizerApi,
+  getPaymentReportApi,
+} from "./organizerApi";
+import { RootState } from "../../store";
+import { OrganizerState, Organizer } from "../../types/organizer.types";
 
 const initialState: OrganizerState = {
   organizers: [],
   isOrganizer: false,
-  message: '',
+  message: "",
   loading: false,
+  paymentReport: null,
 };
 
 export const selectOrganizerState = (state: RootState) => state.organizer;
@@ -30,8 +41,8 @@ export const selectOrganizerMessage = createSelector(
 
 // Thunk untuk menambah Organizer
 export const addOrganizer = createAsyncThunk(
-  'organizer/add',
-  async (data: Omit<Organizer, '_id'>, { rejectWithValue }) => {
+  "organizer/add",
+  async (data: Omit<Organizer, "_id">, { rejectWithValue }) => {
     try {
       const response = await addOrganizerApi(data);
       if (response.success) {
@@ -40,14 +51,14 @@ export const addOrganizer = createAsyncThunk(
         return rejectWithValue(response.message);
       }
     } catch (error) {
-      return rejectWithValue('Gagal Menambahkan Organizer');
+      return rejectWithValue("Gagal Menambahkan Organizer");
     }
   }
 );
 
 // Thunk untuk mendapatkan data Organizer
 export const getOrganizers = createAsyncThunk(
-  'organizer/list',
+  "organizer/list",
   async (_, { rejectWithValue }) => {
     try {
       const response = await getOrganizersApi();
@@ -57,14 +68,14 @@ export const getOrganizers = createAsyncThunk(
         return rejectWithValue(response.message);
       }
     } catch (error) {
-      return rejectWithValue('Gagal Mengambil Data Organizer');
+      return rejectWithValue("Gagal Mengambil Data Organizer");
     }
   }
 );
 
 // Thunk untuk menghapus Organizer
 export const deleteOrganizer = createAsyncThunk(
-  'organizer/delete',
+  "organizer/delete",
   async (id: string, { rejectWithValue }) => {
     try {
       const response = await deleteOrganizerApi(id);
@@ -74,13 +85,29 @@ export const deleteOrganizer = createAsyncThunk(
         return rejectWithValue(response.message);
       }
     } catch (error) {
-      return rejectWithValue('Gagal Menghapus Organizer');
+      return rejectWithValue("Gagal Menghapus Organizer");
+    }
+  }
+);
+
+export const getPaymentReport = createAsyncThunk(
+  "organizer/paymentReport",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await getPaymentReportApi();
+      if (response.success) {
+        return response.data;
+      } else {
+        return rejectWithValue(response.message);
+      }
+    } catch (error) {
+      return rejectWithValue("Gagal Mengambil Payment Report");
     }
   }
 );
 
 const organizerSlice = createSlice({
-  name: 'organizer',
+  name: "organizer",
   initialState,
   reducers: {
     setMessage: (state, action: PayloadAction<string>) => {
@@ -91,7 +118,7 @@ const organizerSlice = createSlice({
     builder
       .addCase(addOrganizer.fulfilled, (state, action) => {
         state.organizers.push(action.payload);
-        state.message = 'Berhasil Menambahkan Organizer';
+        state.message = "Berhasil Menambahkan Organizer";
         state.isOrganizer = true;
       })
       .addCase(addOrganizer.rejected, (state, action) => {
@@ -99,17 +126,31 @@ const organizerSlice = createSlice({
       })
       .addCase(getOrganizers.fulfilled, (state, action) => {
         state.organizers = action.payload;
-        state.message = 'Berhasil Mengambil Data Organizer';
+        state.message = "Berhasil Mengambil Data Organizer";
       })
       .addCase(getOrganizers.rejected, (state, action) => {
         state.message = action.payload as string;
       })
       .addCase(deleteOrganizer.fulfilled, (state, action) => {
-        state.organizers = state.organizers.filter((organizer) => organizer._id !== action.payload);
-        state.message = 'Berhasil Menghapus Organizer';
+        state.organizers = state.organizers.filter(
+          (organizer) => organizer._id !== action.payload
+        );
+        state.message = "Berhasil Menghapus Organizer";
       })
       .addCase(deleteOrganizer.rejected, (state, action) => {
         state.message = action.payload as string;
+      })
+      .addCase(getPaymentReport.fulfilled, (state, action) => {
+        state.paymentReport = action.payload; // Simpan data laporan pembayaran
+        state.message = "Berhasil Mengambil Payment Report";
+        state.loading = false;
+      })
+      .addCase(getPaymentReport.rejected, (state, action) => {
+        state.message = action.payload as string;
+        state.loading = false;
+      })
+      .addCase(getPaymentReport.pending, (state) => {
+        state.loading = true;
       });
   },
 });
