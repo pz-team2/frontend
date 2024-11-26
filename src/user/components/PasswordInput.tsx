@@ -12,8 +12,8 @@ interface PasswordInputProps extends Omit<InputProps, "type"> {
 const PasswordInput: React.FC<PasswordInputProps> = ({
   // show = false,
   // onToggleShow,
-  minLength = 8,
   // requireSpecialChar = true,
+  minLength = 8,
   error,
   ...props
 }) => {
