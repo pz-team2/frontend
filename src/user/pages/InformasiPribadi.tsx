@@ -16,6 +16,7 @@ const InformasiPribadi = () => {
     try {
       setLoading(true);
       const response = await api.get("/users/detail/me");
+
       if (response.data.success) {
         const userData = response.data.data.user;
         // Inisialisasi nilai default untuk field yang kosong
@@ -46,6 +47,7 @@ const InformasiPribadi = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
+
     const { name, value } = e.target;
     if (user) {
       const updatedUser = { ...user };
@@ -70,6 +72,7 @@ const InformasiPribadi = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     if (!user) return;
 
     if (!user.fullName || !user.phoneNumber || !user.city) {
