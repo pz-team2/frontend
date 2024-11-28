@@ -2,11 +2,10 @@
 import React, { useState } from "react";
 
 interface TicketCounterProps {
-  ticketType: string;
   price: number;
 }
 
-const TicketCounter: React.FC<TicketCounterProps> = ({ ticketType, price }) => {
+const TicketCounter: React.FC<TicketCounterProps> = ({ price }) => {
   const [count, setCount] = useState(0);
   const totalPrice = count * price;
 
@@ -17,7 +16,6 @@ const TicketCounter: React.FC<TicketCounterProps> = ({ ticketType, price }) => {
     <div className="flex flex-col md:flex-row items-center w-full gap-2 md:gap-4 p-2 md:p-4">
       <div className="w-full md:w-1/2 flex items-center justify-between border border-primary rounded-lg px-3 py-2 md:px-4 md:py-2">
         <div className="flex flex-col">
-          <span className="font-semibold text-primary text-base md:text-lg">{ticketType}</span>
           <span className="text-primary text-xs md:text-sm">Rp. {price.toLocaleString()}</span>
         </div>
 
