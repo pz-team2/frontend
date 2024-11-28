@@ -4,7 +4,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 interface CardProps {
-  _id: string; // _id is expected here
+  _id: string; 
   title: string;
   date: Date;
   address: string;

@@ -58,7 +58,7 @@ const HomePage: React.FC = () => {
         <h2 className="text-black text-2xl font-bold">Sedang Tayang</h2>
         <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12">
           {events.length > 0 ? (
-            events.map((event) => <Card key={event._id} {...event} />) // Change _id to id
+            events.map((event) => <Card key={event._id} {...event} />) 
           ) : (
             <p>Loading ongoing events...</p>
           )}

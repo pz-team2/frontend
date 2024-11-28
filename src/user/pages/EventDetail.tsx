@@ -22,16 +22,16 @@ interface EventProps {
 }
 
 const EventDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Extract event ID from the URL
-  const [event, setEvent] = useState<EventProps | null>(null); // Event state
-  const [loading, setLoading] = useState<boolean>(true); // Loading state
-  const [error, setError] = useState<string | null>(null); // Error state
+  const { id } = useParams<{ id: string }>(); 
+  const [event, setEvent] = useState<EventProps | null>(null); 
+  const [loading, setLoading] = useState<boolean>(true); 
+  const [error, setError] = useState<string | null>(null); 
 
   useEffect(() => {
     const fetchEventDetail = async () => {
       try {
         setLoading(true);
-        const response = await api.get(`/events/detail/${id}`); // Assuming API endpoint for single event by ID
+        const response = await api.get(`/events/detail/${id}`); 
         const eventData = response.data;
 
         if (eventData?.success && eventData.data) {
@@ -40,7 +40,7 @@ const EventDetail: React.FC = () => {
             date: new Date(eventData.data.date),
             picture: eventData.data.picture
               ? `http://localhost:3500/${eventData.data.picture}`
-              : banner, // Fallback to default banner if no picture is available
+              : banner,
           };
 
           setEvent(formattedEvent);
@@ -58,15 +58,15 @@ const EventDetail: React.FC = () => {
   }, [id]); // Run this effect when the component mounts or id changes
 
   if (loading) {
-    return <div>Loading event details...</div>; // Loading state
+    return <div>Loading event details...</div>; 
   }
 
   if (error) {
-    return <div>{error}</div>; // Error state
+    return <div>{error}</div>; 
   }
 
   if (!event) {
-    return <div>Event not found.</div>; // If event data is not found
+    return <div>Event not found.</div>; 
   }
 
   return (
