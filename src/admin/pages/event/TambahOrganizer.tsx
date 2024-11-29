@@ -8,7 +8,7 @@ import {
   selectOrganizerMessage,
   setMessage,
 } from "../../../Redux/features/organizer/organizerSlice";
-import { Organizer } from "../../../Redux/features/type";
+
 import { Input } from "../../../components/Fragments/Input";
 import { FaCirclePlus } from "react-icons/fa6";
 import Swal from "sweetalert2";
@@ -28,7 +28,7 @@ export const TambahOrganizer = ({ onAdd }: TambahOrganizerProps) => {
   // Menggunakan selector untuk mendapatkan message
   const message = useSelector(selectOrganizerMessage);
 
-  const [formData, setFormData] = useState<Omit<Organizer, "_id">>({
+  const [formData, setFormData] = useState({
     username: "",
     email: "",
     organizerName: "",

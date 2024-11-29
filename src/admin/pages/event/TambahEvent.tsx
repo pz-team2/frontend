@@ -55,7 +55,6 @@ export const TambahEvent = () => {
         }
     };
 
-
     // 4. Membuat Function Untuk Membuat Editor
     const handleEditorChange = (content: string) => {
         setFormEvent({
@@ -74,7 +73,6 @@ export const TambahEvent = () => {
     // 6. Membuat Function Handle Submit Untuk Menambahkan Data nya 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Form Event Data:", formEvent);
         if (!formEvent.picture) {
             Swal.fire({
                 icon: "warning",
@@ -83,7 +81,10 @@ export const TambahEvent = () => {
             });
             return;
         }
+
         const result = await dispatch(tambahEvent({ id: organizerId, data: formEvent }));
+        console.log(result)
+        // Periksa apakah tambahEvent berhasil
         if (tambahEvent.fulfilled.match(result)) {
             Swal.fire({
                 icon: "success",
@@ -92,10 +93,12 @@ export const TambahEvent = () => {
             });
             navigate(`/admin/organizer/detail/${organizerId}`);
         } else {
+            // Dapatkan pesan error dari response backend
+            const errorMessage = result.payload ? result.payload : "Event tidak berhasil ditambahkan.";
             Swal.fire({
                 icon: "error",
-                title: message,
-                text: error,
+                title: "Gagal!",
+                text: `Error: ${errorMessage}`,
             });
         }
     };
@@ -146,7 +149,7 @@ export const TambahEvent = () => {
                             <select className="select bg-slate-100 w-full max-w-xs border-0" name="category" onChange={handleEvent} value={formEvent.category}>
                                 <option disabled>Pilih Kategori:</option>
                                 {datacategory && datacategory.map((category: any) => (
-                                    <option key={category._id} value={category._id}>{category.name}</option>
+                                    <option key={category._id} value={category._id}>{category._id}</option>
                                 ))}
                             </select>
                         </div>

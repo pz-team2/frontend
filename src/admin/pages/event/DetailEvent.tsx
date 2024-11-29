@@ -35,15 +35,15 @@ export const DetailEvent = () => {
 
     return (
         <div>
-            <Link to={`/admin/organizer/detail/${selectedEvent.organizer}`} className='text-black flex items-center gap-2 mb-5'>
+            <Link to={`/admin/organizer/detail/${selectedEvent.organizer?._id}`} className='text-black flex items-center gap-2 mb-5'>
                 <IoChevronBackOutline size={24} />
                 <span>Back to Event</span>
             </Link>
 
-            <h1 className="text-3xl font-extrabold mb-8 text-gray-900">Detail Organizer - By {selectedEvent.title}</h1>
+            <h1 className="text-3xl font-extrabold mb-8 text-gray-900">Detail Event - By {selectedEvent.title}</h1>
 
             <div className="border border-gray-300 rounded-lg p-8 bg-white shadow-lg">
-                <div className="badge bg-primary p-5 mb-4 text-white"> Music </div>
+                <div className="badge bg-primary p-5 mb-4 text-white"> {selectedEvent.category?.name || "Kategori Tidak Tersedia"} </div>
                 <div className="badge bg-cyan-200 border-0 text-black p-5 ml-3"> {selectedEvent.status} </div>
                 <div className='relative flex flex-col lg:flex-row gap-6'>
                     <div className="relative w-full lg:w-1/2 overflow-hidden rounded-lg shadow-md">
@@ -86,7 +86,7 @@ export const DetailEvent = () => {
                                                     </div>
                                                 </th>
                                                 <td className="px-2">:</td>
-                                                <td className="font-medium py-2">Himakom</td>
+                                                <td className="font-medium py-2">{selectedEvent.organizer?.organizerName}</td>
                                             </tr>
                                             <tr>
                                                 <th className="font-semibold text-black py-2">

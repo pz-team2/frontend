@@ -7,12 +7,28 @@ export interface Organizer {
   password: string;
 }
 
+export interface Events {
+  _id: string,
+  title: string,
+  date: Date,
+  address: string,
+  description: string,
+  status: string,
+  quota: number,
+  price: number,
+  startTime: string,
+  finishTime: string,
+  picture: string,
+
+}
+
 export interface OrganizerState {
   organizers: Organizer[];
   isOrganizer: boolean;
   message: string;
   loading: boolean;
   paymentReport: PaymentReport | null;
+  searchResults: Events[];
 }
 
 export interface loginOragnizerState {

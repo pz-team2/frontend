@@ -10,6 +10,7 @@ export interface category {
     description: string;
     isCategory: boolean;
     message: string;
+    category: string;
     datacategory: category[];
     _id: string;
   }

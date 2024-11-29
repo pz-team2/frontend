@@ -3,16 +3,17 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { GoNote } from "react-icons/go";
+import { TbPencilCog } from "react-icons/tb";
 import { TambahOrganizer } from "./TambahOrganizer";
 import { Table } from "../../../components/Layout/Table";
 import { getOrganizersApi, deleteOrganizerApi, IOrganizer } from "../../../Redux/features/organizer/organizerApi";
-import Swal from "sweetalert2";  
+import Swal from "sweetalert2";
 
 export const Organizer = () => {
   const [organizers, setOrganizers] = useState<IOrganizer[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   // Mengambil data organizer dari API
   const fetchOrganizers = async () => {
@@ -20,11 +21,10 @@ export const Organizer = () => {
     setError('');
     try {
       const data = await getOrganizersApi();
-      console.log('Data dari API:', data);
-      if (data.success) {
+      if (data.code === 200) {
         setOrganizers(data.data || []);
-      } else {
-        setError(data.message || 'Gagal mengambil data');
+      } else (data.code === 400); {
+        setOrganizers(data.data || []);
       }
     } catch (err) {
       setError('Terjadi kesalahan saat mengambil data.');
@@ -53,7 +53,7 @@ export const Organizer = () => {
       if (deleteResult.success) {
         setOrganizers(organizers.filter((organizer) => organizer._id !== id));
         Swal.fire('Terhapus!', 'Organizer telah dihapus.', 'success');
-        navigate('/admin/organizer'); 
+        navigate('/admin/organizer');
       } else {
         setError(deleteResult.message || 'Gagal menghapus organizer');
         Swal.fire('Gagal!', 'Terjadi kesalahan saat menghapus organizer.', 'error');
@@ -76,25 +76,33 @@ export const Organizer = () => {
     organizerName: organizer.organizerName,
     email: organizer.email,
     status: (
-      <div className={`bg-${organizer.email ? 'green' : 'red'}-300 text-center rounded-xl text-white px-3 py-1`}>
-        {organizer.email ? 'aktif' : 'Tidak Aktif'}
+      <div className={`bg-${organizer.email ? 'bg-red-300' : 'bg-red-300'} text-center rounded-xl bg-red-100 w-16 text-black`}>
+        {organizer.email ? 'Aktif' : 'Tidak Aktif'}
       </div>
     ),
     aksi: (
       <div className="flex flex-row gap-2">
-        <button
-          className="btn bg-red-400 border-0 text-white shadow-md hover:bg-red-500"
-          onClick={() => handleDelete(organizer._id)} // Memanggil fungsi delete
-        >
-          <RiDeleteBin5Line size={20} />
-        </button>
+
         <Link
           className="btn bg-primary border-0 text-white shadow-md hover:bg-blue-950"
           to={`/admin/organizer/detail/${organizer._id}`}  // Menavigasi ke detail organizer
         >
           <GoNote size={20} />
         </Link>
+        <Link
+          className="btn bg-secondary border-0 text-white shadow-md hover:bg-cyan-700"
+          to={`/admin/organizer/detail/${organizer._id}`}  // Menavigasi ke detail organizer
+        >
+          <TbPencilCog size={20} />
+        </Link>
+        <button
+          className="btn bg-red-400 border-0 text-white shadow-md hover:bg-red-500"
+          onClick={() => handleDelete(organizer._id)} // Memanggil fungsi delete
+        >
+          <RiDeleteBin5Line size={20} />
+        </button>
       </div>
+
     ),
   }));
 

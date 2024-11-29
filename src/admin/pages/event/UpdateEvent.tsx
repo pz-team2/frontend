@@ -50,6 +50,7 @@ export const UpdateEvent = () => {
                 title: eventData.title,
                 date: new Date(eventData.date),
                 address: eventData.address,
+                // organizer: eventData.organizers,
                 description: eventData.description,
                 status: eventData.status,
                 quota: eventData.quota,
@@ -116,6 +117,7 @@ export const UpdateEvent = () => {
                 text: "Jika tidak ingin mengubah gambar, biarkan kolom gambar kosong.",
             });
         }
+        
     
         // Memanggil API untuk update data
         const result = await dispatch(updateEventById({ id, data: eventDataToUpdate }));
@@ -138,7 +140,7 @@ export const UpdateEvent = () => {
 
     return (
         <div>
-            <Link to={`/admin/organizer/detail/${id}`} className='text-black flex items-center gap-2 mb-5'>
+            <Link to={`/admin/organizer/detail/${formEvent}`} className='text-black flex items-center gap-2 mb-5'>
                 <IoChevronBackOutline size={24} />
                 <span>Back to Events</span>
             </Link>

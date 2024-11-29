@@ -7,12 +7,12 @@ export const DataUser = () => {
         { key: 'no', label: 'No' },
         { key: 'name', label: 'Username' },
         { key: 'status', label: 'Email' },
+        { key: 'tiket', label: 'Organizer' },
         { key: 'jumlah', label: 'Jumlah Tiket' },
-        { key: 'tiket', label: 'Tiket Terjual' }
     ];
 
     const data = [
-        { no: 1, name: 'Festival Musik', status: 25, jumlah: 3, tiket: 100}
+        { no: 1, name: 'Festival Musik', status: 25, jumlah: 3, tiket: "Himakom"}
     ];
 
 return (

@@ -1,7 +1,7 @@
 import api from "../../../services/api"
 
 interface eventType {
-    category: String,
+    category: string
     title: String,
     date: Date,
     address: String,
@@ -24,18 +24,18 @@ export const tambahEventApi = async (id: string, data: eventType,) => {
         })
         return respon.data
     } catch (error) {
-        return 'terjadi kesalahan'
+        return error
     }
 }
 
-export const getDataEventApi = async () => {
-    try {
-        const respon = await api.get('events/list')
-        return respon.data
-    } catch (error) {
-        return 'terjadi kesalahan'
-    }
-}
+// export const getDataEventApi = async () => {
+//     try {
+//         const respon = await api.get('events/list')
+//         return respon.data
+//     } catch (error) {
+//         return 'terjadi kesalahan'
+//     }
+// }
 
 export const getEventByOrganizerApi = async (organizerId: string, page: number) => {
     try {

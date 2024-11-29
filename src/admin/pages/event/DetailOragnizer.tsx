@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { FaCirclePlus } from "react-icons/fa6";
 import { Search } from "../../../components/Layout/Search";
 import { Button } from "../../../components/Fragments/Button";
@@ -7,24 +7,33 @@ import { CardEvent } from "../../../components/Layout/CardEvent";
 import { getOrganizerByIdApi, IOrganizer } from "../../../Redux/features/organizer/organizerApi";
 import { CardProfile } from "../../../components/Layout/CardProfile";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hook";
-import { deleteEventById, getEventsByOrganizer } from "../../../Redux/features/event/eventSlice"; // Mengambil action untuk mendapatkan event
+import { deleteEventById, getEventsByOrganizer } from "../../../Redux/features/event/eventSlice";
 import { RootState } from "../../../Redux/store";
 import { format } from 'date-fns';
 import Swal from "sweetalert2";
+import { getSearchEvant } from "../../../Redux/features/organizer/organizerSlice";
 
 const DetailOrganizer = () => {
-
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
 
   const [organizer, setOrganizer] = useState<IOrganizer | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
-  const { events, loading: eventsLoading, pagination, message, isEvent } = useAppSelector(
+  const { events, loading: eventsLoading, pagination } = useAppSelector(
     (state: RootState) => state.event
   );
+
+  const { searchResults } = useAppSelector((state: RootState) => state.organizer);
+  console.log(searchResults);
+
+  const handleSearch = (searchTerm: string) => {
+    if (searchTerm && id) {
+      dispatch(getSearchEvant(id)); // Kirim permintaan pencarian dengan ID organizer
+    }
+  };
+  console.log(handleSearch)
 
   const fetchOrganizerDetail = useCallback(async () => {
     if (!id) {
@@ -35,12 +44,11 @@ const DetailOrganizer = () => {
     setLoading(true);
     setError('');
     try {
-      const data = await getOrganizerByIdApi(id);  // Fetch data from the API
-      console.log('data :', data)
-      if (data.success) {
+      const data = await getOrganizerByIdApi(id);
+      if (data.code === 200) {
         setOrganizer(data.data);
       } else {
-        setError(data.message || 'Gagal mengambil data organizer');
+        setError("Organizer tidak ditemukan");
       }
     } catch (err) {
       setError('Terjadi kesalahan saat mengambil data.');
@@ -48,6 +56,28 @@ const DetailOrganizer = () => {
       setLoading(false);
     }
   }, [id]);
+
+  const fetchEvents = useCallback((page: number) => {
+    if (id) {
+      dispatch(getEventsByOrganizer({ organizerId: id, page }));
+    }
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (id) {
+      fetchOrganizerDetail();
+    }
+  }, [id, fetchOrganizerDetail]);
+
+  useEffect(() => {
+    if (organizer) {
+      fetchEvents(1);  // Ambil data event untuk halaman pertama
+    }
+  }, [organizer, fetchEvents]);
+
+  const handlePageChange = (page: number) => {
+    fetchEvents(page);
+  };
 
   const deleteEvent = async (eventId: string) => {
     const result = await Swal.fire({
@@ -66,33 +96,6 @@ const DetailOrganizer = () => {
     }
   };
 
-  useEffect(() => {
-    if (isEvent) {
-      fetchEvents(1);
-      navigate(`/admin/organizer/detail/${organizer?._id}`);
-    }
-  }, [isEvent, message, organizer, dispatch, navigate]);
-
-  // Ambil data event berdasarkan organizerId
-  const fetchEvents = (page: number) => {
-    if (id) {
-      dispatch(getEventsByOrganizer({ organizerId: id, page })); // Fetch event berdasarkan organizerId
-    }
-  };
-
-  useEffect(() => {
-    if (id) {
-      fetchOrganizerDetail();
-      fetchEvents(1); // Ambil data event untuk halaman pertama
-    }
-  }, [id, dispatch]);
-
-  const handlePageChange = (page: number) => {
-    fetchEvents(page); // Mengganti halaman event
-  };
-
-
-  // Handling loading and error states
   if (loading) return <div>Loading organizer...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
 
@@ -100,14 +103,12 @@ const DetailOrganizer = () => {
     <div>
       <h1 className="mb-5 text-2xl font-extrabold text-black">Detail Organizer</h1>
       {organizer ? (
-       
-          <CardProfile
-            username={organizer._id}
-            namaOrganizer={organizer.organizerName}
-            email={organizer.email}
-            no={organizer.phoneNumber}
-          />
-
+        <CardProfile
+          username={organizer.username}
+          namaOrganizer={organizer.organizerName}
+          email={organizer.email}
+          no={organizer.phoneNumber}
+        />
       ) : (
         <div>Organizer tidak ditemukan.</div>
       )}
@@ -122,7 +123,7 @@ const DetailOrganizer = () => {
         </Button>
 
         <div className="relative w-full sm:w-96">
-          <Search />
+          <Search onSearch={handleSearch} />
         </div>
       </div>
 
@@ -131,6 +132,17 @@ const DetailOrganizer = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {eventsLoading ? (
           <div>Loading events...</div>
+        ) : searchResults.length > 0 ? (
+          searchResults.map((event) => (
+            <CardEvent
+            key={event._id}
+            gambar={`http://localhost:3500/${event.picture}`}
+            title={event.title}
+            date={format(new Date(event.date), "d MMMM yyyy")}
+            id={event._id}
+            onclick={() => deleteEvent(event._id)}
+            />
+          ))
         ) : events.length > 0 ? (
           events.map((event) => (
             <CardEvent
@@ -146,6 +158,7 @@ const DetailOrganizer = () => {
           <div>No events found.</div>
         )}
       </div>
+
 
       <div className="mt-5 flex justify-center gap-4">
         <button
@@ -169,4 +182,3 @@ const DetailOrganizer = () => {
 };
 
 export default DetailOrganizer;
-

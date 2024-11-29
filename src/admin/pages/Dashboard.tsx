@@ -23,7 +23,7 @@ export const Dashboard = () => {
   const eventData = isSucces && limitPage
     ? limitPage.map(event => ({
       name: event.organizerName,
-      tanggal: event.date,
+      // tanggal: event.date,
       tiket: `${event.ticketsSold} Tiket`,
       event: `${event.title}`,
       gambar: <div><img src={`http://localhost:3500/${event.picture}`} alt={'gagal data img'} className="w-20 h-14 rounded-xl" /></div>,
@@ -37,8 +37,8 @@ export const Dashboard = () => {
     { key: 'name', label: 'Nama Organizer' },
     { key: 'event', label: 'Nama Event' },
     { key: 'tiket', label: 'Tiket Terjual' },
-    { key: 'status', label: 'Status' },
-    { key: 'tanggal', label: 'Tanggal Event' },
+    // { key: 'status', label: 'Status' },
+    // { key: 'tanggal', label: 'Tanggal Event' },
   ];
 
   return (
@@ -61,7 +61,7 @@ export const Dashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4 md:gap-9">
         <div className="card shadow-md border border-gray-400 w-full overflow-hidden">
           <div className="flex justify-end mr-5">
-            <Link to='/admin/organizer' className="text-center bg-primary w-28 mt-3 text-white rounded-badge p-1"> View All </Link>
+            <Link to='/admin/event' className="text-center bg-primary w-28 mt-3 text-white rounded-badge p-1"> View All </Link>
           </div>
           {eventData.length > 0 ? (
             <Table columns={columns} data={eventData} />

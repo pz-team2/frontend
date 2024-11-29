@@ -35,6 +35,7 @@ import { ProtectedRoute } from "./services/ProtectedRoute";
 import { Pages } from "./Pages";
 import DetailOrganizer from "./admin/pages/event/DetailOragnizer";
 import LoginOrganizer from "./LoginOrganizer";
+import { EventData } from "./admin/pages/event/Event";
 
 export default function App() {
   // const [loading, setLoading] = useState(true); // State untuk loading
@@ -94,6 +95,7 @@ export default function App() {
             <Route path="admin/organizer/event/tambah/:id" element={<TambahEvent/>} />
             <Route path="admin/organizer/event/update/:id" element={<UpdateEvent />} />
             <Route path="admin/user" element={<DataUser />} />
+            <Route path="admin/event" element={<EventData />} />
             <Route path="admin/kategori" element={<Kategori />} />
           </Route>
 

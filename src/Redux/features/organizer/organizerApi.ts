@@ -4,6 +4,7 @@ export interface IOrganizer {
   _id: string;
   username: string;
   email: string;
+  // status: string;
   organizerName: string;
   phoneNumber: string;
   password?: string;
@@ -36,7 +37,7 @@ export const addOrganizerApi = async (data: Omit<IOrganizer, "_id">) => {
 
 export const getOrganizersApi = async () => {
   try {
-    const response = await api.get("organizers/");
+    const response = await api.get("organizers/getdata");
     return response.data;
   } catch (error) {
     console.error("Gagal Mengambil Data Organizer", error);
@@ -47,7 +48,7 @@ export const getOrganizersApi = async () => {
 // Fungsi untuk mengambil detail organizer berdasarkan ID
 export const getOrganizerByIdApi = async (id: string) => {
   try {
-    const response = await api.get(`organizers/detail/${id}`); // Mengambil data berdasarkan ID
+    const response = await api.get(`organizers/detail/${id}`);
     return response.data;
   } catch (error) {
     console.error("Gagal Mengambil Data Organizer berdasarkan ID", error);
@@ -83,3 +84,12 @@ export const getPaymentReportApi = async () => {
     return { success: false, message: "Gagal Mengambil Payment Report" };
   }
 };
+
+export const getSearchEvantApi = async(organizerId: string) => {
+  try {
+    const response = await api.get(`organizers/events/${organizerId}`)
+    return response.data
+  }catch(error){
+    return error
+  }
+}

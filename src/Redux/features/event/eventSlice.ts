@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { deleteEventApi, getDataEventApi, getEventByIdApi, getEventByOrganizerApi, tambahEventApi, updateEventApi } from "./eventApi";
+import { deleteEventApi, getEventByIdApi, getEventByOrganizerApi, tambahEventApi, updateEventApi } from "./eventApi";
 import { RootState } from "../../store";
 import { eventType, Events } from "../../types/event.types";
 
@@ -40,33 +40,43 @@ export const tambahEvent = createAsyncThunk(
     async ({ id, data }: { id: string; data: Events }, { rejectWithValue }) => {
         try {
             const response = await tambahEventApi(id, data);
-            if (response.success) {
+            if (response.code === 200) {
                 return response.data;
             } else {
-                return rejectWithValue(response.message);
+                return rejectWithValue(response.message || 'Gagal menambahkan event');
             }
-        } catch (error) {
-            return rejectWithValue('Terjadi kesalahan saat menambah event');
+        } catch (error: unknown) {
+            // Pengecekan tipe error
+            if (error instanceof Error) {
+                return rejectWithValue(error.message || 'Terjadi kesalahan saat menambahkan event');
+            } else {
+                return rejectWithValue('Terjadi kesalahan saat menambahkan event');
+            }
         }
     }
 );
 
 // 5. Function Untuk Menampilkan Semua Data Event
-export const getDataEvent = createAsyncThunk(
-    'event/getData',
-    async (_, { rejectWithValue }) => {
-        try {
-            const response = await getDataEventApi();
-            if (response.success) {
-                return response.data;
-            } else {
-                return rejectWithValue(response.message);
-            }
-        } catch (error) {
-            return rejectWithValue('Terjadi kesalahan saat mengambil data');
-        }
-    }
-);
+// export const getDataEvent = createAsyncThunk(
+//     'event/getData',
+//     async (_, { rejectWithValue }) => {
+//         try {
+//             const response = await getDataEventApi();
+//             if (response.success) {
+//                 return response.data;
+//             } else {
+//                 return rejectWithValue(response.message || 'Gagal mengambil data event');
+//             }
+//         } catch (error: unknown) {
+//             // Pengecekan tipe error
+//             if (error instanceof Error) {
+//                 return rejectWithValue(error.message || 'Terjadi kesalahan saat mengambil data event');
+//             } else {
+//                 return rejectWithValue('Terjadi kesalahan saat mengambil data event');
+//             }
+//         }
+//     }
+// );
 
 // 6. Function Untuk Menampilkan Event Berdasarkan Organizer
 export const getEventsByOrganizer = createAsyncThunk(
@@ -77,10 +87,15 @@ export const getEventsByOrganizer = createAsyncThunk(
             if (response.success) {
                 return response.data;
             } else {
-                return rejectWithValue(response.message);
+                return rejectWithValue(response.message || 'Gagal mengambil data event berdasarkan organizer');
             }
-        } catch (error) {
-            return rejectWithValue("Terjadi kesalahan saat mengambil data event");
+        } catch (error: unknown) {
+            // Pengecekan tipe error
+            if (error instanceof Error) {
+                return rejectWithValue(error.message || 'Terjadi kesalahan saat mengambil data event berdasarkan organizer');
+            } else {
+                return rejectWithValue('Terjadi kesalahan saat mengambil data event');
+            }
         }
     }
 );
@@ -91,13 +106,18 @@ export const getEventById = createAsyncThunk(
     async (id: string, { rejectWithValue }) => {
         try {
             const response = await getEventByIdApi(id);
-            if (response.success) {
+            if (response.code === 200) {
                 return response.data;
             } else {
-                return rejectWithValue(response.message);
+                return rejectWithValue(response.message || 'Gagal mengambil data event berdasarkan ID');
             }
-        } catch (error) {
-            return rejectWithValue('Terjadi kesalahan saat mengambil data event');
+        } catch (error: unknown) {
+            // Pengecekan tipe error
+            if (error instanceof Error) {
+                return rejectWithValue(error.message || 'Terjadi kesalahan saat mengambil data event');
+            } else {
+                return rejectWithValue('Terjadi kesalahan saat mengambil data event');
+            }
         }
     }
 );
@@ -107,14 +127,19 @@ export const deleteEventById = createAsyncThunk(
     'delete/event',
     async (id: string, { rejectWithValue }) => {
         try {
-            const respon = await deleteEventApi(id)
-            if (respon.success) {
-                return respon.data
+            const response = await deleteEventApi(id)
+            if (response.success) {
+                return response.data;
             } else {
-                return rejectWithValue(respon.message)
+                return rejectWithValue(response.message || 'Gagal menghapus event');
             }
-        } catch (error) {
-            return rejectWithValue('Terjadi kesalahan Saat Hapus Event')
+        } catch (error: unknown) {
+            // Pengecekan tipe error
+            if (error instanceof Error) {
+                return rejectWithValue(error.message || 'Terjadi kesalahan saat menghapus event');
+            } else {
+                return rejectWithValue('Terjadi kesalahan saat menghapus event');
+            }
         }
     }
 )
@@ -124,20 +149,24 @@ export const updateEventById = createAsyncThunk(
     'update/event',
     async ({ id, data }: { id: string, data: Events }, { rejectWithValue }) => {
         try {
-            const respon = await updateEventApi(id, data)
-            if(respon.success){
-                return respon.data
-            }else{
-                return rejectWithValue(respon.message)
+            const response = await updateEventApi(id, data)
+            if (response.success) {
+                return response.data;
+            } else {
+                return rejectWithValue(response.message || 'Gagal mengupdate event');
             }
-        }catch(error){
-            return rejectWithValue('Terjadi kesalahan Saat Update Event')
+        } catch (error: unknown) {
+            // Pengecekan tipe error
+            if (error instanceof Error) {
+                return rejectWithValue(error.message || 'Terjadi kesalahan saat mengupdate event');
+            } else {
+                return rejectWithValue('Terjadi kesalahan saat mengupdate event');
+            }
         }
     }
 )
 
-
-// 8. Membuat Sebuah Redux Untuk Membuat / Menangani Sebuah State dan Untuk Membuat Action Pada Function
+// Redux slice untuk menangani event
 const eventSlice = createSlice({
     name: 'event',
     initialState,
@@ -159,17 +188,17 @@ const eventSlice = createSlice({
                 state.message = "Gagal menambahkan event";
                 state.loading = false;
             })
-            .addCase(getDataEvent.fulfilled, (state, action) => {
-                state.events = action.payload;
-                state.message = "Berhasil Mengambil Data";
-                state.isEvent = true;
-                state.loading = false;
-            })
-            .addCase(getDataEvent.rejected, (state, action) => {
-                state.message = action.payload as string;
-                state.loading = false;
-                state.isEvent = false;
-            })
+            // .addCase(getDataEvent.fulfilled, (state, action) => {
+            //     state.events = action.payload;
+            //     state.message = "Berhasil Mengambil Data";
+            //     state.isEvent = true;
+            //     state.loading = false;
+            // })
+            // .addCase(getDataEvent.rejected, (state, action) => {
+            //     state.message = action.payload as string;
+            //     state.loading = false;
+            //     state.isEvent = false;
+            // })
             .addCase(getEventsByOrganizer.fulfilled, (state, action) => {
                 state.events = action.payload.data;
                 state.pagination = action.payload.pagination;
@@ -207,12 +236,12 @@ const eventSlice = createSlice({
                 if (index !== -1) {
                     state.events[index] = action.payload;
                 }
-                state.message = 'Data Event Berhasil Diupdate'
-                state.isEvent = true
+                state.message = 'Data Event Berhasil Diupdate';
+                state.isEvent = true;
             })
             .addCase(updateEventById.rejected, (state, action) => {
-                state.message = action.payload as string
-                state.isEvent = false
+                state.message = action.payload as string;
+                state.isEvent = false;
             })
     }
 });
