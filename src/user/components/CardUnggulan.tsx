@@ -10,15 +10,15 @@ interface CardUnggulanProps {
   address: string;
   price: number;
   category: string;
-  picture: string;  // New prop for image
+  picture: string;
 }
 
-const CardUnggulan: React.FC<CardUnggulanProps> = ({id, title, date, address, price, category, picture }) => {
+const CardUnggulan: React.FC<CardUnggulanProps> = ({ id, title, date, address, price, category, picture }) => {
   return (
     <div className="card bg-[#f4f4f4] w-full sm:w-[300px] lg:w-[546px] shadow-xl">
       <figure>
         <img
-          src={picture}  // Use picture prop for the image
+          src={picture}
           alt={title}
           className="object-cover h-[200px] w-full rounded-t-lg"
         />
@@ -35,8 +35,8 @@ const CardUnggulan: React.FC<CardUnggulanProps> = ({id, title, date, address, pr
         <p className="flex gap-3">
           <IoIosPricetags size={20} /> Rp. {price.toLocaleString("id-ID")}
         </p>
-        <Link to={`/transaksi/${id}`}>
-          <button className="btn w-full outline-none bg-primary text-white mt-2">
+        <Link to={`/transaksi/${id}`} className="w-full">
+          <button className="btn outline-none bg-primary text-white mt-2">
             Beli
           </button>
         </Link>

@@ -4,16 +4,24 @@ import { FaLocationDot } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 interface CardProps {
-  id: string;
+  _id: string; 
   title: string;
   date: Date;
   address: string;
   price: number;
   category: string;
-  picture: string;  
+  picture: string;
 }
 
-const Card: React.FC<CardProps> = ({id, title, date, address, price, category, picture }) => {
+const Card: React.FC<CardProps> = ({
+  _id,
+  title,
+  date,
+  address,
+  price,
+  category,
+  picture,
+}) => {
   return (
     <div className="card bg-[#f4f4f4] w-full sm:w-[300px] lg:w-[338px] shadow-xl">
       <figure>
@@ -35,10 +43,8 @@ const Card: React.FC<CardProps> = ({id, title, date, address, price, category, p
         <p className="flex gap-3">
           <IoIosPricetags size={20} /> Rp. {price.toLocaleString("id-ID")}
         </p>
-        <Link to={`/transaksi/${id}`}>
-          <button className="btn w-full outline-none bg-primary text-white mt-2">
-            Beli
-          </button>
+        <Link to={`/detail/${_id}`} className="w-full">
+          <button className="btn w-full bg-primary text-white">Beli Tiket</button>
         </Link>
       </div>
     </div>

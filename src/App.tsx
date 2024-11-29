@@ -8,7 +8,7 @@ import { Dashboard } from "./admin/pages/Dashboard";
 import { Organizer } from "./admin/pages/event/Organizer";
 import "./App.css";
 // import LoadingScreen from "./LoadingScreen"; // Komponen loading
-import Events from "./user/pages/Events";
+import EventDetail from "./user/pages/EventDetail";
 import { Logout } from "./Logout";
 import { DetailEvent } from "./admin/pages/event/DetailEvent";
 import { TambahEvent } from "./admin/pages/event/TambahEvent";
@@ -22,7 +22,7 @@ import { Detail } from "./organizer/Pages/Detail";
 import { Profile } from "./organizer/Pages/Profile";
 import { Hubungi } from "./user/pages/Hubungi";
 import Selengkapnya from "./user/pages/Selengkapnya";
-import Transaksi from "./user/pages/Transaksi";
+import HomePage from "./user/pages/HomePage";
 import InformasiPribadi from "./user/pages/InformasiPribadi";
 import UserLayout from "./user/pages/UserLayout";
 import TiketSaya from "./user/components/TiketSaya";
@@ -64,7 +64,7 @@ export default function App() {
     <div className="bg-white">
       <Router>
         <Routes>
-          <Route path="/" element={<Events />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/page" element={<Pages />} />
           <Route path="/user/login" element={<Login />} />
           <Route path="/user/register" element={<Register />} />
@@ -74,7 +74,7 @@ export default function App() {
           <Route path="/verify" element={<Verify />} />
           <Route path="/selengkapnya" element={<Selengkapnya />} />
           <Route path="/hubungi-kami" element={<Hubungi />} />
-          <Route path="/transaksi" element={<Transaksi />} />
+          <Route path="/detail/:id" element={<EventDetail />} />
 
           {/* User Layout */}
 
