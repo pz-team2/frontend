@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import ImageSlider from "../components/ImageSlider";
@@ -26,14 +25,16 @@ const HomePage: React.FC = () => {
       try {
         const response = await api.get("/events/list");
         const eventsData = response.data;
-
+  
         if (eventsData?.success && eventsData.data) {
-          const formattedEvents = eventsData.data.map((event: any) => ({
-            ...event,
-            date: new Date(event.date),
-            picture: `http://localhost:3500/${event.picture}`,
-          }));
-
+          const formattedEvents = eventsData.data
+            .map((event: CardProps) => ({
+              ...event,
+              date: new Date(event.date),
+              picture: `http://localhost:3500/${event.picture}`,
+            }))
+            .slice(0, 6); // Membatasi hanya 6 data
+  
           setEvents(formattedEvents);
         } else {
           console.error("Unexpected data structure", eventsData);
@@ -44,9 +45,10 @@ const HomePage: React.FC = () => {
         setEvents([]);
       }
     };
-
+  
     fetchEvents();
   }, []);
+  
 
   return (
     <div className="bg-white flex flex-col">

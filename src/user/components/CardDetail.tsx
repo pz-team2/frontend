@@ -13,7 +13,7 @@ const CardDetail: React.FC<CardDetailProps> = ({
   date,
 }) => {
   return (
-    <div className="card-detail bg-white p-4 shadow-md rounded-md space-y-6">
+    <div className="card bg-[#f4f4f4] p-4 shadow-xl rounded-md space-y-6">
       <h3 className="text-2xl font-semibold text-primary">{title}</h3>
       <p className="text-gray-600">{description}</p>
       <p className="text-gray-600">{`Lokasi: ${address}`}</p>
