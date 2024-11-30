@@ -10,7 +10,6 @@ import {
   getOrganizersApi,
   deleteOrganizerApi,
   getPaymentReportApi,
-  getSearchEvantApi,
 } from "./organizerApi";
 import { RootState } from "../../store";
 import { OrganizerState, Organizer } from "../../types/organizer.types";
@@ -110,23 +109,6 @@ export const getPaymentReport = createAsyncThunk(
   }
 );
 
-export const getSearchEvant = createAsyncThunk(
-  "organizer/searchEvent",
-  async (organizerId: string, { rejectWithValue }) => {
-    try {
-      const response = await getSearchEvantApi(organizerId);
-      if (response.code === 200) {
-        return response.data;
-      } else if (response.code === 500) {
-        return rejectWithValue("Terjadi kesalahan server");
-      } else {
-        return rejectWithValue("Respon tidak valid");
-      }
-    } catch (error) {
-      return rejectWithValue("Gagal Mengambil Data Event");
-    }
-  }
-)
 
 const organizerSlice = createSlice({
   name: "organizer",
@@ -173,13 +155,6 @@ const organizerSlice = createSlice({
       })
       .addCase(getPaymentReport.pending, (state) => {
         state.loading = true;
-      })
-      .addCase(getSearchEvant.fulfilled, (state, action) => {
-        state.searchResults = action.payload;
-        state.message = "Berhasil Mengambil Data Organizer";
-      })
-      .addCase(getSearchEvant.rejected, (state, action) => {
-        state.message = action.payload as string;
       })
   },
 });

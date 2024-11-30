@@ -1,27 +1,20 @@
 import { FaSearch } from "react-icons/fa";
-import { useState } from "react";
 
 interface SearchProps {
-  onSearch: (term: string) => void;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (e: React.FormEvent) => void;
 }
 
-export const Search = ({ onSearch }: SearchProps) => {
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSearch(searchTerm); // Panggil fungsi pencarian dari parent
-    
-  };
-
+export const Search: React.FC<SearchProps> = ({ value, onChange, onSubmit }) => {
   return (
-    <form onSubmit={handleSubmit} className="relative">
+    <form onSubmit={onSubmit} className="relative">
       <input
         type="text"
+        value={value}
+        onChange={onChange}
         placeholder="Masukkan Username"
         className="input w-full rounded-3xl bg-white border-gray-400 pl-5 pr-16"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
       />
       <button
         type="submit"

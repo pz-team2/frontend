@@ -94,11 +94,11 @@ export const getPaymentReportApi = async () => {
   }
 };
 
-export const getSearchEvantApi = async(organizerId: string) => {
-  try {
-    const response = await api.get(`organizers/events/${organizerId}`)
-    return response.data
-  }catch(error){
-    return error
-  }
-}
+// export const getSearchEvantApi = async(organizerId: string) => {
+//   try {
+//     const response = await api.get(`organizers/events/${organizerId}`)
+//     return response.data
+//   }catch(error){
+//     return error
+//   }
+// }

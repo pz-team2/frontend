@@ -11,7 +11,6 @@ import { deleteEventById, getEventsByOrganizer } from "../../../Redux/features/e
 import { RootState } from "../../../Redux/store";
 import { format } from 'date-fns';
 import Swal from "sweetalert2";
-import { getSearchEvant } from "../../../Redux/features/organizer/organizerSlice";
 
 const DetailOrganizer = () => {
   const { id } = useParams<{ id: string }>();
@@ -20,20 +19,12 @@ const DetailOrganizer = () => {
   const [organizer, setOrganizer] = useState<IOrganizer | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>(""); // Menyimpan query pencarian
+  const [filteredEvents, setFilteredEvents] = useState<any[]>([]); // Menyimpan events yang difilter
 
   const { events, loading: eventsLoading, pagination } = useAppSelector(
     (state: RootState) => state.event
   );
-
-  const { searchResults } = useAppSelector((state: RootState) => state.organizer);
-  console.log(searchResults);
-
-  const handleSearch = (searchTerm: string) => {
-    if (searchTerm && id) {
-      dispatch(getSearchEvant(id)); // Kirim permintaan pencarian dengan ID organizer
-    }
-  };
-  console.log(handleSearch)
 
   const fetchOrganizerDetail = useCallback(async () => {
     if (!id) {
@@ -71,7 +62,7 @@ const DetailOrganizer = () => {
 
   useEffect(() => {
     if (organizer) {
-      fetchEvents(1);  // Ambil data event untuk halaman pertama
+      fetchEvents(1);  
     }
   }, [organizer, fetchEvents]);
 
@@ -95,6 +86,26 @@ const DetailOrganizer = () => {
       Swal.fire('Terhapus!', 'Event telah dihapus.', 'success');
     }
   };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery) {
+      const filtered = events.filter((event) =>
+        event.title.toLowerCase().includes(searchQuery.toLowerCase()) // Filter event berdasarkan judul
+      );
+      setFilteredEvents(filtered);
+    } else {
+      setFilteredEvents(events);
+    }
+  };
+
+  useEffect(() => {
+    setFilteredEvents(events);
+  }, [events]);
 
   if (loading) return <div>Loading organizer...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
@@ -123,7 +134,11 @@ const DetailOrganizer = () => {
         </Button>
 
         <div className="relative w-full sm:w-96">
-          <Search onSearch={handleSearch} />
+          <Search 
+            value={searchQuery} 
+            onChange={handleSearchChange} 
+            onSubmit={handleSearchSubmit} 
+          />
         </div>
       </div>
 
@@ -132,19 +147,8 @@ const DetailOrganizer = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {eventsLoading ? (
           <div>Loading events...</div>
-        ) : searchResults.length > 0 ? (
-          searchResults.map((event) => (
-            <CardEvent
-            key={event._id}
-            gambar={`http://localhost:3500/${event.picture}`}
-            title={event.title}
-            date={format(new Date(event.date), "d MMMM yyyy")}
-            id={event._id}
-            onclick={() => deleteEvent(event._id)}
-            />
-          ))
-        ) : events.length > 0 ? (
-          events.map((event) => (
+        ) : filteredEvents.length > 0 ? (
+          filteredEvents.map((event) => (
             <CardEvent
               key={event._id}
               gambar={`http://localhost:3500/${event.picture}`}
@@ -158,7 +162,6 @@ const DetailOrganizer = () => {
           <div>No events found.</div>
         )}
       </div>
-
 
       <div className="mt-5 flex justify-center gap-4">
         <button
