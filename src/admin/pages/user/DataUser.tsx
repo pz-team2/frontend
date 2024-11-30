@@ -1,27 +1,57 @@
-// import { Link } from "react-router-dom";
-import { Table } from "../../../components/Layout/Table"
+import { useState, useEffect } from "react";
+import { Table } from "../../../components/Layout/Table";
+import api from "../../../services/api";
 
 export const DataUser = () => {
+    const [getUser, setDataUser] = useState<any[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    const fetchData = async () => {
+        try {
+            const response = await api.get('users/');
+            setDataUser(response.data.data);
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            console.error("Error fetching data", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     const columns = [
         { key: 'no', label: 'No' },
-        { key: 'name', label: 'Username' },
-        { key: 'status', label: 'Email' },
-        { key: 'tiket', label: 'Organizer' },
-        { key: 'jumlah', label: 'Jumlah Tiket' },
+        { key: 'username', label: 'Username' },
+        { key: 'name', label: 'Nama' },
+        { key: 'email', label: 'Email' },
+        { key: 'gender', label: 'Jenis Kelamin' },
+        { key: 'phoneNumber', label: 'Nomer Handphone' },
+        { key: 'alamat', label: 'Alamat' },
     ];
 
-    const data = [
-        { no: 1, name: 'Festival Musik', status: 25, jumlah: 3, tiket: "Himakom"}
-    ];
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
-return (
-    <div>
-        <h1 className="mb-5 text-2xl font-extrabold mt-4 text-black">User Management</h1>
-        <div className="card shadow-lg border-gray-300">
-            <Table columns={columns} data={data} />
+    const rows = getUser.map((item, index) => ({
+        no: index + 1,
+        username: item.username,
+        name: item.fullName,
+        email: item.email,
+        alamat: item.city,
+        gender: item.gender,
+        phoneNumber: item.phoneNumber,
+    }));
+
+    return (
+        <div>
+            <h1 className="mb-5 text-2xl font-extrabold mt-4 text-black">User Management</h1>
+            <div className="card shadow-lg border-gray-300">
+                <Table columns={columns} data={rows} />
+            </div>
         </div>
+    );
+};
 
-    </div>
-)
-}
