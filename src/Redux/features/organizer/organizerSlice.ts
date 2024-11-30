@@ -18,6 +18,7 @@ import { OrganizerState, Organizer } from "../../types/organizer.types";
 const initialState: OrganizerState = {
   organizers: [],
   isOrganizer: false,
+  code: 0,
   message: "",
   loading: false,
   paymentReport: null,
@@ -48,6 +49,7 @@ export const addOrganizer = createAsyncThunk(
     try {
       const response = await addOrganizerApi(data);
       if (response.success) {
+        console.log(response);
         return response.data;
       } else {
         return rejectWithValue(response.message);

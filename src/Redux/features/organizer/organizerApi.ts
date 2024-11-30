@@ -4,7 +4,7 @@ export interface IOrganizer {
   _id: string;
   username: string;
   email: string;
-  // status: string;
+  status: string;
   organizerName: string;
   phoneNumber: string;
   password?: string;
@@ -63,6 +63,15 @@ export const deleteOrganizerApi = async (id: string) => {
   } catch (error) {
     console.error("Gagal Menghapus Organizer", error);
     return { success: false, message: "Gagal Menghapus Organizer" };
+  }
+};
+
+export const updateOrganizer = async (id: string, data: Partial<IOrganizer>) => {
+  try {
+    const response = await api.put(`organizers/update/${id}`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Gagal Update Organizer", error);
   }
 };
 

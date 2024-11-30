@@ -5,7 +5,7 @@ import { Input } from '../../../components/Fragments/Input';
 import { Editor as TinyMCEEditor } from '@tinymce/tinymce-react';
 import { useAppDispatch } from "../../../Redux/hook";
 import { useEffect, useState } from "react";
-import { EventErrorAndLoading, EventMessage, tambahEvent } from "../../../Redux/features/event/eventSlice";
+import { EventErrorAndLoading, tambahEvent } from "../../../Redux/features/event/eventSlice";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { dataCategory } from "../../../Redux/features/category/categorySlice";
@@ -14,8 +14,8 @@ export const TambahEvent = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const organizerId = useParams<{ id: string }>().id || "";
-    const { error, loading } = useSelector(EventErrorAndLoading);
-    const message = useSelector(EventMessage);
+    const { loading } = useSelector(EventErrorAndLoading);
+    // const message = useSelector(EventMessage);
 
     // 1. Set Data Untuk Form
     const [formEvent, setFormEvent] = useState({

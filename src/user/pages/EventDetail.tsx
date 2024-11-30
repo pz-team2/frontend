@@ -11,6 +11,7 @@ import api from "../../services/api";
 
 interface EventProps {
   id: string;
+  _id: string;
   title: string;
   description: string;
   address: string;
@@ -106,7 +107,7 @@ const EventDetail: React.FC = () => {
           />
         </div>
 
-        <TicketCounter price={event.price} />
+        <TicketCounter price={event.price} eventId={event._id}  />
       </div>
     </div>
   );

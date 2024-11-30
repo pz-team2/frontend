@@ -2,6 +2,7 @@ export interface Organizer {
   _id: string;
   username: string;
   email: string;
+  status: string;
   organizerName: string;
   phoneNumber: string;
   password: string;
@@ -25,6 +26,7 @@ export interface Events {
 export interface OrganizerState {
   organizers: Organizer[];
   isOrganizer: boolean;
+  code: number;
   message: string;
   loading: boolean;
   paymentReport: PaymentReport | null;

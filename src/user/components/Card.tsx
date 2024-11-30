@@ -32,7 +32,7 @@ const Card: React.FC<CardProps> = ({
         />
       </figure>
       <div className="card-body text-gray-600">
-        <div className="badge badge-outline">{category}</div>
+        {/* <div className="badge badge-outline">{category}</div> */}
         <h2 className="card-title text-black">{title}</h2>
         <p className="flex gap-3">
           <IoIosCalendar size={20} /> {date.toLocaleDateString("id-ID")}
