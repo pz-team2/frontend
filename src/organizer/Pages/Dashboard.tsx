@@ -4,18 +4,30 @@ import { AiOutlineTransaction } from "react-icons/ai";
 import { MdConfirmationNumber } from "react-icons/md";
 import Diagram from "./Diagram";
 import profile from "../../assets/img/3.png";
-import gambar from "../../assets/img/banner1.png";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getPaymentReport } from "../../Redux/features/organizer/organizerSlice";
 import { useAppDispatch, useAppSelector } from "../../Redux/hook";
+import api from "../../services/api";
 
 export const DashboardOrganizer = () => {
   const dispatch = useAppDispatch();
   const { paymentReport, loading } = useAppSelector((state) => state.organizer);
+  const [dataletest, setDataletest] = useState<any[]>([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await api.get('organizers/getdataevent')
+      setDataletest(response.data.data)
+    } catch (error) {
+      console.error("Error fetching data", error);
+    }
+  }
+
 
   useEffect(() => {
     dispatch(getPaymentReport());
+    fetchData();
   }, [dispatch]);
 
   const monthlySales = paymentReport?.monthlySales || [];
@@ -99,15 +111,20 @@ export const DashboardOrganizer = () => {
             Event Terbaru
           </h1>
           <ul className="mt-6">
-            <li className="flex flex-row gap-5 card shadow-lg p-3 w-full bg-slate-50 mt-2">
-              <img src={gambar} alt="Event Image" className="w-20 rounded-xl" />
-              <div>
-                <h5 className="text-black font-semibold tracking-wider">
-                  Festival event
-                </h5>
-                <h6 className="text-black text-sm">100 Tiket Terjual</h6>
-              </div>
-            </li>
+            {dataletest.length === 0 ? (
+              <li className="flex justify-center text-gray-500">No events available</li>
+            ) : (
+              dataletest.map((event, index) => (
+                <li key={index} className="flex flex-row gap-5 card shadow-lg p-3 w-full bg-slate-50 mt-2">
+                  <img src={`http://localhost:3500/${event.picture}`} alt="Event Image" className="w-20 rounded-xl" />
+                  <div>
+                    <h5 className="text-black font-semibold tracking-wider">{event.title || "Event Title"}</h5>
+                    <h6 className="text-black text-sm">{event.ticketsSold} Tiket Terjual</h6>
+                  </div>
+                </li>
+              ))
+            )}
+
           </ul>
           <Link to={"/organizer/event"} className=" mt-5 text-end">
             {" "}
