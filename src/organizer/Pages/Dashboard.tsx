@@ -3,7 +3,7 @@ import { FaMoneyBillWave } from "react-icons/fa6";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { MdConfirmationNumber } from "react-icons/md";
 import Diagram from "./Diagram";
-import profile from "../../assets/img/3.png";
+import profilegambar from "../../assets/img/3.png";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPaymentReport } from "../../Redux/features/organizer/organizerSlice";
@@ -14,6 +14,7 @@ export const DashboardOrganizer = () => {
   const dispatch = useAppDispatch();
   const { paymentReport, loading } = useAppSelector((state) => state.organizer);
   const [dataletest, setDataletest] = useState<any[]>([]);
+  const [profile, setDataProfile] = useState<any>({});
 
   const fetchData = async () => {
     try {
@@ -24,10 +25,20 @@ export const DashboardOrganizer = () => {
     }
   }
 
+  const fetchProfile = async () => {
+    try {
+      const responseProfile = await api.get('organizers/profile')
+      setDataProfile(responseProfile.data.data)
+    } catch (error) {
+      console.error("Error fetching data", error);
+    }
+  }
+
 
   useEffect(() => {
     dispatch(getPaymentReport());
     fetchData();
+    fetchProfile()
   }, [dispatch]);
 
   const monthlySales = paymentReport?.monthlySales || [];
@@ -80,19 +91,27 @@ export const DashboardOrganizer = () => {
             />
           </div>
         </div>
-        <div className="card w-full sm:w-full lg:w-72 shadow-xl p-4 bg-slate-100 rounded-xl">
-          <h1 className="text-start text-lg font-semibold mb-4 text-black">
-            {" "}
-            My Profile
-          </h1>
-          <div className="flex justify-center">
-            <img src={profile} alt="" className="w-28" />
+        <Link to='/organizer/event/profile'>
+          <div className="card w-full sm:w-full lg:w-72 shadow-xl p-4 bg-slate-100 rounded-xl">
+            <h1 className="text-start text-lg font-semibold mb-4 text-black">
+              {" "}
+              My Profile
+            </h1>
+            <div className="flex justify-center">
+              <img src={profilegambar} alt="" className="w-28" />
+            </div>
+            <p className="text-md font-semibold text-gray-900 text-center mt-4">
+              {profile.organizerName || "Loading..."}
+            </p>
+            <p className="text-sm text-center"> admin organizer</p>
+            <div className="flex justify-center mt-3">
+              <p className={`text-sm text-center ${profile.status === "Aktif" ? "bg-secondary" : "bg-red-400"} text-white p-2 rounded-full w-44 inline-flex justify-center items-center`}>
+                <span>{profile.status}</span>
+              </p>
+            </div>
           </div>
-          <p className="text-md font-semibold text-gray-900 text-center mt-4">
-            Fauzan Hakim
-          </p>
-          <p className="text-sm text-center"> admin organizer</p>
-        </div>
+        </Link>
+
       </div>
       <h1 className="text-black font-bold text-xl mt-5 mb-2">
         {" "}
