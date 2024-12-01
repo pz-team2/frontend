@@ -10,6 +10,7 @@ import { getPaymentReport } from "../../Redux/features/organizer/organizerSlice"
 import { useAppDispatch, useAppSelector } from "../../Redux/hook";
 import api from "../../services/api";
 
+
 export const DashboardOrganizer = () => {
   const dispatch = useAppDispatch();
   const { paymentReport, loading } = useAppSelector((state) => state.organizer);
