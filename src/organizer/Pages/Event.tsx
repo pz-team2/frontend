@@ -40,8 +40,9 @@ export const Event = () => {
                             <div className="card-body bg-white rounded-b-2xl">
                                 <h2 className="card-title text-black">{event.title}</h2>
                                 <p>{format(new Date(event.date), "d MMMM yyyy")}</p>
+                                <p>{event._id}</p>
                                 <div className="card-actions justify-start mt-3">
-                                    <Button to={`/organizer/event/detail/${event.id}}`} variant="btn bg-secondary hover:bg-cyan-600 border-0 text-white text-lg font-bold"  >Lihat Detail</Button>
+                                    <Button to={`/organizer/event/detail/${event._id}`} variant="btn bg-secondary hover:bg-cyan-600 border-0 text-white text-lg font-bold"  >Lihat Detail</Button>
                                 </div>
                             </div>
                         </div>

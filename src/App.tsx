@@ -105,7 +105,7 @@ export default function App() {
             <Route path="organizer/dashboard"
               element={<DashboardOrganizer />} />
             <Route path="organizer/event" element={<Event />} />
-            <Route path="organizer/event/detail" element={<Detail />} />
+            <Route path="organizer/event/detail/:id" element={<Detail />} />
             {/* <Route path="organizer/event/detail/:id" element={<Detail />} /> */}
             <Route path="organizer/event/profile" element={<Profile />} />
           </Route>
