@@ -3,8 +3,17 @@ import FormCard from "../components/FormCard";
 import Input from "../components/Input";
 import Select from "../components/Select";
 import Button from "../components/ButtonProfile";
-import { IUser } from "../../Redux/types/user.types";
 import api from "../../services/api";
+
+interface IUser {
+  _id: string;
+  username: string;
+  email: string;
+  fullName: string; 
+  gender: string;
+  phoneNumber: string; 
+  city: string; 
+}
 
 const InformasiPribadi = () => {
   const [user, setUser] = useState<IUser | null>(null);
