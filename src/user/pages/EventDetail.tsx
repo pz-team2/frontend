@@ -103,7 +103,6 @@ const EventDetail: React.FC = () => {
             date={event.date}
           />
         </div>
-
         <TicketCounter price={event.price} eventId={event._id}  />
       </div>
     </div>

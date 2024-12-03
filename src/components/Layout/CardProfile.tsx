@@ -27,7 +27,7 @@ export const CardProfile: React.FC<profileProps> = ({ username, email, namaOrgan
                             <tr>
                                 <th className="font-semibold text-black py-2">Nama Organizer</th>
                                 <td className="px-2">:</td>
-                                <td className="font-medium py-2">{namaOrganizer}o</td>
+                                <td className="font-medium py-2">{namaOrganizer}</td>
                             </tr>
                             <tr>
                                 <th className="font-semibold text-black py-2">No-Telephone</th>

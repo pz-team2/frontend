@@ -105,13 +105,13 @@ const Navbar: React.FC = () => {
             </Link>
             <Link
               to="/user/login"
-              className="flex items-center justify-center border-2 border-white text-white px-6 py-2 rounded-md text-sm font-medium hover:border-none hover:bg-[#1B9AAB] hover:text-white active:bg-[#188A99] transition-all duration-300"
+              className="flex items-center justify-center border-2 border-white text-white px-6 py-2 rounded-md text-sm font-medium"
             >
               Login
             </Link>
             <Link
               to="/user/register"
-              className="flex bg-[#1B9AAB] items-center justify-center text-white px-6 py-2 rounded-md text-sm font-medium hover:bg-transparent hover:border-2 hover:border-white active:bg-[#238F9D] focus:border-none transition-all duration-300"
+              className="flex bg-secondary items-center justify-center text-white px-6 py-2 rounded-md text-sm font-medium"
             >
               Sign Up
             </Link>

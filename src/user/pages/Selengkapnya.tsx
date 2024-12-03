@@ -89,7 +89,7 @@ const Selengkapnya: React.FC = () => {
     <div className="bg-white flex flex-col">
       <Search onSearch={handleSearch} categories={categories} />
       <section className="flex flex-col max-w-[1114px] text-left mx-6 justify-center space-y-8 md:mx-auto">
-        <h2 className="text-black text-2xl font-bold ml-10 md:ml-0">Sedang Tayang</h2>
+        <h2 className="text-black text-2xl font-bold ml-10 md:ml-0">Semua Event</h2>
         {loading ? (
           <p className="text-center">Loading events...</p>
         ) : (
