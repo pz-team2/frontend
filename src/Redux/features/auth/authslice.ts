@@ -19,6 +19,7 @@ export const login = createAsyncThunk( 'auth/login',
             const response = await apiLogin(data);
             if (response.success) {
                 localStorage.setItem('token', response.data.token);
+                localStorage.setItem('username', response.data.username);
                 console.log(data)
                 return response.data;
             } else {

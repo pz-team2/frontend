@@ -12,12 +12,16 @@ import { useState, useEffect } from "react";
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLogged, setIsLogged] = useState<boolean>(false);
+  const [username, setUsername] = useState<string | null>(null);
+
 
   useEffect(() => {
     // Mengecek token dari localStorage
     const token = localStorage.getItem('token');
-    if (token) {
+    const storedUsername = localStorage.getItem('username');
+    if (token && storedUsername) {
       setIsLogged(true);
+      setUsername(storedUsername);
     }
   }, []);
 
@@ -72,7 +76,7 @@ const Navbar: React.FC = () => {
                 className="menu menu-sm dropdown-content bg-primary text-white z-20 rounded-box mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <span>Profile Name</span>
+                  <span>{username}</span>
                 </li>
                 <li>
                   <Link to="/user/profile">
@@ -151,7 +155,7 @@ const Navbar: React.FC = () => {
               // Mobile menu items when logged in
               <>
                 <li>
-                  <span className="text-white">Profile Name</span>
+                  <span className="text-white">{username}</span>
                 </li>
                 <li>
                   <Link
