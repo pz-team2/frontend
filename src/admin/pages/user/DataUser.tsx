@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Table } from "../../../components/Layout/Table";
+import DataTable from 'react-data-table-component'; // import DataTable component
 import api from "../../../services/api";
 
 export const DataUser = () => {
@@ -22,17 +22,17 @@ export const DataUser = () => {
     }, []);
 
     const columns = [
-        { key: 'no', label: 'No' },
-        { key: 'username', label: 'Username' },
-        { key: 'name', label: 'Nama' },
-        { key: 'email', label: 'Email' },
-        { key: 'gender', label: 'Jenis Kelamin' },
-        { key: 'phoneNumber', label: 'Nomer Handphone' },
-        { key: 'alamat', label: 'Alamat' },
+        { name: 'No', selector: (row: any) => row.no, sortable: true },
+        { name: 'Username', selector: (row: any) => row.username, sortable: true },
+        { name: 'Nama', selector: (row: any) => row.name, sortable: true },
+        { name: 'Email', selector: (row: any) => row.email, sortable: true },
+        { name: 'Gender', selector: (row: any) => row.gender, sortable: true },
+        { name: 'Nomer Handphone', selector: (row: any) => row.phoneNumber, sortable: true },
+        { name: 'Alamat', selector: (row: any) => row.alamat, sortable: true },
     ];
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className="text-center p-4">Loading...</div>;
     }
 
     const rows = getUser.map((item, index) => ({
@@ -45,13 +45,58 @@ export const DataUser = () => {
         phoneNumber: item.phoneNumber,
     }));
 
+    // Custom styles untuk DataTable, tapi menggunakan Tailwind untuk lebih banyak styling
+    const customStyles = {
+        rows: {
+            style: {
+                fontSize: '14px',
+                padding: '10px',
+            },
+        },
+        headCells: {
+            style: {
+                backgroundColor: '#f4f4f4',
+                fontWeight: 'bold',
+                color: '#333',
+                fontSize: '16px',
+            },
+        },
+        cells: {
+            style: {
+                fontSize: '14px',
+                color: '#333',
+            },
+        },
+        pagination: {
+            style: {
+                color: '#000',
+                fontSize: '14px',
+            },
+        },
+    };
+
     return (
-        <div>
-            <h1 className="mb-5 text-2xl font-extrabold mt-4 text-black">User Management</h1>
-            <div className="card shadow-lg border-gray-300">
-                <Table columns={columns} data={rows} />
+        <div className="container mx-auto px-4 py-5">
+            <h1 className="text-2xl font-extrabold text-black mb-5">User Management</h1>
+
+            {/* Tabel menggunakan DataTable */}
+            <div className="card shadow-lg border-gray-300 p-4">
+                <DataTable
+                    title="User List"
+                    columns={columns}
+                    data={rows}
+                    pagination
+                    paginationPerPage={10} // Menampilkan 10 baris per halaman
+                    paginationRowsPerPageOptions={[5, 10, 15, 20]} // Opsi jumlah baris per halaman
+                    highlightOnHover
+                    responsive
+                    customStyles={customStyles} // Menggunakan customStyles
+                    // Styling menggunakan Tailwind CSS
+                    className="shadow-lg rounded-lg overflow-hidden"
+                    noHeader={false} // Menonaktifkan header tabel default jika diperlukan
+                    fixedHeader
+                />
             </div>
         </div>
     );
 };
-
