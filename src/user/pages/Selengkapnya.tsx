@@ -1,78 +1,118 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
 import Card from "../components/Card";
-import { Link } from "react-router-dom";
-import logo from "../../assets/img/goevent-w.png";
 import Search from "../components/Search";
 import api from "../../services/api";
+
+interface EventCategory {
+  _id: string;
+  name: string;
+}
 
 interface EventProps {
   _id: string;
   title: string;
-  description: string;
   address: string;
   date: Date;
   price: number;
   picture: string;
-  category: string;
+  category: EventCategory | null;
 }
 
 const Selengkapnya: React.FC = () => {
   const [events, setEvents] = useState<EventProps[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<EventProps[]>([]);
+  const [categories, setCategories] = useState<EventCategory[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchEvents = async () => {
+    const fetchEventsAndCategories = async () => {
       try {
-        const response = await api.get("/events/list");
-        const eventsData = response.data;
-
-        if (eventsData?.success && eventsData.data) {
-          const formattedEvents = eventsData.data.map((event: EventProps) => ({
+        // Fetch events
+        const eventResponse = await api.get<{ success: boolean; data: EventProps[] }>("/events/list");
+        const { data: eventData, success } = eventResponse.data;
+        
+        if (success && eventData) {
+          const formattedEvents = eventData.map((event: EventProps) => ({
             _id: event._id,
             title: event.title,
-            description: event.description,
             address: event.address,
             date: new Date(event.date),
             price: event.price,
             picture: `http://localhost:3500/${event.picture}`,
-            category: event.category,
+            category: event.category || null,
           }));
 
           setEvents(formattedEvents);
-        } else {
-          console.error("Unexpected data structure", eventsData);
+          setFilteredEvents(formattedEvents);
+        }
+
+        // Fetch categories
+        const categoryResponse = await api.get<{ success: boolean; data: EventCategory[] }>("/categories");
+        const { data: categoryData, success: categorySuccess } = categoryResponse.data;
+
+        if (categorySuccess && categoryData) {
+          setCategories(categoryData);
         }
       } catch (error) {
-        console.error("Error fetching events:", error);
+        console.error("Error fetching events or categories:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchEvents();
+    fetchEventsAndCategories();
   }, []);
+
+  const handleSearch = (query: string, category: string) => {
+    let filtered = events;
+
+    if (query) {
+      filtered = filtered.filter(
+        (event) =>
+          event.title.toLowerCase().includes(query.toLowerCase()) ||
+          (event.category?.name || "Tidak Ada Kategori")
+            .toLowerCase()
+            .includes(query.toLowerCase())
+      );
+    }
+
+    if (category) {
+      filtered = filtered.filter(
+        (event) => event.category?.name === category
+      );
+    }
+
+    setFilteredEvents(filtered);
+  };
 
   return (
     <div className="bg-white flex flex-col">
-      <Navbar />
-      <Search />
-      <section className="flex flex-col max-w-[1114px] text-left mx-auto justify-center space-y-8">
-        <h2 className="text-black text-2xl font-bold ml-10 md:ml-0">Sedang Tayang</h2>
-        <div className="flex flex-wrap items-center justify-center gap-12">
-          {events.length > 0 ? (
-            events.map((event) => (
-                <Card {...event} key={event._id}/>
-            ))
-          ) : (
-            <p>Loading events...</p>
-          )}
-        </div>
+      <Search onSearch={handleSearch} categories={categories} />
+      <section className="flex flex-col max-w-[1114px] text-left mx-6 justify-center space-y-8 md:mx-auto">
+        <h2 className="text-black text-2xl font-bold ml-10 md:ml-0">Semua Event</h2>
+        {loading ? (
+          <p className="text-center">Loading events...</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredEvents.length > 0 ? (
+              filteredEvents.map((event) => (
+                <Card
+                  key={event._id}
+                  _id={event._id}
+                  title={event.title}
+                  address={event.address}
+                  date={new Date(event.date)}
+                  price={event.price}
+                  category={event.category?.name || "Tidak Ada Kategori"}
+                  picture={event.picture}
+                />
+              ))
+            ) : (
+              <p>No events found</p>
+            )}
+          </div>
+        )}
       </section>
-      <footer className="footer footer-center bg-primary text-base-content p-4 mt-6">
-        <div className="flex-1">
-          <Link to="/" className="btn btn-ghost text-xl">
-            <img src={logo} alt="Logo" className="h-10" />
-          </Link>
-        </div>
-      </footer>
     </div>
   );
 };

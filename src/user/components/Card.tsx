@@ -4,13 +4,14 @@ import { FaLocationDot } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 interface CardProps {
-  _id: string; 
+  _id: string;
   title: string;
   date: Date;
   address: string;
   price: number;
-  category: string;
+  category: string; // Always a string
   picture: string;
+  width?: string; // Optional prop to set width of the card
 }
 
 const Card: React.FC<CardProps> = ({
@@ -21,9 +22,12 @@ const Card: React.FC<CardProps> = ({
   price,
   category,
   picture,
+  width = "100%", // Default width is full width if not provided
 }) => {
   return (
-    <div className="card bg-[#f4f4f4] w-full sm:w-[300px] lg:w-[338px] shadow-xl">
+    <div
+      className={`card bg-[#f4f4f4] w-full sm:w-[${width}] lg:w-[${width}] shadow-xl`}
+    >
       <figure>
         <img
           src={picture}
@@ -32,15 +36,15 @@ const Card: React.FC<CardProps> = ({
         />
       </figure>
       <div className="card-body text-gray-600">
-        {/* <div className="badge badge-outline">{category}</div> */}
+        <div className="badge badge-outline">{category}</div>
         <h2 className="card-title text-black">{title}</h2>
-        <p className="flex gap-3">
+        <p className="flex gap-3 items-center">
           <IoIosCalendar size={20} /> {date.toLocaleDateString("id-ID")}
         </p>
-        <p className="flex gap-3">
+        <p className="flex gap-3 items-center">
           <FaLocationDot size={20} /> {address}
         </p>
-        <p className="flex gap-3">
+        <p className="flex gap-3 items-center">
           <IoIosPricetags size={20} /> Rp. {price.toLocaleString("id-ID")}
         </p>
         <Link to={`/detail/${_id}`} className="w-full">

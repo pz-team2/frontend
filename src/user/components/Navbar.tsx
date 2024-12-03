@@ -12,12 +12,16 @@ import { useState, useEffect } from "react";
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLogged, setIsLogged] = useState<boolean>(false);
+  const [username, setUsername] = useState<string | null>(null);
+
 
   useEffect(() => {
     // Mengecek token dari localStorage
     const token = localStorage.getItem('token');
-    if (token) {
+    const storedUsername = localStorage.getItem('username');
+    if (token && storedUsername) {
       setIsLogged(true);
+      setUsername(storedUsername);
     }
   }, []);
 
@@ -72,7 +76,7 @@ const Navbar: React.FC = () => {
                 className="menu menu-sm dropdown-content bg-primary text-white z-20 rounded-box mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <span>Profile Name</span>
+                  <span>{username}</span>
                 </li>
                 <li>
                   <Link to="/user/profile">
@@ -101,13 +105,13 @@ const Navbar: React.FC = () => {
             </Link>
             <Link
               to="/user/login"
-              className="flex items-center justify-center border-2 border-white text-white px-6 py-2 rounded-md text-sm font-medium hover:border-none hover:bg-[#1B9AAB] hover:text-white active:bg-[#188A99] transition-all duration-300"
+              className="flex items-center justify-center border-2 border-white text-white px-6 py-2 rounded-md text-sm font-medium"
             >
               Login
             </Link>
             <Link
               to="/user/register"
-              className="flex bg-[#1B9AAB] items-center justify-center text-white px-6 py-2 rounded-md text-sm font-medium hover:bg-transparent hover:border-2 hover:border-white active:bg-[#238F9D] focus:border-none transition-all duration-300"
+              className="flex bg-secondary items-center justify-center text-white px-6 py-2 rounded-md text-sm font-medium"
             >
               Sign Up
             </Link>
@@ -151,7 +155,7 @@ const Navbar: React.FC = () => {
               // Mobile menu items when logged in
               <>
                 <li>
-                  <span className="text-white">Profile Name</span>
+                  <span className="text-white">{username}</span>
                 </li>
                 <li>
                   <Link

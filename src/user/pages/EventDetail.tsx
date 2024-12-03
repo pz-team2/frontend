@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import banner from "../../assets/img/banner.png";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoIosCalendar } from "react-icons/io";
 import TicketCounter from "../components/TicketCounter";
@@ -41,7 +39,7 @@ const EventDetail: React.FC = () => {
             date: new Date(eventData.data.date),
             picture: eventData.data.picture
               ? `http://localhost:3500/${eventData.data.picture}`
-              : banner,
+              : "Banner",
           };
 
           setEvent(formattedEvent);
@@ -72,10 +70,9 @@ const EventDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
       <div className="flex flex-col space-y-6 max-w-[1338px] mt-10 mx-auto pb-8 px-4 md:px-14">
         <img
-          src={event.picture || banner}
+          src={event.picture || "Banner"}
           alt="banner"
           className="w-full h-[331px] object-cover rounded-2xl shadow-md"
         />
@@ -106,7 +103,6 @@ const EventDetail: React.FC = () => {
             date={event.date}
           />
         </div>
-
         <TicketCounter price={event.price} eventId={event._id}  />
       </div>
     </div>

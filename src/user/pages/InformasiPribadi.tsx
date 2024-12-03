@@ -3,15 +3,24 @@ import FormCard from "../components/FormCard";
 import Input from "../components/Input";
 import Select from "../components/Select";
 import Button from "../components/ButtonProfile";
-import { IUser } from "../../Redux/types/user.types";
 import api from "../../services/api";
+import Swal from "sweetalert2";
+
+interface IUser {
+  _id: string;
+  username: string;
+  email: string;
+  fullName: string;
+  gender: string;
+  phoneNumber: string;
+  city: string;
+}
 
 const InformasiPribadi = () => {
   const [user, setUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch user data
   const fetchUserData = async () => {
     try {
       setLoading(true);
@@ -19,13 +28,12 @@ const InformasiPribadi = () => {
 
       if (response.data.success) {
         const userData = response.data.data.user;
-        // Inisialisasi nilai default untuk field yang kosong
         const userWithDefaults = {
           ...userData,
           fullName: userData.fullName || "",
           phoneNumber: userData.phoneNumber || "",
           city: userData.city || "",
-          gender: userData.gender || "male", 
+          gender: userData.gender || "male",
         };
         setUser(userWithDefaults);
         setError(null);
@@ -47,7 +55,6 @@ const InformasiPribadi = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-
     const { name, value } = e.target;
     if (user) {
       const updatedUser = { ...user };
@@ -72,11 +79,15 @@ const InformasiPribadi = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!user) return;
 
     if (!user.fullName || !user.phoneNumber || !user.city) {
-      setError("Mohon lengkapi semua field yang diperlukan");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Mohon lengkapi semua field yang diperlukan",
+      });
       return;
     }
 
@@ -94,15 +105,31 @@ const InformasiPribadi = () => {
       if (response.data.success) {
         setUser(response.data.data);
         setError(null);
-        alert("Data berhasil diperbarui!");
+        Swal.fire({
+          icon: "success",
+          title: "Berhasil",
+          text: "Data berhasil diperbarui!",
+        });
       } else {
-        setError(response.data.message || "Gagal memperbarui data user");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: response.data.message || "Gagal memperbarui data user",
+        });
       }
     } catch (err: unknown) {
       if (err instanceof Error) {
-        setError(err.message || "Gagal memperbarui data user");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: err.message || "Gagal memperbarui data user",
+        });
       } else {
-        setError("Kesalahan tidak diketahui");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Kesalahan tidak diketahui",
+        });
       }
     } finally {
       setLoading(false);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AiFillPlusCircle } from "react-icons/ai";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -149,7 +150,7 @@ export const TambahEvent = () => {
                             <select className="select bg-slate-100 w-full max-w-xs border-0" name="category" onChange={handleEvent} value={formEvent.category}>
                                 <option disabled>Pilih Kategori:</option>
                                 {datacategory && datacategory.map((category: any) => (
-                                    <option key={category._id} value={category._id}>{category._id}</option>
+                                    <option key={category._id} value={category._id}>{category.name}</option>
                                 ))}
                             </select>
                         </div>
