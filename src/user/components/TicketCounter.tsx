@@ -1,28 +1,79 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import api from "../../services/api";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-
 interface TicketCounterProps {
   price: number;
+  quota: number;
   eventId: string;
 }
 
-const TicketCounter: React.FC<TicketCounterProps> = ({ price, eventId }) => {
+const TicketCounter: React.FC<TicketCounterProps> = ({ price, quota, eventId }) => {
   const [count, setCount] = useState(0);
   const totalPrice = count * price;
   const navigate = useNavigate();
+  const [userProfile, setUserProfile] = useState<any>(null); // Simpan data profil user
+  const [loading, setLoading] = useState(true); // Loading state untuk menunggu profil
+
+  // Ambil data profil pengguna
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await api.get("/users/detail"); // Asumsi ada endpoint untuk mendapatkan profil pengguna
+        setUserProfile(response.data.data.user);
+        console.log(response.data.data.user)
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      } finally {
+        setLoading(false); // Setelah data diambil, set loading menjadi false
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
 
   const increment = () => setCount(count + 1);
   const decrement = () => setCount(count > 0 ? count - 1 : 0);
 
   const handlePayment = async () => {
+    if (loading) {
+      Swal.fire({
+        icon: "info",
+        title: "Loading...",
+        text: "Tunggu sebentar, profil sedang dimuat.",
+      });
+      return;
+    }
+
+    // Cek apakah user sudah mengisi nomor telepon
+    if (!userProfile?.phoneNumber?.trim()) {
+      Swal.fire({
+        icon: "warning",
+        title: "Profil Belum Lengkap",
+        text: "Silakan lengkapi nomor telepon Anda di profil sebelum melanjutkan pembayaran.",
+      }).then(() => {
+        // Arahkan ke halaman profil jika nomor telepon belum ada
+        navigate("/user/profile");
+      });
+      return;
+    }
+
     if (count === 0) {
       Swal.fire({
         icon: "info",
         title: "Warning!",
-        text: "Masukan Jumlah Ticket  Yang Di Pesan...",
+        text: "Masukan Jumlah Ticket Yang Di Pesan...",
+      });
+      return;
+    }
+
+    // Cek apakah jumlah tiket yang dipesan lebih besar dari kuota yang tersedia
+    if (count > quota) {
+      Swal.fire({
+        icon: "error",
+        title: "Kuota Tidak Cukup!",
+        text: `Jumlah tiket yang dipesan melebihi kuota yang tersedia (${quota} tiket)`,
       });
       return;
     }
@@ -48,9 +99,9 @@ const TicketCounter: React.FC<TicketCounterProps> = ({ price, eventId }) => {
           Swal.fire({
             icon: "info",
             title: "Pembayaran!",
-            text: "Menunggu Pembayaran ...  .",
+            text: "Menunggu Pembayaran ...",
           });
-          console.log(result)
+          console.log(result);
           return;
         },
         onError: function (result: any) {

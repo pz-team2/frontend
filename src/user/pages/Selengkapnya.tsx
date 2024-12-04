@@ -13,6 +13,7 @@ interface EventProps {
   title: string;
   address: string;
   date: Date;
+  quota: number;
   price: number;
   picture: string;
   category: EventCategory | null;
@@ -30,12 +31,13 @@ const Selengkapnya: React.FC = () => {
         // Fetch events
         const eventResponse = await api.get<{ success: boolean; data: EventProps[] }>("/events/list");
         const { data: eventData, success } = eventResponse.data;
-        
+
         if (success && eventData) {
           const formattedEvents = eventData.map((event: EventProps) => ({
             _id: event._id,
             title: event.title,
             address: event.address,
+            quota: event.quota,
             date: new Date(event.date),
             price: event.price,
             picture: `http://localhost:3500/${event.picture}`,
@@ -99,6 +101,7 @@ const Selengkapnya: React.FC = () => {
                 <Card
                   key={event._id}
                   _id={event._id}
+                  quota={event.quota}
                   title={event.title}
                   address={event.address}
                   date={new Date(event.date)}

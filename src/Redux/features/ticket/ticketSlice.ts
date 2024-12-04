@@ -15,7 +15,7 @@ export const fetchTicketsByUserId = createAsyncThunk(
     try {
       const response = await getTicketsByUserId();
       if (response) {
-        return response; // Mengembalikan data tiket
+        return response;
       } else {
         return rejectWithValue("Gagal Mengambil Data Tiket");
       }

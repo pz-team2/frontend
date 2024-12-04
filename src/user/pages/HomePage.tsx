@@ -16,6 +16,7 @@ interface EventProps {
   date: string;
   address: string;
   price: number;
+  quota: number;
   category: EventCategory | null;
   picture: string;
 }
@@ -113,9 +114,11 @@ const HomePage: React.FC = () => {
                 key={event._id}
                 _id={event._id}
                 title={event.title}
+                quota={event.quota}
                 date={new Date(event.date)}
                 address={event.address}
                 price={event.price}
+
                 category={event.category?.name || "Tidak Ada Kategori"}
                 picture={event.picture}
                 width="500px"
@@ -135,6 +138,7 @@ const HomePage: React.FC = () => {
                 _id={event._id}
                 title={event.title}
                 date={new Date(event.date)}
+                quota={event.quota}
                 address={event.address}
                 price={event.price}
                 category={event.category?.name || "Tidak Ada Kategori"}

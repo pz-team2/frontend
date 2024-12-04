@@ -14,6 +14,7 @@ interface EventProps {
   description: string;
   address: string;
   date: Date;
+  quota: number;
   ticketType: string;
   price: number;
   picture?: string;
@@ -103,7 +104,7 @@ const EventDetail: React.FC = () => {
             date={event.date}
           />
         </div>
-        <TicketCounter price={event.price} eventId={event._id}  />
+        <TicketCounter price={event.price} quota={event.quota} eventId={event._id}  />
       </div>
     </div>
   );

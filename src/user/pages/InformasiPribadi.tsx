@@ -24,7 +24,7 @@ const InformasiPribadi = () => {
   const fetchUserData = async () => {
     try {
       setLoading(true);
-      const response = await api.get("/users/detail/me");
+      const response = await api.get("/users/detail");
 
       if (response.data.success) {
         const userData = response.data.data.user;

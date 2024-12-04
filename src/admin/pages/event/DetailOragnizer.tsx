@@ -19,8 +19,8 @@ const DetailOrganizer = () => {
   const [organizer, setOrganizer] = useState<IOrganizer | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  const [searchQuery, setSearchQuery] = useState<string>(""); // Menyimpan query pencarian
-  const [filteredEvents, setFilteredEvents] = useState<any[]>([]); // Menyimpan events yang difilter
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [filteredEvents, setFilteredEvents] = useState<any[]>([]);
 
   const { events, loading: eventsLoading, pagination } = useAppSelector(
     (state: RootState) => state.event
