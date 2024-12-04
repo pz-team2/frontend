@@ -56,27 +56,6 @@ export const tambahEvent = createAsyncThunk(
     }
 );
 
-// 5. Function Untuk Menampilkan Semua Data Event
-// export const getDataEvent = createAsyncThunk(
-//     'event/getData',
-//     async (_, { rejectWithValue }) => {
-//         try {
-//             const response = await getDataEventApi();
-//             if (response.success) {
-//                 return response.data;
-//             } else {
-//                 return rejectWithValue(response.message || 'Gagal mengambil data event');
-//             }
-//         } catch (error: unknown) {
-//             // Pengecekan tipe error
-//             if (error instanceof Error) {
-//                 return rejectWithValue(error.message || 'Terjadi kesalahan saat mengambil data event');
-//             } else {
-//                 return rejectWithValue('Terjadi kesalahan saat mengambil data event');
-//             }
-//         }
-//     }
-// );
 
 // 6. Function Untuk Menampilkan Event Berdasarkan Organizer
 export const getEventsByOrganizer = createAsyncThunk(

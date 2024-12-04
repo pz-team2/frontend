@@ -28,14 +28,7 @@ export const tambahEventApi = async (id: string, data: eventType,) => {
     }
 }
 
-// export const getDataEventApi = async () => {
-//     try {
-//         const respon = await api.get('events/list')
-//         return respon.data
-//     } catch (error) {
-//         return 'terjadi kesalahan'
-//     }
-// }
+
 
 export const getEventByOrganizerApi = async (organizerId: string, page: number) => {
     try {

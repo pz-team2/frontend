@@ -5,7 +5,7 @@ import { Input } from '../../../components/Fragments/Input';
 import { Editor as TinyMCEEditor } from '@tinymce/tinymce-react';
 import { useAppDispatch } from "../../../Redux/hook";
 import { useEffect, useState } from "react";
-import { EventErrorAndLoading, EventMessage, getEventById, updateEventById } from "../../../Redux/features/event/eventSlice";
+import { EventErrorAndLoading, EventMessage, getEventById, updateEventById } from "../../../Redux/features/event-Terbaru/eventSlice";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { dataCategory } from "../../../Redux/features/category/categorySlice";
@@ -31,6 +31,8 @@ export const UpdateEvent = () => {
         startTime: '',
         finishTime: '',
         picture: '',
+        organizer: '',
+        __v: 0, // Tambahkan properti ini
     });
 
     // 2. Fetch Event Data Untuk Menampilkan Data Event
@@ -50,7 +52,6 @@ export const UpdateEvent = () => {
                 title: eventData.title,
                 date: new Date(eventData.date),
                 address: eventData.address,
-                // organizer: eventData.organizers,
                 description: eventData.description,
                 status: eventData.status,
                 quota: eventData.quota,
@@ -58,9 +59,12 @@ export const UpdateEvent = () => {
                 startTime: eventData.startTime,
                 finishTime: eventData.finishTime,
                 picture: eventData.picture,
+                organizer: eventData.organizer,
+                __v: eventData.__v, // Ambil properti ini
             });
         }
     }, [eventData]);
+
 
     // 4. Membuat Function Untuk Mengubah Data Form
     const handleEvent = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -102,14 +106,14 @@ export const UpdateEvent = () => {
     // 8. Membuat Function Handle Submit Untuk Update Data
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-    
+
         // Jika Gambar Tidak di Update maka, Ambil Gambar dari Event Data
         const eventDataToUpdate = {
             ...formEvent,
             picture: formEvent.picture || eventData.picture,
         };
-    
-    
+
+
         if (!eventDataToUpdate.picture && !formEvent.picture) {
             Swal.fire({
                 icon: "warning",
@@ -117,8 +121,8 @@ export const UpdateEvent = () => {
                 text: "Jika tidak ingin mengubah gambar, biarkan kolom gambar kosong.",
             });
         }
-        
-    
+
+
         // Memanggil API untuk update data
         const result = await dispatch(updateEventById({ id, data: eventDataToUpdate }));
         if (updateEventById.fulfilled.match(result)) {
@@ -136,11 +140,11 @@ export const UpdateEvent = () => {
             });
         }
     };
-    
+
 
     return (
         <div>
-            <Link to={`/admin/organizer/detail/${formEvent}`} className='text-black flex items-center gap-2 mb-5'>
+            <Link to={`/admin/organizer/detail/${formEvent.organizer._id}`} className='text-black flex items-center gap-2 mb-5'>
                 <IoChevronBackOutline size={24} />
                 <span>Back to Events</span>
             </Link>
@@ -151,6 +155,7 @@ export const UpdateEvent = () => {
                     <span className="loader">Loading...</span>
                 </div>
             )}
+
             <div className="grid lg:grid-cols-2 gap-9 text-black">
                 <div className="card">
                     <Input label={"Judul"} type={"text"} name={"title"} title={"Masukan Event"} variant={'bg-slate-100'} value={formEvent.title} onChange={handleEvent} />

@@ -7,7 +7,7 @@ import { CardEvent } from "../../../components/Layout/CardEvent";
 import { getOrganizerByIdApi, IOrganizer } from "../../../Redux/features/organizer/organizerApi";
 import { CardProfile } from "../../../components/Layout/CardProfile";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hook";
-import { deleteEventById, getEventsByOrganizer } from "../../../Redux/features/event/eventSlice";
+import { deleteEventById, getEventsByOrganizer } from "../../../Redux/features/event-Terbaru/eventSlice";
 import { RootState } from "../../../Redux/store";
 import { format } from 'date-fns';
 import Swal from "sweetalert2";
@@ -84,6 +84,7 @@ const DetailOrganizer = () => {
     if (result.isConfirmed) {
       dispatch(deleteEventById(eventId));
       Swal.fire('Terhapus!', 'Event telah dihapus.', 'success');
+      fetchEvents(pagination.page);
     }
   };
 

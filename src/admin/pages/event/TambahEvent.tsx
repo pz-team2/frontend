@@ -6,7 +6,7 @@ import { Input } from '../../../components/Fragments/Input';
 import { Editor as TinyMCEEditor } from '@tinymce/tinymce-react';
 import { useAppDispatch } from "../../../Redux/hook";
 import { useEffect, useState } from "react";
-import { EventErrorAndLoading, tambahEvent } from "../../../Redux/features/event/eventSlice";
+import { EventErrorAndLoading, tambahEvent } from "../../../Redux/features/event-Terbaru/eventSlice";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { dataCategory } from "../../../Redux/features/category/categorySlice";
@@ -32,6 +32,8 @@ export const TambahEvent = () => {
         startTime: '',
         finishTime: '',
         picture: '',
+        organizer: '',
+        __v: 0,
     });
 
     // 2. Membuat Function Untuk Mengubah Data Form
@@ -49,12 +51,26 @@ export const TambahEvent = () => {
     // 3. Membuat Function Untuk File
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
+            const file = e.target.files[0] as any;
+            
+            if (file.size > 1048576) { // 1 MB = 1048576 bytes
+                Swal.fire({
+                    icon: "warning",
+                    title: "Peringatan!",
+                    text: "Ukuran gambar tidak boleh lebih dari 1 MB.",
+                });
+                // Reset nilai input file agar tidak tersimpan
+                e.target.value = ""; 
+                return;
+            }
+    
             setFormEvent({
                 ...formEvent,
-                picture: e.target.files[0] as any,
+                picture: file,
             });
         }
     };
+    
 
     // 4. Membuat Function Untuk Membuat Editor
     const handleEditorChange = (content: string) => {
