@@ -4,6 +4,7 @@ import api from "../../services/api";
 import Swal from "sweetalert2";
 import { Eye, EyeOff } from "lucide-react";
 
+
 export const UpdatePassword = () => {
   const [passwords, setPasswords] = useState({
     currentPassword: "",
@@ -97,7 +98,7 @@ export const UpdatePassword = () => {
             <button
               type="button"
               onClick={() => togglePasswordVisibility("currentPassword")}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2"
+              className="absolute right-3 bottom-1 transform -translate-y-1/2"
             >
               {showPasswords.currentPassword ? (
                 <EyeOff size={20} />
@@ -119,7 +120,7 @@ export const UpdatePassword = () => {
             <button
               type="button"
               onClick={() => togglePasswordVisibility("newPassword")}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2"
+              className="absolute right-3 bottom-1 transform -translate-y-1/2"
             >
               {showPasswords.newPassword ? (
                 <EyeOff size={20} />
@@ -141,8 +142,7 @@ export const UpdatePassword = () => {
             <button
               type="button"
               onClick={() => togglePasswordVisibility("confirmPassword")}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2"
-            >
+              className="absolute right-3 bottom-1  transform -translate-y-1/2">
               {showPasswords.confirmPassword ? (
                 <EyeOff size={20} />
               ) : (

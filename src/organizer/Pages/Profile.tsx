@@ -1,12 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaUsersCog } from "react-icons/fa";
 import UpdateProfile from './UpdateProfile';
 import { UpdatePassword } from './UpdatePassword';
 import { FaUserEdit } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
+import profilegambar from "../../assets/img/3.png";
+import api from '../../services/api';
 export const Profile = () => {
     // State untuk melacak bagian yang aktif
     const [activeTab, setActiveTab] = useState('profile'); // 'profile' atau 'password'
+    const [profile, setProfile] = useState<any>({})
+
+    const fetchData = async() => {
+        try {
+            const response = await api.get('organizers/profile')
+            setProfile(response.data.data)
+        }catch(error){
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+    })
 
     return (
         <div>
@@ -17,7 +33,18 @@ export const Profile = () => {
                     <div className="grid grid-cols-1 ">
                         <div className="card shadow-lg p-4 md:p-6 text-center">
                             <h1 className="text-2xl font-extrabold text-black mt-4">Profile Data</h1>
-                            <h1 className="text-2xl font-extrabold text-black mt-4">Organizer Fauzio</h1>
+                            <div className="flex justify-center">
+                                <img src={profilegambar} alt="" className="w-28" />
+                            </div>
+                            <p className="text-md font-semibold text-gray-900 text-center mt-4">
+                                {profile.organizerName || "Loading..."}
+                            </p>
+                            <p className="text-sm text-center"> admin organizer</p>
+                            <div className="flex justify-center mt-3">
+                                <p className={`text-sm text-center ${profile.status === "Aktif" ? "bg-secondary" : "bg-red-400"} text-white p-2 rounded-full w-44 inline-flex justify-center items-center`}>
+                                    <span>{profile.status}</span>
+                                </p>
+                            </div>
                         </div>
                         <div className="card shadow-lg p-4 md:p-6">
                             <h1 className="flex items-center text-black text-lg font-bold mt-3">
@@ -33,7 +60,7 @@ export const Profile = () => {
                                             className={`text-black text-md font-semibold flex items-center gap-4  ${activeTab === 'profile' ? 'bg-secondary p-3 rounded-3xl text-white' : ''} `}
                                             onClick={() => setActiveTab('profile')}
                                         >
-                                           <FaUserEdit size={25}/> Profile Data Organizer
+                                            <FaUserEdit size={25} /> Profile Data Organizer
                                         </a>
                                     </li>
                                     <hr className="border-t-2 border-gray-300 my-4 mt-1" />
@@ -43,7 +70,7 @@ export const Profile = () => {
                                             className={`text-black text-md font-semibold flex items-center gap-4 ${activeTab === 'password' ? 'bg-secondary p-3 rounded-3xl text-white' : ''} `}
                                             onClick={() => setActiveTab('password')}
                                         >
-                                           <RiLockPasswordFill size={25}/> Update Password
+                                            <RiLockPasswordFill size={25} /> Update Password
                                         </a>
                                     </li>
                                 </ul>
@@ -56,12 +83,12 @@ export const Profile = () => {
                 <div className="card shadow-md borde w-full overflow-hidden p-3">
                     {/* Conditional Render: Update Profile Form */}
                     {activeTab === 'profile' && (
-                        <UpdateProfile/>
+                        <UpdateProfile />
                     )}
 
                     {/* Conditional Render: Update Password Form */}
                     {activeTab === 'password' && (
-                        <UpdatePassword/>
+                        <UpdatePassword />
                     )}
                 </div>
             </div>
