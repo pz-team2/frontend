@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import DataTable from 'react-data-table-component'; // import DataTable component
+import DataTable from 'react-data-table-component';
 import api from "../../../services/api";
 
 export const DataUser = () => {
     const [getUser, setDataUser] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [searchText, setSearchText] = useState<string>("");
 
     const fetchData = async () => {
         try {
@@ -45,7 +46,12 @@ export const DataUser = () => {
         phoneNumber: item.phoneNumber,
     }));
 
-    // Custom styles untuk DataTable, tapi menggunakan Tailwind untuk lebih banyak styling
+    const filteredRows = rows.filter((row) =>
+        Object.values(row).some((value) =>
+            String(value).toLowerCase().includes(searchText.toLowerCase())
+        )
+    );
+
     const customStyles = {
         rows: {
             style: {
@@ -61,12 +67,6 @@ export const DataUser = () => {
                 fontSize: '16px',
             },
         },
-        cells: {
-            style: {
-                fontSize: '14px',
-                color: '#333',
-            },
-        },
         pagination: {
             style: {
                 color: '#000',
@@ -79,22 +79,28 @@ export const DataUser = () => {
         <div className="container mx-auto px-4 py-5">
             <h1 className="text-2xl font-extrabold text-black mb-5">User Management</h1>
 
-            {/* Tabel menggunakan DataTable */}
             <div className="card shadow-lg border-gray-300 p-4">
                 <DataTable
-                    title="User List"
                     columns={columns}
-                    data={rows}
+                    data={filteredRows}
                     pagination
-                    paginationPerPage={10} // Menampilkan 10 baris per halaman
-                    paginationRowsPerPageOptions={[5, 10, 15, 20]} // Opsi jumlah baris per halaman
+                    paginationPerPage={10}
+                    paginationRowsPerPageOptions={[5, 10, 15, 20]}
                     highlightOnHover
                     responsive
-                    customStyles={customStyles} // Menggunakan customStyles
-                    // Styling menggunakan Tailwind CSS
-                    className="shadow-lg rounded-lg overflow-hidden"
-                    noHeader={false} // Menonaktifkan header tabel default jika diperlukan
+                    customStyles={customStyles}
+                    className="shadow-sm rounded-lg overflow-hidden"
                     fixedHeader
+                    subHeader
+                    subHeaderComponent={
+                        <input
+                            type="text"
+                            placeholder="Cari..."
+                            className="p-2 border border-gray-300 rounded-full w-full max-w-xs bg-white mb-3"
+                            value={searchText}
+                            onChange={(e) => setSearchText(e.target.value)}
+                        />
+                    }
                 />
             </div>
         </div>

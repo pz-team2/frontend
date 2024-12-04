@@ -9,8 +9,10 @@ import { CardProfile } from "../../../components/Layout/CardProfile";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hook";
 import { deleteEventById, getEventsByOrganizer } from "../../../Redux/features/event-Terbaru/eventSlice";
 import { RootState } from "../../../Redux/store";
+import { IoChevronBackOutline } from "react-icons/io5";
 import { format } from 'date-fns';
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const DetailOrganizer = () => {
   const { id } = useParams<{ id: string }>();
@@ -62,7 +64,7 @@ const DetailOrganizer = () => {
 
   useEffect(() => {
     if (organizer) {
-      fetchEvents(1);  
+      fetchEvents(1);
     }
   }, [organizer, fetchEvents]);
 
@@ -113,6 +115,10 @@ const DetailOrganizer = () => {
 
   return (
     <div>
+      <Link to={`/admin/organizer`} className='text-black flex items-center gap-2 mb-5'>
+        <IoChevronBackOutline size={24} />
+        <span>Back to Organizer</span>
+      </Link>
       <h1 className="mb-5 text-2xl font-extrabold text-black">Detail Organizer</h1>
       {organizer ? (
         <CardProfile
@@ -135,10 +141,10 @@ const DetailOrganizer = () => {
         </Button>
 
         <div className="relative w-full sm:w-96">
-          <Search 
-            value={searchQuery} 
-            onChange={handleSearchChange} 
-            onSubmit={handleSearchSubmit} 
+          <Search
+            value={searchQuery}
+            onChange={handleSearchChange}
+            onSubmit={handleSearchSubmit}
           />
         </div>
       </div>
