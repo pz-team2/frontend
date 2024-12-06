@@ -1,6 +1,7 @@
 import gambar from "./assets/img/organizer.png";
 import { AuthLayout } from "./layouts/AuthLayout";
 import FormLoginOrganizer from "./auth/FormLoginOrganizer";
+import React from "react";
 
 const LoginOrganizer = () => {
   return (

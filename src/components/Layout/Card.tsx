@@ -4,6 +4,7 @@ interface cardProps {
     icons: React.ReactNode,
 
 }
+import React from 'react'
 
 const Card: React.FC<cardProps> = ({ title, jumlah, icons }) => {
     return (

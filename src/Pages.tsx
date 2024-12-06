@@ -1,6 +1,7 @@
 import gambar from "./assets/img/goevent.png";
 import { AuthLayout } from "./layouts/AuthLayout";
 import { Link } from "react-router-dom";
+import React from "react";
 
 export const Pages = () => {
     return (

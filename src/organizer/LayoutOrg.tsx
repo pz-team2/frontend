@@ -4,6 +4,7 @@ import { BiSolidUserRectangle } from "react-icons/bi";;
 import { FaCalendarCheck } from "react-icons/fa6";
 import { AiFillHome } from "react-icons/ai";
 import gambar from "../assets/img/organizer.png"
+import React from 'react'
 
 export const LayoutOrg = () => {
 

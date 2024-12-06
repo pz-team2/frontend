@@ -8,7 +8,7 @@ import {
   selectOrganizerMessage,
   setMessage,
 } from "../../../Redux/features/organizer/organizerSlice";
-import { Organizer } from "../../../Redux/features/type";
+
 import { Input } from "../../../components/Fragments/Input";
 import { FaCirclePlus } from "react-icons/fa6";
 import Swal from "sweetalert2";
@@ -28,15 +28,16 @@ export const TambahOrganizer = ({ onAdd }: TambahOrganizerProps) => {
   // Menggunakan selector untuk mendapatkan message
   const message = useSelector(selectOrganizerMessage);
 
-  const [formData, setFormData] = useState<Omit<Organizer, "_id">>({
+  const [formData, setFormData] = useState({
     username: "",
     email: "",
+    status: "",
     organizerName: "",
     phoneNumber: "",
     password: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     if (name === "phoneNumber" && !/^\d*$/.test(value)) return;
 
@@ -52,6 +53,7 @@ export const TambahOrganizer = ({ onAdd }: TambahOrganizerProps) => {
     const resultAction = await dispatch(addOrganizer(formData));
 
     // Mengambil status dari hasil dispatch
+
     if (addOrganizer.fulfilled.match(resultAction)) {
       Swal.fire({
         icon: "success",
@@ -64,7 +66,7 @@ export const TambahOrganizer = ({ onAdd }: TambahOrganizerProps) => {
       Swal.fire({
         icon: "error",
         title: "Gagal!",
-        text: error || "Terjadi kesalahan saat menambahkan organizer.",
+        text: error || "Email Sudah Di Gunakan !",
       });
     }
 
@@ -74,6 +76,7 @@ export const TambahOrganizer = ({ onAdd }: TambahOrganizerProps) => {
 
     setFormData({
       username: "",
+      status: "",
       email: "",
       organizerName: "",
       phoneNumber: "",
@@ -135,6 +138,12 @@ export const TambahOrganizer = ({ onAdd }: TambahOrganizerProps) => {
               value={formData.email}
               onChange={handleChange}
             />
+            <span className="mt-3 mb-2">Status</span>
+            <select className="select bg-slate-100 w-full max-w-xs border-0" name="status" onChange={handleChange} value={formData.status}>
+              <option disabled>Pilih Status Event:</option>
+              <option value="Aktif">Aktif</option>
+              <option value="Tidak Aktif">Tidak Aktif</option>
+            </select>
             <Input
               label="Nama Organizer"
               type="text"
@@ -163,7 +172,7 @@ export const TambahOrganizer = ({ onAdd }: TambahOrganizerProps) => {
               onChange={handleChange}
             />
             <div className="modal-action">
-            <button
+              <button
                 className="btn border-0 text-white bg-secondary hover:bg-cyan-900"
                 onClick={handleSubmit}
                 disabled={!isFormValid || loading}

@@ -1,17 +1,18 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaCalendarAlt, FaMapMarkerAlt, FaBuilding } from "react-icons/fa";
-import bannerImage from "../../assets/img/banner.png";  
+// import bannerImage from "../../assets/img/banner.png";  
 import { RootState } from "../../Redux/store";
 import { fetchTicketsByUserId } from "../../Redux/features/ticket/ticketSlice";
+import { useAppDispatch, useAppSelector } from "../../Redux/hook";
 
 const TiketSaya: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // Mengambil state dari Redux, dan pastikan tickets diinisialisasi sebagai array kosong
-  const { tickets = [], loading, message } = useSelector((state: RootState) => state.ticket);
+  const { tickets = [], loading } = useAppSelector((state: RootState) => state.ticket);
 
   // Memanggil fetchTicketsByUserId saat komponen pertama kali dimuat
   useEffect(() => {
@@ -47,7 +48,6 @@ const TiketSaya: React.FC = () => {
       </h1>
 
       {/* Menampilkan pesan jika ada */}
-      {/* {message && <p className="text-center text-red-500">{message}</p>} */}
 
       {/* Cek jika tidak ada tiket */}
       {uniqueTickets.length === 0 ? (
@@ -62,7 +62,7 @@ const TiketSaya: React.FC = () => {
               {/* Left side with image and details */}
               <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 w-full md:w-auto">
                 <img
-                  src={bannerImage}
+                  src={`http://localhost:3500/${ticket.payment?.event?.picture}`}
                   alt={ticket.payment?.event?.title}
                   className="w-full md:w-32 h-48 md:h-32 object-cover rounded-lg"
                 />

@@ -1,78 +1,122 @@
-import Navbar from "../components/Navbar";
+import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
-import { Link } from "react-router-dom";
-import logo from "../../assets/img/goevent-w.png";
 import Search from "../components/Search";
-import banner from "../../assets/img/banner.png"; 
+import api from "../../services/api";
 
-const ongoingEvents = [
-  {
-    id: "1",
-    title: "Konser Cosmyc Fest",
-    description:
-      "IMWE (Imagene Week of Himakom) merupakan rangkaian acara tahunan yang diadakan oleh Program Studi Ilmu Komputer Universitas Lambung Mangkurat (ULM) dalam rangka memperingati HUT HIMAKOM.",
-    address: "Kota Banjar Baru",
-    date: new Date("2024-12-21"),
-    lineup: ["Juicy Lucy", "Widiya Angela", "RCKA"],
-    ticketType: "Presale 1",
-    price: 50000,
-    picture: banner,
-    category : "Music",
-  },
-  {
-    id: "2",
-    title: "Art Exhibition",
-    description:
-      "Sebuah pameran seni yang menampilkan karya-karya seniman kontemporer dari berbagai disiplin seni.",
-    address: "Jakarta",
-    date: new Date("2024-11-30"),
-    lineup: ["Seniman A", "Seniman B", "Seniman C"],
-    ticketType: "General Admission",
-    price: 100000,
-    picture: banner,
-    category : "Art",
-  },
-  {
-    id: "3",
-    title: "Tech Conference",
-    description:
-      "Konferensi teknologi untuk membahas perkembangan terbaru dalam dunia teknologi dan inovasi.",
-    address: "Bandung",
-    date: new Date("2024-12-10"),
-    lineup: ["Pembicara A", "Pembicara B", "Pembicara C"],
-    ticketType: "VIP",
-    price: 75000,
-    picture: banner,
-    category : "Technology"
-  }
-];
-const Selengkapnya = () => {
+interface EventCategory {
+  _id: string;
+  name: string;
+}
+
+interface EventProps {
+  _id: string;
+  title: string;
+  address: string;
+  date: Date;
+  quota: number;
+  price: number;
+  picture: string;
+  category: EventCategory | null;
+}
+
+const Selengkapnya: React.FC = () => {
+  const [events, setEvents] = useState<EventProps[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<EventProps[]>([]);
+  const [categories, setCategories] = useState<EventCategory[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEventsAndCategories = async () => {
+      try {
+        // Fetch events
+        const eventResponse = await api.get<{ success: boolean; data: EventProps[] }>("/events/list");
+        const { data: eventData, success } = eventResponse.data;
+
+        if (success && eventData) {
+          const formattedEvents = eventData.map((event: EventProps) => ({
+            _id: event._id,
+            title: event.title,
+            address: event.address,
+            quota: event.quota,
+            date: new Date(event.date),
+            price: event.price,
+            picture: `http://localhost:3500/${event.picture}`,
+            category: event.category || null,
+          }));
+
+          setEvents(formattedEvents);
+          setFilteredEvents(formattedEvents);
+        }
+
+        // Fetch categories
+        const categoryResponse = await api.get<{ success: boolean; data: EventCategory[] }>("/categories");
+        const { data: categoryData, success: categorySuccess } = categoryResponse.data;
+
+        if (categorySuccess && categoryData) {
+          setCategories(categoryData);
+        }
+      } catch (error) {
+        console.error("Error fetching events or categories:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEventsAndCategories();
+  }, []);
+
+  const handleSearch = (query: string, category: string) => {
+    let filtered = events;
+
+    if (query) {
+      filtered = filtered.filter(
+        (event) =>
+          event.title.toLowerCase().includes(query.toLowerCase()) ||
+          (event.category?.name || "Tidak Ada Kategori")
+            .toLowerCase()
+            .includes(query.toLowerCase())
+      );
+    }
+
+    if (category) {
+      filtered = filtered.filter(
+        (event) => event.category?.name === category
+      );
+    }
+
+    setFilteredEvents(filtered);
+  };
+
   return (
-    <>
-      <div className="bg-white flex flex-col">
-        <Navbar />
-        <Search />
-        <section className="flex flex-col  max-w-[1114px] text-left mx-auto justify-center space-y-8">
-          <h2 className="text-black text-2xl font-bold ml-10 md:ml-0">
-            Sedang Tayang
-          </h2>
-          <div className="flex flex-wrap items-center justify-center gap-12">
-          {ongoingEvents.map((event, index) => (
-            <Link key={index} to={`/transaksi/${event.id}`}>
-              <Card {...event} />
-            </Link>
-          ))}
+    <div className="bg-white flex flex-col">
+      <Search onSearch={handleSearch} categories={categories} />
+      <section className="flex flex-col max-w-[1114px] text-left mx-6 justify-center space-y-8 md:mx-auto">
+        <h2 className="text-black text-2xl font-bold ml-10 md:ml-0">Semua Event</h2>
+        {loading ? (
+          <p className="text-center">Loading events...</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredEvents.length > 0 ? (
+              filteredEvents.map((event) => (
+                <Card
+                  key={event._id}
+                  _id={event._id}
+                  quota={event.quota}
+                  title={event.title}
+                  address={event.address}
+                  date={new Date(event.date)}
+                  price={event.price}
+                  category={event.category?.name || "Tidak Ada Kategori"}
+                  picture={event.picture}
+                />
+              ))
+            ) : (
+              <p>No events found</p>
+            )}
           </div>
-        </section>
-        <footer className="footer footer-center bg-primary text-base-content p-4 mt-6">
-          <div className="flex-1">
-            <Link to="/" className="btn btn-ghost text-xl">
-              <img src={logo} alt="Logo" className="h-10" />
-            </Link>
-          </div>
-        </footer>
-      </div>
-    </>
+        )}
+      </section>
+    </div>
   );
 };
 

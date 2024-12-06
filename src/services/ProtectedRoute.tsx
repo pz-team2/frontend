@@ -1,11 +1,19 @@
-import { Navigate } from "react-router-dom";
-interface ProtectedRouteProps {
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+
+interface PrivateRouteProps {
   children: React.ReactNode;
+  allowedRoles: string[];
 }
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    return <Navigate to="/" replace />;
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, allowedRoles }) => {
+  const role = localStorage.getItem('role'); // Ambil role dari localStorage
+  console.log('Role:', role);
+
+  if (!role || !allowedRoles.includes(role)) {
+    return <Navigate to="/404" replace />;
   }
   return <>{children}</>;
 };
+
+export default PrivateRoute;

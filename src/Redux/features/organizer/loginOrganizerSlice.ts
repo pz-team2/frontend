@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import {  loginOragnizerState } from '../type';
 import { apiLoginOrganizer } from './organizerApi';
 import { RootState } from '../../store';
+import { loginOragnizerState } from '../../types/organizer.types';
 
 const initialState: loginOragnizerState = {
   email: '',
@@ -20,6 +20,7 @@ export const loginOragnizer = createAsyncThunk('organizer/login',
 
       const respone = await apiLoginOrganizer(data)
       if (respone.success) {
+        localStorage.setItem('role', respone.data.role)
         localStorage.setItem('token', respone.data.token);
         return respone.data;
       } else {

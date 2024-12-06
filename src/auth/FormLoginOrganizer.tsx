@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '../Redux/hook';
@@ -11,14 +12,26 @@ const FormLoginOrganizer: React.FC = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
-      navigate('/admin/dashboard');
+    const storedRole = localStorage.getItem('role');
+    console.log(role)
+    
+    // Jika token ditemukan dan role ada, arahkan berdasarkan role
+    if (token && storedRole) {
+      if (storedRole === 'admin') {
+        navigate('/admin/dashboard');
+      } else if (storedRole === 'organizer') {
+        navigate('/organizer/dashboard');
+      } else {
+        navigate('/');
+      }
     }
   }, [navigate]);
 
+  // Effect untuk menangani setelah login berhasil atau gagal
   useEffect(() => {
     console.log("isLoggedIn:", isLogged);
     console.log("role:", role);
+
     if (isLogged) {
       Swal.fire({
         title: 'Login Berhasil!',
@@ -26,14 +39,13 @@ const FormLoginOrganizer: React.FC = () => {
         icon: 'success',
         confirmButtonText: 'OK',
       }).then(() => {
-        // Cek role pengguna
+        // Cek role pengguna dan arahkan ke halaman yang sesuai
         if (role === 'admin') {
           navigate("/admin/dashboard");
         } else if (role === 'organizer') {
           navigate("/organizer/dashboard");
         } else {
-          // Jika role tidak dikenali, arahkan ke halaman default
-          navigate("/");
+          navigate("/"); // Jika role tidak dikenali, arahkan ke halaman default
         }
       });
     } else if (message) {
@@ -44,8 +56,9 @@ const FormLoginOrganizer: React.FC = () => {
         confirmButtonText: 'Coba Lagi',
       });
     }
-  }, [isLogged, message, navigate]);
+  }, [isLogged, message, navigate, role]);
 
+  // Menangani form submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(loginOragnizer({ email, password, role }));

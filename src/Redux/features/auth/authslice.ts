@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { apiLogin, apiRegister, verifyEmail } from "./authApi";
-import { authState } from "../type";
+import { authState } from "../../types/auth.types";
 
 const initialState: authState = {
     email: '',
@@ -19,6 +19,7 @@ export const login = createAsyncThunk( 'auth/login',
             const response = await apiLogin(data);
             if (response.success) {
                 localStorage.setItem('token', response.data.token);
+                localStorage.setItem('username', response.data.username);
                 console.log(data)
                 return response.data;
             } else {

@@ -1,6 +1,7 @@
 import FormLogin from "./auth/FormLogin";
 import gambar from "./assets/img/goevent.png";
 import { AuthLayout } from "./layouts/AuthLayout";
+import React from "react";
 
 const Login = () => {
   return (

@@ -1,8 +1,4 @@
-
-
-
-
-
+import React from 'react'
 interface verifyProps {
     judul:React.ReactNode;
     icons: React.ReactNode;

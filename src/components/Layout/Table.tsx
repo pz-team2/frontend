@@ -11,9 +11,9 @@ export const Table: React.FC<DataTable> = ({ columns, data }) => {
     <div className="overflow-x-auto">
       <table className="table w-full text-black">
         <thead className="text-black">
-          <tr className="border-gray-300">
+          <tr className="border-gray-300s">
             {columns.map((col) => (
-              <th className="text-sm md:text-base p-2 md:p-4" key={col.key}>{col.label}</th>
+              <th className="text-sm md:text-base p-2 md:p-4 " key={col.key}>{col.label}</th>
             ))}
           </tr>
         </thead>

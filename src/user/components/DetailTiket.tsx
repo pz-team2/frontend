@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux"; 
-import { RootState } from "@reduxjs/toolkit/query";
 import { fetchTicketsByPaymentId } from "../../Redux/features/ticket/ticketSlice";
+import { useAppDispatch, useAppSelector } from "../../Redux/hook";
 
 const DetailTiket: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch()
 
   // Mengambil state dari Redux
-  const { tickets, loading, message } = useSelector((state: RootState) => state.ticket);
+  const { tickets, loading } =  useAppSelector(state => state.ticket);
 
   useEffect(() => {
     if (id) {
@@ -64,7 +63,7 @@ const DetailTiket: React.FC = () => {
                     {ticket.name}
                   </h3>
                   <p className="text-gray-500 mt-1 text-sm md:text-base break-all">
-                    {ticket.payment?._id}
+                    {ticket._id}
                   </p>
                 </div>
 

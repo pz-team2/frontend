@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { categoryState, category } from "../type";
+
 import {
   addcategory,
   delcategory,
   listcategory,
 } from "../category/cetegoryApi";
+import {category, categoryState } from "../../types/category.types";
 
 const initialState: categoryState = {
   name: "",

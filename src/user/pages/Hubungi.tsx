@@ -1,12 +1,10 @@
 import { MdEmail } from "react-icons/md";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { RiInstagramFill } from "react-icons/ri";
-import Navbar from "../components/Navbar";
-
+import React from "react";
 export const Hubungi = () => {
   return (
     <div className="flex flex-col min-h-screen w-full bg-white">
-      <Navbar />
       <div className="flex flex-col items-center justify-center py-10 px-4 md:h-[calc(100vh-10rem)]">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-primary">
           Hubungi Kami

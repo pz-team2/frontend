@@ -1,47 +1,40 @@
-// CardDetail.tsx
+import { FaLocationDot } from "react-icons/fa6";
+import { IoIosCalendar } from "react-icons/io";
+import React from "react";
 interface CardDetailProps {
   title: string;
   description: string;
-  location: string;
-  date: Date;
-  lineup: string[];
+  address: string;
+  date: Date | string;
+  picture?: string;
 }
 
 const CardDetail: React.FC<CardDetailProps> = ({
   title,
   description,
-  location,
+  address,
   date,
-  lineup
 }) => {
   return (
-    <div className="card w-full bg-[#f4f4f4] shadow-xl p-4 sm:p-6">
-      <div className="card-body">
-        <h2 className="card-title text-blue-900 text-xl sm:text-2xl mb-4">
-          {title}
-        </h2>
+    <div className="card bg-[#f4f4f4] p-10 shadow-xl rounded-md space-y-2">
+      <h3 className="text-2xl font-semibold text-primary">{title}</h3>
+      
+      <p
+        className="text-gray-600 py-4"
+        dangerouslySetInnerHTML={{ __html: description }}
+      />
 
-        <p className="text-gray-700 text-sm sm:text-base mb-4">{description}</p>
+      {/* Ikon untuk lokasi */}
+      <p className="flex items-center text-gray-600">
+        <FaLocationDot className="mr-2 text-gray-500" size={18} />
+        {`Lokasi : ${address}`}
+      </p>
 
-        <div className="mb-4">
-          <p className="text-gray-700 text-sm sm:text-base">
-            Event akan diselenggarakan pada:
-          </p>
-          <div className="ml-4">
-            <p className="text-gray-700 text-sm sm:text-base">Lokasi: {location}</p>
-            <p className="text-gray-700 text-sm sm:text-base">Tanggal: {date.toLocaleDateString("id-ID")}</p>
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <p className="text-gray-700 font-medium text-sm sm:text-base">Line Up:</p>
-          <ul className="list-disc ml-4 sm:ml-8 text-gray-700 text-sm sm:text-base">
-            {lineup.map((artist, index) => (
-              <li key={index}>{artist}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      {/* Ikon untuk tanggal */}
+      <p className="flex items-center text-gray-600">
+        <IoIosCalendar className="mr-2 text-gray-500" size={18} />
+        {`Tanggal : ${date}`}
+      </p>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { VscOrganization } from "react-icons/vsc";
+import React from 'react'
 import { MdEventNote } from "react-icons/md";
 import { FaUser } from "react-icons/fa6";
 import Card from "../../components/Layout/Card";
@@ -18,12 +19,12 @@ export const Dashboard = () => {
     dispatch(dataterbaru());
   }, [dispatch]);
 
-  const limitPage = events.slice(0, 8)
+  const limitPage = events.slice(0, 5)
 
-  const eventData = isSucces && events
+  const eventData = isSucces && limitPage
     ? limitPage.map(event => ({
       name: event.organizerName,
-      tanggal: event.date,
+      // tanggal: event.date,
       tiket: `${event.ticketsSold} Tiket`,
       event: `${event.title}`,
       gambar: <div><img src={`http://localhost:3500/${event.picture}`} alt={'gagal data img'} className="w-20 h-14 rounded-xl" /></div>,
@@ -37,8 +38,8 @@ export const Dashboard = () => {
     { key: 'name', label: 'Nama Organizer' },
     { key: 'event', label: 'Nama Event' },
     { key: 'tiket', label: 'Tiket Terjual' },
-    { key: 'status', label: 'Status' },
-    { key: 'tanggal', label: 'Tanggal Event' },
+    // { key: 'status', label: 'Status' },
+    // { key: 'tanggal', label: 'Tanggal Event' },
   ];
 
   return (
@@ -61,7 +62,7 @@ export const Dashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4 md:gap-9">
         <div className="card shadow-md border border-gray-400 w-full overflow-hidden">
           <div className="flex justify-end mr-5">
-            <Link to='/admin/organizer' className="text-center bg-primary w-28 mt-3 text-white rounded-badge p-1"> View All </Link>
+            <Link to='/admin/event' className="text-center bg-primary w-28 mt-3 text-white rounded-badge p-1"> View All </Link>
           </div>
           {eventData.length > 0 ? (
             <Table columns={columns} data={eventData} />

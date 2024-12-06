@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { TicketState } from "../type";
 import { getTicketsByUserId, getTicketByPaymentId } from "./ticketApi";
+import { TicketState } from "../../types/tiket.type";
 
 const initialState: TicketState = {
   tickets: [],
@@ -15,7 +15,7 @@ export const fetchTicketsByUserId = createAsyncThunk(
     try {
       const response = await getTicketsByUserId();
       if (response) {
-        return response; // Mengembalikan data tiket
+        return response;
       } else {
         return rejectWithValue("Gagal Mengambil Data Tiket");
       }
