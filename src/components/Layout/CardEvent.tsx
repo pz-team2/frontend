@@ -2,6 +2,7 @@ import { Button } from "../Fragments/Button"
 import { MdDeleteForever } from "react-icons/md";
 import { MdEditDocument } from "react-icons/md";
 import { BiSolidDetail } from "react-icons/bi";
+import React from 'react'
 
 interface cardProps {
     gambar?: string;

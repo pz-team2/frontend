@@ -8,6 +8,7 @@ import { CgProfile } from "react-icons/cg";
 import { IoIosLogOut } from "react-icons/io";
 import { FaUserEdit } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import React from 'react'
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);

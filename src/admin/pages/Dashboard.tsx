@@ -1,4 +1,5 @@
 import { VscOrganization } from "react-icons/vsc";
+import React from 'react'
 import { MdEventNote } from "react-icons/md";
 import { FaUser } from "react-icons/fa6";
 import Card from "../../components/Layout/Card";

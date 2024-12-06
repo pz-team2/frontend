@@ -1,5 +1,5 @@
 import { FaSearch } from "react-icons/fa";
-
+import React from 'react'
 interface SearchProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

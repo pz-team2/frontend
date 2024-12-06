@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
+import React from 'react'
 import { useAppDispatch, useAppSelector } from '../Redux/hook';
 import { useEffect } from 'react';
 import { setUsername, setPassword, setEmail, register } from '../Redux/features/auth/authslice';

@@ -1,5 +1,6 @@
 
 import { Outlet } from "react-router-dom";
+import React from 'react'
 import Sidebar from "../components/Layout/Sidebar";
 import '../App.css';
 import { VscOrganization } from "react-icons/vsc";

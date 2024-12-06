@@ -1,4 +1,4 @@
-
+import React from 'react'
 import gambar from './assets/img/notfound2.png'
 
 export const Notfound = () => {

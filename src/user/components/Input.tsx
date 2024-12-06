@@ -3,6 +3,7 @@ export interface InputProps
   label?: string;
   error?: string;
 }
+import React from 'react'
 
 const Input: React.FC<InputProps> = ({
   label,

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FaUsersCog } from "react-icons/fa";
+import React from 'react'
 import UpdateProfile from './UpdateProfile';
 import { UpdatePassword } from './UpdatePassword';
 import { FaUserEdit } from "react-icons/fa";

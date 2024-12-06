@@ -1,3 +1,4 @@
+import React from 'react'
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hook";
 import { dataterbaru } from "../../../Redux/features/dashboard/dashboardSlice";

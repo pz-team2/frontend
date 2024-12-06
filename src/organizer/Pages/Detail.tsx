@@ -1,4 +1,5 @@
 import gambar from '../../assets/img/banner1.png';
+import React from 'react'
 import { IoIosCalendar } from "react-icons/io";
 import { FaLocationDot } from "react-icons/fa6";
 import { BiSolidUserRectangle } from "react-icons/bi";

@@ -5,7 +5,7 @@ import {
   delcategory,
   listcategory,
 } from "../category/cetegoryApi";
-import { categoryState, category } from "../../types/category.types";
+import {category, categoryState } from "../../types/category.types";
 
 const initialState: categoryState = {
   name: "",
