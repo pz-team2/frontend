@@ -4,7 +4,7 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   error?: string;
   placeholder?: string;
 }
-
+import React from "react";
 const Select: React.FC<SelectProps> = ({
   label,
   options,

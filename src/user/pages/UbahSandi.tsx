@@ -14,8 +14,8 @@ const UbahSandi = () => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
+  // const [success, setSuccess] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,8 +31,8 @@ const UbahSandi = () => {
 
     try {
       setLoading(true);
-      setError(null);
-      setSuccess(null);
+      // setError(null);
+      // setSuccess(null);
 
       const response = await api.put("/users/updatePassword", {
         password: formData.password,

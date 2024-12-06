@@ -8,7 +8,7 @@ import { CardEvent } from "../../../components/Layout/CardEvent";
 import { getOrganizerByIdApi, IOrganizer } from "../../../Redux/features/organizer/organizerApi";
 import { CardProfile } from "../../../components/Layout/CardProfile";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hook";
-import { deleteEventById, getEventsByOrganizer } from "../../../Redux/features/event-Terbaru/eventSlice";
+import { deleteEventById, getEventsByOrganizer } from "../../../Redux/features/events/eventSlice";
 import { RootState } from "../../../Redux/store";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { format } from 'date-fns';

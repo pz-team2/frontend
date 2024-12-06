@@ -17,7 +17,6 @@ export const UpdatePassword = () => {
     confirmPassword: false,
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -68,7 +67,6 @@ export const UpdatePassword = () => {
         newPassword: "",
         confirmPassword: "",
       });
-      setError(null);
     } catch (err: any) {
       Swal.fire({
         icon: "error",

@@ -4,7 +4,7 @@ import categoryReducer from './features/category/categorySlice'
 import organizerReducer  from './features/organizer/organizerSlice'
 import loginOrganizerReducer  from './features/organizer/loginOrganizerSlice'
 import dashboardReducer  from './features/dashboard/dashboardSlice'
-import eventReducer  from './features/event-Terbaru/eventSlice';
+import eventReducer  from './features/events/eventSlice';
 import ticketReducer  from './features/ticket/ticketSlice'
 
  

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaCirclePlus } from "react-icons/fa6";
 import { IoSearchSharp } from "react-icons/io5";
-
+import React from "react";
 const DetailOragnizer = () => {
   return (
     <>

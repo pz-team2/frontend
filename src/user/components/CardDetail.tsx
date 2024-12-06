@@ -1,5 +1,6 @@
 import { FaLocationDot } from "react-icons/fa6";
 import { IoIosCalendar } from "react-icons/io";
+import React from "react";
 interface CardDetailProps {
   title: string;
   description: string;

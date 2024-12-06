@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import DataTable from 'react-data-table-component';
 import api from "../../../services/api";
+import React from "react";
 
 export const DataUser = () => {
     const [getUser, setDataUser] = useState<any[]>([]);

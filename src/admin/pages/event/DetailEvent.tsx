@@ -7,7 +7,7 @@ import { IoChevronBackOutline } from "react-icons/io5";
 import { MdPriceChange } from "react-icons/md";
 import { FaWindowMaximize } from "react-icons/fa6";
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
-import { getEventById } from '../../../Redux/features/event-Terbaru/eventSlice';
+import { getEventById } from '../../../Redux/features/events/eventSlice';
 import { useEffect } from 'react';
 import { RootState } from '../../../Redux/store';
 import { format } from 'date-fns';

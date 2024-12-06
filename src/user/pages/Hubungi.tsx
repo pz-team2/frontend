@@ -1,7 +1,7 @@
 import { MdEmail } from "react-icons/md";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { RiInstagramFill } from "react-icons/ri";
-
+import React from "react";
 export const Hubungi = () => {
   return (
     <div className="flex flex-col min-h-screen w-full bg-white">
