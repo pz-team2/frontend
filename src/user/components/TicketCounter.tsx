@@ -13,20 +13,26 @@ const TicketCounter: React.FC<TicketCounterProps> = ({ price, quota, eventId }) 
   const [count, setCount] = useState(0);
   const totalPrice = count * price;
   const navigate = useNavigate();
-  const [userProfile, setUserProfile] = useState<any>(null); // Simpan data profil user
-  const [loading, setLoading] = useState(true); // Loading state untuk menunggu profil
-
+  const [userProfile, setUserProfile] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   // Ambil data profil pengguna
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      // Tidak perlu login untuk melihat event, tapi jika mau lanjutkan pembayaran, login
+      return; // Tidak perlu lakukan request ke API jika tidak ada token
+    }
+
+    // Jika ada token, ambil profil pengguna
     const fetchUserProfile = async () => {
       try {
-        const response = await api.get("/users/detail"); // Asumsi ada endpoint untuk mendapatkan profil pengguna
+        const response = await api.get("/users/detail");
         setUserProfile(response.data.data.user);
-        console.log(response.data.data.user)
       } catch (error) {
         console.error("Error fetching user profile:", error);
       } finally {
-        setLoading(false); // Setelah data diambil, set loading menjadi false
+        setLoading(false);
       }
     };
 
@@ -39,9 +45,11 @@ const TicketCounter: React.FC<TicketCounterProps> = ({ price, quota, eventId }) 
   const handlePayment = async () => {
     if (loading) {
       Swal.fire({
-        icon: "info",
-        title: "Loading...",
-        text: "Tunggu sebentar, profil sedang dimuat.",
+        icon: "warning",
+        title: "Anda Belum Login",
+        text: "Silakan login untuk melanjutkan pembayaran.",
+      }).then(() => {
+        navigate("/user/login");
       });
       return;
     }

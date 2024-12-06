@@ -131,7 +131,7 @@ export const UpdateEvent = () => {
                 title: "Berhasil!",
                 text: "Event berhasil diperbarui.",
             });
-            navigate(`/admin/organizer/detail/${eventData.organizer}`);
+            navigate(`/admin/organizer/detail/${eventData.organizer._id}`);
         } else {
             Swal.fire({
                 icon: "error",
@@ -144,7 +144,7 @@ export const UpdateEvent = () => {
 
     return (
         <div>
-            <Link to={`/admin/organizer/detail/${formEvent.organizer._id}`} className='text-black flex items-center gap-2 mb-5'>
+            <Link to={`/admin/organizer/detail/${eventData.organizer._id}`} className='text-black flex items-center gap-2 mb-5'>
                 <IoChevronBackOutline size={24} />
                 <span>Back to Events</span>
             </Link>

@@ -1,8 +1,4 @@
 
-
-
-
-
 interface verifyProps {
     judul:React.ReactNode;
     icons: React.ReactNode;

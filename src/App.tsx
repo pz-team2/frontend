@@ -31,12 +31,13 @@ import RiwayatTransaksi from "./user/components/RiwayatTransaksi";
 import UbahSandi from "./user/pages/UbahSandi";
 import VerifyEmail from "./verifyEmail";
 import { Verify } from "./Verify";
-import { ProtectedRoute } from "./services/ProtectedRoute";
 import { Pages } from "./Pages";
 import DetailOrganizer from "./admin/pages/event/DetailOragnizer";
 import LoginOrganizer from "./LoginOrganizer";
 import { EventData } from "./admin/pages/event/Event";
 import HomeLayout from "./user/Layouts/HomeLayout";
+import PrivateRoute from "./services/ProtectedRoute";
+import { Notfound } from "./NotFound";
 
 export default function App() {
   // const [loading, setLoading] = useState(true); // State untuk loading
@@ -78,9 +79,9 @@ export default function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/verify/:token" element={<VerifyEmail />} />
           <Route path="/verify" element={<Verify />} />
+          <Route path="/404" element={<Notfound />} />
 
           {/* User Layout */}
-
           <Route path="/user" element={<UserLayout />}>
             <Route path="profile" element={<InformasiPribadi />} />
             <Route path="ticket" element={<TiketSaya />} />
@@ -90,17 +91,13 @@ export default function App() {
           </Route>
 
           {/* Admin Layout */}
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
+          <Route path="/" element={
+              <PrivateRoute allowedRoles={['admin']}>
                 <Layout />
-              </ProtectedRoute>
-            }
-          >
+              </PrivateRoute>
+            }>
             <Route path="admin/dashboard" element={<Dashboard />} />
-            <Route
-              path="admin/organizer/detail/:id"
+            <Route path="admin/organizer/detail/:id"
               element={<DetailOrganizer />}
             />
             <Route path="admin/organizer/update/:id" element={<Organizer />} />
@@ -123,11 +120,10 @@ export default function App() {
           </Route>
 
           {/* Organizer Layout */}
-          <Route path="/" element={<LayoutOrg />}>
-            <Route
-              path="organizer/dashboard"
-              element={<DashboardOrganizer />}
-            />
+          <Route path="/" element={
+            <PrivateRoute allowedRoles={['organizer']}> <LayoutOrg /> </PrivateRoute>}>
+            <Route path="organizer/dashboard"
+              element={<DashboardOrganizer />}/>
             <Route path="organizer/event" element={<Event />} />
             <Route path="organizer/event/detail/:id" element={<Detail />} />
             {/* <Route path="organizer/event/detail/:id" element={<Detail />} /> */}

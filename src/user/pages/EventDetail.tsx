@@ -22,16 +22,16 @@ interface EventProps {
 }
 
 const EventDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); 
-  const [event, setEvent] = useState<EventProps | null>(null); 
-  const [loading, setLoading] = useState<boolean>(true); 
-  const [error, setError] = useState<string | null>(null); 
+  const { id } = useParams<{ id: string }>();
+  const [event, setEvent] = useState<EventProps | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchEventDetail = async () => {
       try {
         setLoading(true);
-        const response = await api.get(`/events/detail/${id}`); 
+        const response = await api.get(`/events/detail/${id}`);
         const eventData = response.data;
 
         if (eventData?.success && eventData.data) {
@@ -55,18 +55,18 @@ const EventDetail: React.FC = () => {
     };
 
     fetchEventDetail();
-  }, [id]); // Run this effect when the component mounts or id changes
+  }, [id]);
 
   if (loading) {
-    return <div>Loading event details...</div>; 
+    return <div>Loading event details...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>; 
+    return <div>{error}</div>;
   }
 
   if (!event) {
-    return <div>Event not found.</div>; 
+    return <div>Event not found.</div>;
   }
 
   return (
@@ -77,7 +77,6 @@ const EventDetail: React.FC = () => {
           alt="banner"
           className="w-full h-[331px] object-cover rounded-2xl shadow-md"
         />
-
         <div className="space-y-4">
           <h2 className="text-primary text-4xl font-bold">{event.title}</h2>
           <div className="pb-4 border-b-4 border-gray-200">
@@ -86,7 +85,6 @@ const EventDetail: React.FC = () => {
                 <IoIosCalendar className="text-gray-500 flex-shrink-0" size={20} />
                 <span className="text-base">{event.date.toLocaleDateString("id-ID")}</span>
               </div>
-
               <div className="flex items-start gap-2">
                 <FaLocationDot className="text-gray-500 flex-shrink-0" size={20} />
                 <span className="text-base">{event.address}</span>
@@ -104,10 +102,12 @@ const EventDetail: React.FC = () => {
             date={event.date}
           />
         </div>
-        <TicketCounter price={event.price} quota={event.quota} eventId={event._id}  />
+
+        <TicketCounter price={event.price} quota={event.quota} eventId={event._id} />
       </div>
     </div>
   );
 };
+
 
 export default EventDetail;

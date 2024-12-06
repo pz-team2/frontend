@@ -46,9 +46,6 @@ export const DashboardOrganizer = () => {
   const labels = monthlySales.map((item) => item.month); // Nama bulan
   const data = monthlySales.map((item) => item.ticketsSold); // Jumlah tiket
 
-  console.log(paymentReport);
-  console.log(data);
-
   return (
     <div>
       <h1 className="mb-5 text-2xl font-extrabold mt-4 text-black">

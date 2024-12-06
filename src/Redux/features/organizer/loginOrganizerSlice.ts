@@ -20,6 +20,7 @@ export const loginOragnizer = createAsyncThunk('organizer/login',
 
       const respone = await apiLoginOrganizer(data)
       if (respone.success) {
+        localStorage.setItem('role', respone.data.role)
         localStorage.setItem('token', respone.data.token);
         return respone.data;
       } else {

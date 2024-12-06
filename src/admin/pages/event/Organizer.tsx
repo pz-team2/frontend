@@ -199,7 +199,7 @@ export const Organizer = () => {
           responsive
           customStyles={customStyles}
           className="shadow-sm rounded-lg overflow-hidden"
-          fixedHeader
+          // fixedHeader
           subHeader
           subHeaderComponent={
             <input
