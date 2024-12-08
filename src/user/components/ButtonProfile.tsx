@@ -1,5 +1,5 @@
-import { Loader2 } from "lucide-react";
 import React from "react";
+import { Loader2 } from "lucide-react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary";
@@ -37,7 +37,11 @@ const ButtonProfile: React.FC<ButtonProps> = ({
       {children}
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <Loader2 className="w-6 h-6 animate-spin text-current" />
+          <Loader2
+            className="w-6 h-6 animate-spin text-current"
+            role="img" // Role added for testing
+            aria-label="Loading" // Accessible label
+          />
         </div>
       )}
     </button>

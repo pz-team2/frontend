@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "jest --watchAll",
-    "cov": "jest --coverage --collectCoverageFrom='src/**/*.{ts,tsx}'"
+    "test": "jest",
+    "cov": "jest --coverage --collectCoverageFrom='**/components/**/*.{ts,tsx}'"
   },
   "engines": {
     "node": "18.x"

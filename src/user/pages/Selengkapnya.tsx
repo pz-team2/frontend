@@ -90,13 +90,13 @@ const Selengkapnya: React.FC = () => {
 
   return (
     <div className="bg-white flex flex-col">
-      <Search onSearch={handleSearch} categories={categories} />
-      <section className="flex flex-col max-w-[1114px] text-left mx-6 justify-center space-y-8 md:mx-auto">
-        <h2 className="text-black text-2xl font-bold ml-10 md:ml-0">Semua Event</h2>
+      <section className="flex flex-col max-w-[1114px] text-left mx-6 justify-center space-y-8 lg:mx-auto">
+        <Search onSearch={handleSearch} categories={categories} />
+        <h2 className="text-black text-2xl font-bold">Semua Event</h2>
         {loading ? (
           <p className="text-center">Loading events...</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredEvents.length > 0 ? (
               filteredEvents.map((event) => (
                 <Card

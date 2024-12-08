@@ -28,16 +28,16 @@ export const Hubungi = () => {
               </ul>
             </div>
           </details>
-          <div className="flex flex-col md:flex-row justify-around lg:items-center gap-4 text-gray-700">
-            <div className="flex items-center gap-3">
+          <div className="flex flex-col md:flex-row justify-between lg:items-center gap-4 text-gray-700">
+            <div className="flex items-center gap-2">
               <MdEmail size={24} />
               <span>goevent@gmail.com</span>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <IoLogoWhatsapp size={24} />
-              <span>+6281321242020</span>
+              <span>+6285759509472</span>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <RiInstagramFill size={24} />
               <span>GoEvent</span>
             </div>
