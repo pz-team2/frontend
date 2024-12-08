@@ -23,7 +23,7 @@ export const CardEvent: React.FC<cardProps> = ({ gambar, title, date, id, onclic
                     <p className="text-sm ">{date}</p>
                     <div className="card-actions justify-start flex flex-row">
                         <Button to={`/admin/organizer/event/update/${id}`} variant="bg-secondary"><MdEditDocument size={18} /></Button>
-                        <Button variant="bg-red-400"><MdDeleteForever size={18} onClick={onclick} /></Button>
+                        <Button variant="bg-red-400"><MdDeleteForever size={18} onClick={onclick} data-testid="delete-button"/></Button>
                         <Button to={`/admin/organizer/event/detail/${id}`} variant="bg-secondary"><BiSolidDetail size={18} /></Button>
                     </div>
                 </div>

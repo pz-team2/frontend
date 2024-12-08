@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../Redux/hook";
 import { useEffect } from "react";
 import { dataStatic, dataterbaru } from "../../Redux/features/dashboard/dashboardSlice";
+const PICTURE = import.meta.env.VITE_API_URL_PICTURE
 
 export const Dashboard = () => {
   const dispatch = useAppDispatch();
@@ -23,11 +24,11 @@ export const Dashboard = () => {
 
   const eventData = isSucces && limitPage
     ? limitPage.map(event => ({
-      name: event.organizerName,
+      name: event.date,
       // tanggal: event.date,
       tiket: `${event.ticketsSold} Tiket`,
       event: `${event.title}`,
-      gambar: <div><img src={`http://localhost:3500/${event.picture}`} alt={'gagal data img'} className="w-20 h-14 rounded-xl" /></div>,
+      gambar: <div><img src={`${PICTURE}${event.picture}`} alt={'gagal data img'} className="w-20 h-14 rounded-xl" /></div>,
       status: <div className="bg-red-300 text-center rounded-2xl p-1 text-white">{event.status}</div>,
     }))
     : [];
@@ -35,9 +36,9 @@ export const Dashboard = () => {
   // Kolom tabel
   const columns = [
     { key: 'gambar', label: 'Gambar' },
-    { key: 'name', label: 'Nama Organizer' },
     { key: 'event', label: 'Nama Event' },
     { key: 'tiket', label: 'Tiket Terjual' },
+    { key: 'name', label: 'Tanggal - Event' }, 
     // { key: 'status', label: 'Status' },
     // { key: 'tanggal', label: 'Tanggal Event' },
   ];
@@ -72,14 +73,15 @@ export const Dashboard = () => {
         </div>
 
         <div className="card w-full lg:w-96 shadow-md p-4 md:p-6">
-          <h4 className="text-center text-black font-semibold text-base md:text-lg mb-3">Event Latest</h4>
+          <h4 className="text-center text-black font-semibold text-base md:text-lg mb-3">Organizer Latest</h4>
           <ol className="list-decimal text-black text-sm md:text-base space-y-2">
-            {events.slice(0, 5).map((event, index) => (
+            {events.slice(0, 10).map((event, index) => (
               <li className="flex flex-row gap-5 card shadow-lg p-3 w-full bg-slate-50 mt-2" key={index}>
-                <img src={`http://localhost:3500/${event.picture}`} alt={'gagal data img'} className="w-20 h-14 rounded-xl" />
-                <div>
-                  <h5 className="text-black font-semibold tracking-wider">{event.title}</h5>
-                </div>
+                {/* <img src={`${PICTURE}${event.picture}`} alt={'gagal data img'} className="w-20 h-14 rounded-xl" /> */}
+                {/* <div className="flex gap-3"> */}
+                  <span className="text-black font-semibold tracking-wider">{index + 1}. </span>
+                  <h5 className="text-black font-semibold tracking-wider">{event.organizerName}</h5>
+                {/* </div> */}
               </li>
             ))}
           </ol>

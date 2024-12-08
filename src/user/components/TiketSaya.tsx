@@ -6,6 +6,8 @@ import { FaCalendarAlt, FaMapMarkerAlt, FaBuilding } from "react-icons/fa";
 import { RootState } from "../../Redux/store";
 import { fetchTicketsByUserId } from "../../Redux/features/ticket/ticketSlice";
 import { useAppDispatch, useAppSelector } from "../../Redux/hook";
+const PICTURE = import.meta.env.VITE_API_URL_PICTURE
+
 
 const TiketSaya: React.FC = () => {
   const navigate = useNavigate();
@@ -62,7 +64,7 @@ const TiketSaya: React.FC = () => {
               {/* Left side with image and details */}
               <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 w-full md:w-auto">
                 <img
-                  src={`http://localhost:3500/${ticket.payment?.event?.picture}`}
+                  src={`${PICTURE}${ticket.payment?.event?.picture}`}
                   alt={ticket.payment?.event?.title}
                   className="w-full md:w-32 h-48 md:h-32 object-cover rounded-lg"
                 />

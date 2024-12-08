@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { getPaymentReport } from "../../Redux/features/organizer/organizerSlice";
 import { useAppDispatch, useAppSelector } from "../../Redux/hook";
 import api from "../../services/api";
-
+const PICTURE = import.meta.env.VITE_API_URL_PICTURE
 
 export const DashboardOrganizer = () => {
   const dispatch = useAppDispatch();
@@ -134,7 +134,7 @@ export const DashboardOrganizer = () => {
             ) : (
               dataletest.map((event, index) => (
                 <li key={index} className="flex flex-row gap-5 card shadow-lg p-3 w-full bg-slate-50 mt-2">
-                  <img src={`http://localhost:3500/${event.picture}`} alt="Event Image" className="w-20 rounded-xl" />
+                  <img src={`${PICTURE}${event.picture}`} alt="Event Image" className="w-20 rounded-xl" />
                   <div>
                     <h5 className="text-black font-semibold tracking-wider">{event.title || "Event Title"}</h5>
                     <h6 className="text-black text-sm">{event.ticketsSold} Tiket Terjual</h6>

@@ -1,5 +1,6 @@
+import React from 'react';
 import { FaSearch } from "react-icons/fa";
-import React from 'react'
+
 interface SearchProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -8,7 +9,7 @@ interface SearchProps {
 
 export const Search: React.FC<SearchProps> = ({ value, onChange, onSubmit }) => {
   return (
-    <form onSubmit={onSubmit} className="relative">
+    <form onSubmit={onSubmit} className="relative" data-testid="search-form">
       <input
         type="text"
         value={value}

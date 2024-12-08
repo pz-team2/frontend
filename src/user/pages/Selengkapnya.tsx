@@ -3,6 +3,7 @@ import Card from "../components/Card";
 import Search from "../components/Search";
 import api from "../../services/api";
 
+const PICTURE = import.meta.env.VITE_API_URL_PICTURE
 interface EventCategory {
   _id: string;
   name: string;
@@ -40,7 +41,7 @@ const Selengkapnya: React.FC = () => {
             quota: event.quota,
             date: new Date(event.date),
             price: event.price,
-            picture: `http://localhost:3500/${event.picture}`,
+            picture: `${PICTURE}${event.picture}`,
             category: event.category || null,
           }));
 

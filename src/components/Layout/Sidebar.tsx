@@ -16,7 +16,7 @@ interface dataSidebar {
   gambar: string
 }
 
-const Sidebar: React.FC<dataSidebar> = ({ menuItems, gambar }) => {
+export const Sidebar: React.FC<dataSidebar> = ({ menuItems, gambar }) => {
 
   const [open, setOpen] = useState<boolean>(false);
   const location = useLocation();
@@ -81,4 +81,3 @@ const Sidebar: React.FC<dataSidebar> = ({ menuItems, gambar }) => {
   );
 }
 
-export default Sidebar;

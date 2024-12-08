@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import Search from "../components/Search";
 import api from "../../services/api";
 
+const PICTURE = import.meta.env.VITE_API_URL_PICTURE
+
 interface EventCategory {
   _id: string;
   name: string;
@@ -37,7 +39,7 @@ const HomePage: React.FC = () => {
           const formattedEvents = data.map((event) => ({
             ...event,
             date: new Date(event.date).toISOString(),
-            picture: `http://localhost:3500/${event.picture}`,
+            picture: `${PICTURE}${event.picture}`,
           }));
           setEvents(formattedEvents);
           setFilteredEvents(formattedEvents);

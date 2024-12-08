@@ -7,10 +7,10 @@ import { Input } from '../../../components/Fragments/Input';
 import { Editor as TinyMCEEditor } from '@tinymce/tinymce-react';
 import { useAppDispatch } from "../../../Redux/hook";
 import { useEffect, useState } from "react";
-import { EventErrorAndLoading, tambahEvent } from "../../../Redux/features/events/eventSlice";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { dataCategory } from "../../../Redux/features/category/categorySlice";
+import { EventErrorAndLoading, tambahEvent } from '../../../Redux/features/events-redux/EventSlice';
 
 export const TambahEvent = () => {
     const navigate = useNavigate();

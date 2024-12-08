@@ -3,7 +3,7 @@ import api from '../../services/api';
 import React from 'react'
 import { format } from 'date-fns';
 import { Button } from '../../components/Fragments/Button';
-
+const PICTURE = import.meta.env.VITE_API_URL_PICTURE
 export const Event = () => {
   const [events, setEvents] = useState<any[]>([]);
 
@@ -31,7 +31,7 @@ export const Event = () => {
           {events.map((event) => (
             <div key={event._id} className="card w-full card-compact bg-base-100 shadow-xl mt-3">
               <figure>
-                <img src={`http://localhost:3500/${event.picture}`} alt={event.title} />
+                <img src={`${PICTURE}${event.picture}`} alt={event.title} />
               </figure>
               <div className="card-body bg-white rounded-b-2xl">
                 <h2 className="card-title text-black">{event.title}</h2>

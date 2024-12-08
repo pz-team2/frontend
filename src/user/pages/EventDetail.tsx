@@ -6,6 +6,7 @@ import TicketCounter from "../components/TicketCounter";
 import CardDetail from "../components/CardDetail";
 import { useParams } from "react-router-dom";
 import api from "../../services/api";
+const PICTURE = import.meta.env.VITE_API_URL_PICTURE
 
 interface EventProps {
   id: string;
@@ -39,7 +40,7 @@ const EventDetail: React.FC = () => {
             ...eventData.data,
             date: new Date(eventData.data.date),
             picture: eventData.data.picture
-              ? `http://localhost:3500/${eventData.data.picture}`
+              ? `${PICTURE}${eventData.data.picture}`
               : "Banner",
           };
 
