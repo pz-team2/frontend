@@ -9,7 +9,7 @@ const DetailTiket: React.FC = () => {
   const dispatch = useAppDispatch()
 
   // Mengambil state dari Redux
-  const { tickets, loading } =  useAppSelector(state => state.ticket);
+  const { tickets, loading } = useAppSelector(state => state.ticket);
 
   useEffect(() => {
     if (id) {
@@ -19,7 +19,13 @@ const DetailTiket: React.FC = () => {
 
   // Jika data tiket belum tersedia atau dalam proses loading
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>
+      <h1 className="mt-10  font-extrabold text-xl text-black"> Sedang Memuat Data</h1>
+      <div className=" mt-6  flex-col gap-4 grid grid-cols-2">
+        <div className="skeleton h-64 w-full bg-slate-300"></div>
+        <div className="skeleton h-64 w-full bg-slate-300"></div>
+      </div>
+    </div>;
   }
 
   return (
@@ -73,14 +79,14 @@ const DetailTiket: React.FC = () => {
                   </p>
                 </div>
 
-                <div> 
+                <div>
                   <span
                     className={`inline-block px-3 md:px-4 py-1.5 md:py-2 rounded-lg font-semibold text-sm md:text-base
                       ${ticket.status === "AVAILABLE"
                         ? "bg-[#30BFCA] text-white"
                         : ticket.status === "USED"
-                        ? "bg-gray-500 text-white"
-                        : "bg-red-500 text-white"}`}
+                          ? "bg-gray-500 text-white"
+                          : "bg-red-500 text-white"}`}
                   >
                     {ticket.status}
                   </span>
