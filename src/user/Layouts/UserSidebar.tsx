@@ -1,8 +1,9 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
-import { FaTicketAlt, FaKey } from "react-icons/fa";
-import { CgProfile } from "react-icons/cg";
+import { FaKey } from "react-icons/fa";
+import { GiTicket } from "react-icons/gi";
+import { FaUserEdit } from "react-icons/fa";
 import logo from "../../assets/img/goevent-w.png";
 
 interface MenuItem {
@@ -21,12 +22,12 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onClose }) => {
   const menuItems: MenuItem[] = [
     {
       text: "Informasi Pribadi",
-      icon: <CgProfile className="w-5 h-5" />,
+      icon: <FaUserEdit className="w-5 h-5" />,
       path: "/user/profile",
     },
     {
       text: "Tiket Saya",
-      icon: <FaTicketAlt className="w-5 h-5" />,
+      icon: <GiTicket className="w-5 h-5" />,
       path: "/user/ticket",
     },
     {
