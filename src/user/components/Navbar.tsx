@@ -6,7 +6,7 @@
   import { BiSolidPhoneCall } from "react-icons/bi";
   import { CgProfile } from "react-icons/cg";
   import { IoIosLogOut } from "react-icons/io";
-  import { FaUserEdit } from "react-icons/fa";
+  import { FaTicketAlt, FaUserEdit} from "react-icons/fa";
   import { useState, useEffect } from "react";
   import React from 'react'
 
@@ -44,7 +44,7 @@
                 to="/user/ticket"
                 className="flex items-center space-x-2 text-white"
               >
-                <GiTicket size={25} />
+                <FaTicketAlt size={25} />
                 <span>My Ticket</span>  
               </Link>
               <Link
