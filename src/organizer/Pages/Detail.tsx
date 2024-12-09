@@ -1,4 +1,4 @@
-import gambar from '../../assets/img/banner1.png';
+
 import React from 'react'
 import { IoIosCalendar } from "react-icons/io";
 import { FaLocationDot } from "react-icons/fa6";
@@ -9,7 +9,7 @@ import { MdPriceChange } from "react-icons/md";
 import { FaWindowMaximize } from "react-icons/fa6";
 import { useEffect, useState } from 'react';
 import api from '../../services/api';
-
+const PICTURE = import.meta.env.VITE_API_URL_PICTURE
 export const Detail = () => {
 
     const { id } = useParams();
@@ -49,7 +49,7 @@ export const Detail = () => {
                 <div className="badge bg-cyan-200 border-0 text-black p-5 ml-3"> {data.status} </div>
                 <div className='relative flex flex-col lg:flex-row gap-6'>
                     <div className="relative w-full lg:w-1/2 overflow-hidden rounded-lg shadow-md">
-                        <img src={gambar} alt="Event Banner" className='w-full h-full object-cover' />
+                        <img src={`${PICTURE}${data.picture}`} alt="Event Banner" className='w-full h-full object-cover' />
                     </div>
 
                     <div className="w-full lg:w-1/2 space-y-4">

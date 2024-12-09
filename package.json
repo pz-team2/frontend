@@ -8,8 +8,11 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "jest --watchAll",
-    "cov": "jest --coverage --collectCoverageFrom='src/**/*.{ts,tsx}'"
+    "test": "jest",
+    "cov": "jest --coverage --collectCoverageFrom='**/components/**/*.{ts,tsx}'"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^43.2.0",
@@ -23,6 +26,7 @@
     "datatables.net": "^2.1.8",
     "datatables.net-dt": "^2.1.8",
     "date-fns": "^4.1.0",
+    "dotenv": "^16.4.7",
     "jquery": "^3.7.1",
     "lucide-react": "^0.453.0",
     "react": "^18.3.1",

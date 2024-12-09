@@ -15,10 +15,10 @@ interface EventProps {
   address: string;
   date: Date;
   quota: number;
-  ticketType: string;
-  price: number;
   picture?: string;
-  category?: string;
+  startTime: string;
+  finishTime: string;
+  price: number;
 }
 
 const EventDetail: React.FC = () => {
@@ -71,7 +71,7 @@ const EventDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="flex flex-col space-y-6 max-w-[1338px] mt-10 mx-auto pb-8 px-4 md:px-14">
+      <div className="flex flex-col space-y-6 max-w-[1338px] mt-10 mx-auto pb-8 px-6 md:px-14">
         <img
           src={event.picture || "Banner"}
           alt="banner"
@@ -94,12 +94,15 @@ const EventDetail: React.FC = () => {
         </div>
 
         <div className="mt-8 w-full">
-          <h3 className="text-2xl font-semibold text-primary mb-4 text-center">Tentang Event</h3>
+          <h3 className="text-3xl font-semibold text-primary mb-4 text-center">Tentang Event</h3>
           <CardDetail
             title={event.title}
             description={event.description}
             address={event.address}
             date={event.date}
+            startTime={event.startTime}
+            finishTime={event.finishTime}
+            quota={event.quota}
           />
         </div>
 
@@ -108,6 +111,5 @@ const EventDetail: React.FC = () => {
     </div>
   );
 };
-
 
 export default EventDetail;

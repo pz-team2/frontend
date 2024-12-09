@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import Search from "../components/Search";
 import api from "../../services/api";
 
+const PICTURE = import.meta.env.VITE_API_URL_PICTURE
+
 interface EventCategory {
   _id: string;
   name: string;
@@ -37,7 +39,7 @@ const HomePage: React.FC = () => {
           const formattedEvents = data.map((event) => ({
             ...event,
             date: new Date(event.date).toISOString(),
-            picture: `http://localhost:3500/${event.picture}`,
+            picture: `${PICTURE}${event.picture}`,
           }));
           setEvents(formattedEvents);
           setFilteredEvents(formattedEvents);
@@ -105,9 +107,9 @@ const HomePage: React.FC = () => {
     <div className="bg-white flex flex-col">
       {/* Kirim data sliderImages dan events ke komponen ImageSlider */}
       <ImageSlider images={sliderImages} events={events} />
-      <section className="flex flex-col max-w-[1114px] text-left mt-4 mx-6 justify-center space-y-8 md:mx-auto">
+      <section className="flex flex-col max-w-[1114px] text-left mt-4 mx-6 justify-center space-y-8 lg:mx-auto">
         <h2 className="text-black text-2xl font-bold">Event Mendatang</h2>
-        <div className="grid grid-cols-1 pb-8 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 pb-8 sm:grid-cols-2 gap-8">
           {upcomingEvents.length > 0 ? (
             upcomingEvents.map((event) => (
               <Card
@@ -130,7 +132,7 @@ const HomePage: React.FC = () => {
         </div>
         <Search onSearch={handleSearch} categories={categories} />
         <h2 className="text-black text-2xl font-bold">Event</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
           {filteredEvents.length > 0 ? (
             filteredEvents.map((event) => (
               <Card

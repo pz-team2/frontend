@@ -4,11 +4,8 @@ import categoryReducer from './features/category/categorySlice'
 import organizerReducer  from './features/organizer/organizerSlice'
 import loginOrganizerReducer  from './features/organizer/loginOrganizerSlice'
 import dashboardReducer  from './features/dashboard/dashboardSlice'
-import eventReducer  from './features/events/eventSlice';
+import eventReducer  from './features/events-redux/EventSlice';
 import ticketReducer  from './features/ticket/ticketSlice'
-
- 
-
 const store = configureStore({
     reducer: {
         auth: authReducer,

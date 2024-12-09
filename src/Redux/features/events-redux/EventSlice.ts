@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { deleteEventApi, getEventByIdApi, getEventByOrganizerApi, tambahEventApi, updateEventApi } from "./eventApi";
+import { deleteEventApi, getEventByIdApi, getEventByOrganizerApi, tambahEventApi, updateEventApi } from "./EventApi";
 import { RootState } from "../../store";
 import { eventType, Events } from "../../types/event.types";
 

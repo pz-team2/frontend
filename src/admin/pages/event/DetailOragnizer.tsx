@@ -8,13 +8,13 @@ import { CardEvent } from "../../../components/Layout/CardEvent";
 import { getOrganizerByIdApi, IOrganizer } from "../../../Redux/features/organizer/organizerApi";
 import { CardProfile } from "../../../components/Layout/CardProfile";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hook";
-import { deleteEventById, getEventsByOrganizer } from "../../../Redux/features/events/eventSlice";
+import { deleteEventById, getEventsByOrganizer } from "../../../Redux/features/events-redux/EventSlice";
 import { RootState } from "../../../Redux/store";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { format } from 'date-fns';
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-
+const PICTURE = import.meta.env.VITE_API_URL_PICTURE
 const DetailOrganizer = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
@@ -159,7 +159,7 @@ const DetailOrganizer = () => {
           filteredEvents.map((event) => (
             <CardEvent
               key={event._id}
-              gambar={`http://localhost:3500/${event.picture}`}
+              gambar={`${PICTURE}${event.picture}`}
               title={event.title}
               date={format(new Date(event.date), "d MMMM yyyy")}
               id={event._id}

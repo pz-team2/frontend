@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hook";
 import { dataterbaru } from "../../../Redux/features/dashboard/dashboardSlice";
 import DataTable from "react-data-table-component";
-
+const PICTURE = import.meta.env.VITE_API_URL_PICTURE
 export const EventData = () => {
   const dispatch = useAppDispatch();
   const { isSucces, events } = useAppSelector((state) => state.dashboard);
@@ -26,7 +26,7 @@ export const EventData = () => {
     ? events.map((event) => ({
         gambar: (
           <img
-            src={`http://localhost:3500/${event.picture}`}
+            src={`${PICTURE}${event.picture}`}
             alt="Event"
             className="w-20 h-14 rounded-xl"
           />

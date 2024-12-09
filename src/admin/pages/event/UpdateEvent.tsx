@@ -6,7 +6,7 @@ import { Input } from '../../../components/Fragments/Input';
 import { Editor as TinyMCEEditor } from '@tinymce/tinymce-react';
 import { useAppDispatch } from "../../../Redux/hook";
 import { useEffect, useState } from "react";
-import { EventErrorAndLoading, EventMessage, getEventById, updateEventById } from "../../../Redux/features/events/eventSlice";
+import { EventErrorAndLoading, EventMessage, getEventById, updateEventById } from "../../../Redux/features/events-redux/EventSlice";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { dataCategory } from "../../../Redux/features/category/categorySlice";

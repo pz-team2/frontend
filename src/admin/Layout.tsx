@@ -1,13 +1,13 @@
 
 import { Outlet } from "react-router-dom";
 import React from 'react'
-import Sidebar from "../components/Layout/Sidebar";
 import '../App.css';
 import { VscOrganization } from "react-icons/vsc";
 import { FaRegUser } from "react-icons/fa6";
 import { IoHomeOutline, IoSettingsSharp } from "react-icons/io5";
 import { BsCalendarEventFill } from "react-icons/bs";
 import gambar from '../assets/img/admin.png'
+import { Sidebar } from "../components/Layout/Sidebar";
 
 
 const Layout = () => {

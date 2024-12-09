@@ -7,11 +7,11 @@ import { IoChevronBackOutline } from "react-icons/io5";
 import { MdPriceChange } from "react-icons/md";
 import { FaWindowMaximize } from "react-icons/fa6";
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
-import { getEventById } from '../../../Redux/features/events/eventSlice';
 import { useEffect } from 'react';
 import { RootState } from '../../../Redux/store';
 import { format } from 'date-fns';
-
+import { getEventById } from '../../../Redux/features/events-redux/EventSlice';
+const PICTURE = import.meta.env.VITE_API_URL_PICTURE
 
 export const DetailEvent = () => {
 
@@ -46,7 +46,7 @@ export const DetailEvent = () => {
                 <div className="badge bg-cyan-200 border-0 text-black p-5 ml-3"> {selectedEvent.status} </div>
                 <div className='relative flex flex-col lg:flex-row gap-6'>
                     <div className="relative w-full lg:w-1/2 overflow-hidden rounded-lg shadow-md">
-                        <img src={`http://localhost:3500/${selectedEvent.picture}`} alt="Event Banner" className='w-full h-full object-cover' />
+                        <img src={`${PICTURE}${selectedEvent.picture}`} alt="Event Banner" className='w-full h-full object-cover' />
                     </div>
 
                     <div className="w-full lg:w-1/2 space-y-4">
