@@ -45,7 +45,7 @@
                 className="flex items-center space-x-2 text-white"
               >
                 <GiTicket size={25} />
-                <span>My Ticket</span>
+                <span>My Ticket</span>  
               </Link>
               <Link
                 to="/user/riwayat-transaksi"
