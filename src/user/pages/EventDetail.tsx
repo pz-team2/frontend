@@ -60,7 +60,17 @@ const EventDetail: React.FC = () => {
   }, [id]);
 
   if (loading) {
-    return <div>Loading event details...</div>;
+    return <div className="flex justify-center">
+    <div className="flex w-3/4 mt-10  flex-col gap-4">
+      <div className="skeleton h-64 w-full bg-slate-300"></div>
+      <div className="skeleton h-4 w-28 bg-slate-300"></div>
+      <div className="skeleton h-4 w-full bg-slate-300"></div>
+      <div className="skeleton h-4 w-full bg-slate-300"></div>
+      <div className="skeleton h-4 w-full bg-slate-300"></div>
+      <div className="skeleton h-4 w-full bg-slate-300"></div>
+      <div className="skeleton h-4 w-full bg-slate-300"></div>
+    </div>
+  </div>;
   }
 
   if (error) {
