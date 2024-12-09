@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FaUser, FaTicketAlt, FaExchangeAlt, FaKey } from "react-icons/fa";
+import { FaMoneyCheckDollar } from "react-icons/fa6";
+import { FaTicketAlt, FaKey } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
 import logo from "../../assets/img/goevent-w.png";
 
 interface MenuItem {
@@ -19,7 +21,7 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onClose }) => {
   const menuItems: MenuItem[] = [
     {
       text: "Informasi Pribadi",
-      icon: <FaUser className="w-5 h-5" />,
+      icon: <CgProfile className="w-5 h-5" />,
       path: "/user/profile",
     },
     {
@@ -29,7 +31,7 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ onClose }) => {
     },
     {
       text: "Riwayat Transaksi",
-      icon: <FaExchangeAlt className="w-5 h-5" />,
+      icon: <FaMoneyCheckDollar size={25} />,
       path: "/user/riwayat-transaksi",
     },
     {
