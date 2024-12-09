@@ -143,7 +143,12 @@ const InformasiPribadi = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[200px]">
-        <div className="text-gray-600">Loading...</div>
+        <div className="text-gray-600"><div className="flex justify-center items-center h-screen">
+          <div className="flex flex-col justify-center items-center">
+            <span className="loading loading-dots loading-lg bg-black"></span>
+            <h1 className="text-black text-xl">Data Sedang Di Muat ...</h1>
+          </div>
+        </div></div>
       </div>
     );
   }
