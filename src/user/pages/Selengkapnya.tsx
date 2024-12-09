@@ -95,11 +95,11 @@ const Selengkapnya: React.FC = () => {
         <h2 className="text-black text-2xl font-bold">Semua Event</h2>
         {loading ? (
           <div>
-            <h1 className="mt-10  font-extrabold text-xl text-black"> Sedang Memuat Data</h1>
-            <div className=" mt-6  flex-col gap-4 grid grid-cols-3">
-              <div className="skeleton h-64 w-full bg-slate-300"></div>
-              <div className="skeleton h-64 w-full bg-slate-300"></div>
-              <div className="skeleton h-64 w-full bg-slate-300"></div>
+            <h1 className="mt-10  font-extrabold text-xl text-black"> Sedang Memuat Data ...</h1>
+            <div className=" mt-6 flex-col gap-4 grid grid-cols-3">
+              <div className="skeleton h-64 w-80 bg-slate-300"></div>
+              <div className="skeleton h-64 w-80 bg-slate-300"></div>
+              <div className="skeleton h-64 w-80 bg-slate-300"></div>
             </div>
           </div>
         ) : (
