@@ -22,7 +22,7 @@ const Input: React.FC<InputProps> = ({
       )}
       <input
         id={id} 
-        className={`w-full px-4 md:px-6 py-3 md:py-4 text-base md:text-lg border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#30BFCA] focus:border-transparent bg-white ${className}`}
+        className={`w-full px-4 md:px-6 py-3 md:py-4 text-base md:text-lg border-2 border-gray-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#30BFCA] focus:border-transparent bg-white ${className}`}
         {...props}
       />
       {error && <p className="text-red-500 text-sm mt-1">{error}</p>}

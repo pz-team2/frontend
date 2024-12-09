@@ -94,7 +94,14 @@ const Selengkapnya: React.FC = () => {
         <Search onSearch={handleSearch} categories={categories} />
         <h2 className="text-black text-2xl font-bold">Semua Event</h2>
         {loading ? (
-          <p className="text-center">Loading events...</p>
+          <div>
+            <h1 className="mt-10  font-extrabold text-xl text-black"> Sedang Memuat Data</h1>
+            <div className=" mt-6  flex-col gap-4 grid grid-cols-3">
+              <div className="skeleton h-64 w-full bg-slate-300"></div>
+              <div className="skeleton h-64 w-full bg-slate-300"></div>
+              <div className="skeleton h-64 w-full bg-slate-300"></div>
+            </div>
+          </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredEvents.length > 0 ? (
