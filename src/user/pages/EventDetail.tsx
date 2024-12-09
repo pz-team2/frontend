@@ -27,6 +27,8 @@ const EventDetail: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const PICTURE = import.meta.env.VITE_API_URL_PICTURE
+
   useEffect(() => {
     const fetchEventDetail = async () => {
       try {
@@ -39,7 +41,7 @@ const EventDetail: React.FC = () => {
             ...eventData.data,
             date: new Date(eventData.data.date),
             picture: eventData.data.picture
-              ? `http://localhost:3500/${eventData.data.picture}`
+              ? `${PICTURE}${eventData.data.picture}`
               : "Banner",
           };
 

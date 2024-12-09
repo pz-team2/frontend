@@ -34,13 +34,19 @@ const TiketSaya: React.FC = () => {
   // Periksa apakah tickets adalah array sebelum memanggil filter
   const uniqueTickets = Array.isArray(tickets)
     ? tickets.filter(
-        (ticket, index, self) =>
-          index === self.findIndex((t) => t.payment?._id === ticket.payment?._id)
-      )
+      (ticket, index, self) =>
+        index === self.findIndex((t) => t.payment?._id === ticket.payment?._id)
+    )
     : [];
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <div className="flex justify-center items-center h-screen">
+      <div className="flex flex-col justify-center items-center">
+        <span className="loading loading-dots loading-lg bg-black"></span>
+        <h1 className="text-black text-xl">Data Sedang Di Muat ...</h1>
+      </div>
+    </div>
+
   }
 
   return (
