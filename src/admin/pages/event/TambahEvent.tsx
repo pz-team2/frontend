@@ -101,7 +101,7 @@ export const TambahEvent = () => {
         }
 
         const result = await dispatch(tambahEvent({ id: organizerId, data: formEvent }));
-        console.log(result)
+        // console.log(`result : ${result}`)
         // Periksa apakah tambahEvent berhasil
         if (tambahEvent.fulfilled.match(result)) {
             Swal.fire({
@@ -112,11 +112,11 @@ export const TambahEvent = () => {
             navigate(`/admin/organizer/detail/${organizerId}`);
         } else {
             // Dapatkan pesan error dari response backend
-            const errorMessage = result.payload ? result.payload : "Event tidak berhasil ditambahkan.";
+            // const errorMessage = result.payload ? result.payload : "Event tidak berhasil ditambahkan.";
             Swal.fire({
                 icon: "error",
                 title: "Gagal!",
-                text: `Error: ${errorMessage}`,
+                text: `Terjadi Kesalahan`,
             });
         }
     };
