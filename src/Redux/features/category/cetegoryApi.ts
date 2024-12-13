@@ -25,12 +25,22 @@ export const listcategory = async () => {
     }
 };
 
-export const delcategory = async(id:string) => {
+export const delcategory = async (id: string) => {
     try {
         const response = await api.delete(`categories/${id}`)
         return response.data
-    }catch(error){
-        return console.log('Gagal Hapus Category',  error)
+    } catch (error) {
+        return console.log('Gagal Hapus Category', error)
 
     }
 }
+
+export const updateCategory = async (id: string, data: categorytype) => {
+    try {
+        const response = await api.put(`categories/${id}`, data);
+        return response.data;
+    } catch (error) {
+        console.error('Gagal Memperbarui Category', error);
+        return { success: false, message: 'Gagal Memperbarui Category' };
+    }
+};

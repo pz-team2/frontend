@@ -4,8 +4,9 @@ import {
   addcategory,
   delcategory,
   listcategory,
+  updateCategory,
 } from "../category/cetegoryApi";
-import {category, categoryState } from "../../types/category.types";
+import { category, categoryState } from "../../types/category.types";
 
 const initialState: categoryState = {
   name: "",
@@ -64,6 +65,23 @@ export const deletecategory = createAsyncThunk(
   }
 );
 
+export const updatecategory = createAsyncThunk(
+  "categories/update",
+  async ({ id, data }: { id: string; data: { name: string; description: string } }, { rejectWithValue }) => {
+    try {
+      const response = await updateCategory(id, data);
+      if (response.success) {
+        return response.data;
+      } else {
+        return rejectWithValue(response.message);
+      }
+    } catch (error) {
+      return rejectWithValue("Gagal Memperbarui Kategori");
+    }
+  }
+);
+
+
 const categorySlice = createSlice({
   name: "Category",
   initialState,
@@ -102,8 +120,18 @@ const categorySlice = createSlice({
       })
       .addCase(deletecategory.rejected, (state, action) => {
         state.message = action.payload as string;
-      });
-  },
+      })
+      .addCase(updatecategory.fulfilled, (state, action) => {
+        state.datacategory = state.datacategory.map((category) =>
+          category._id === action.payload._id ? action.payload : category
+        );
+        state.message = "Berhasil Memperbarui Kategori";
+      })
+    .addCase(updatecategory.rejected, (state, action) => {
+      state.message = action.payload as string;
+    });
+
+},
 });
 
 export const { setName, setDescription, setMessage } = categorySlice.actions;
