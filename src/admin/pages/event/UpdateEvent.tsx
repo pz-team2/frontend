@@ -145,10 +145,10 @@ export const UpdateEvent = () => {
 
     return (
         <div>
-            <Link to={`/admin/organizer/detail/${eventData.organizer._id}`} className='text-black flex items-center gap-2 mb-5'>
+            {/* <Link to={`/admin/organizer/detail/${formEvent.organizer._id}`} className='text-black flex items-center gap-2 mb-5'>
                 <IoChevronBackOutline size={24} />
                 <span>Back to Events</span>
-            </Link>
+            </Link> */}
             <h1 className="mb-5 text-2xl font-extrabold text-black mt-4">Update Event</h1>
 
             {loading && (

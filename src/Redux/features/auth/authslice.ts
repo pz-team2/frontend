@@ -26,7 +26,7 @@ export const login = createAsyncThunk( 'auth/login',
                 return rejectWithValue(response.message);
             }
         } catch (error) {
-            return rejectWithValue('Terjadi Kesalahan, Silahkan Coba Kembali');
+            return rejectWithValue('Email atau Password Salah');
         }
     }
 );

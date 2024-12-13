@@ -1,9 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from "../../../components/Layout/Table";
 import { TambahKategori } from "./TambahKategori";
-import { FaTrashCan } from "react-icons/fa6";
+import { FaTrashCan } from "react-icons/fa6"; // Importing the edit icon
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
 import { dataCategory, deletecategory } from '../../../Redux/features/category/categorySlice';
+import { UpdateKategori } from './UpdateKategori';
+import { PiNotePencilBold } from "react-icons/pi";
+import Swal from 'sweetalert2';
 
 interface FormattedCategory {
   no: number;
@@ -23,16 +26,36 @@ const columns = [
 export const Kategori: React.FC = () => {
   const dispatch = useAppDispatch();
   const { datacategory } = useAppSelector((state) => state.category);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState({
+    id: "",
+    name: "",
+    description: "",
+  });
+
+  const handleUpdate = (id: string, name: string, description: string) => {
+    setSelectedCategory({ id, name, description });
+    setModalOpen(true);
+  };
 
   useEffect(() => {
     dispatch(dataCategory());
   }, [dispatch]);
 
   const handleDelete = (id: string) => {
-    if (window.confirm('Apakah Anda yakin ingin menghapus kategori ini?')) {
-      dispatch(deletecategory(id));
-      window.location.reload();
-    }
+    Swal.fire({
+      title: "Apakah Anda yakin ingin menghapus kategori ini?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Ya, Hapus",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deletecategory(id));
+        Swal.fire("Deleted!", "Kategori telah berhasil dihapus.", "success");
+        dispatch(dataCategory());
+      }
+    });
   };
 
   const formattedCategories: FormattedCategory[] = datacategory.map((category, index) => ({
@@ -42,11 +65,22 @@ export const Kategori: React.FC = () => {
     keterangan: category.description,
     aksi: (
       <div className="flex flex-row gap-2">
+        {/* Delete Button */}
         <button
           onClick={() => handleDelete(category._id)}
           className="btn bg-red-400 text-white border-0 hover:bg-red-500"
+          key={`delete-${category._id}`}
         >
-          <FaTrashCan />
+          <FaTrashCan size={15}/>
+        </button>
+
+        {/* Update Button */}
+        <button
+          onClick={() => handleUpdate(category._id, category.name, category.description)}
+          className="btn bg-secondary text-white border-0 hover:bg-cyan-600"
+          key={`update-${category._id}`}
+        >
+          <PiNotePencilBold size={18}/>
         </button>
       </div>
     ),
@@ -61,6 +95,14 @@ export const Kategori: React.FC = () => {
           <Table columns={columns} data={formattedCategories} />
         </div>
       </div>
+      {isModalOpen && (
+        <UpdateKategori
+          id={selectedCategory.id}
+          currentName={selectedCategory.name}
+          currentDescription={selectedCategory.description}
+          onClose={() => setModalOpen(false)} 
+        />
+      )}
     </div>
   );
 };

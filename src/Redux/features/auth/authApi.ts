@@ -19,10 +19,9 @@ interface verifyResponse{
 export const apiLogin = async (data: login) => {
     try{
         const respone = await api.post('auth/login', data);
-        console.log(respone)
         return respone.data
     }catch(erorr){
-        return console.log('Terjadi Kesalahan Saat Login', erorr)
+        return 'Terjadi Kesalahan'
     }
 };
 
@@ -31,7 +30,7 @@ export const  apiRegister = async (data: register) => {
         const respone = await api.post('auth/register', data);
         return respone.data
     }catch(erorr){
-        return console.log('Terjadi Kesalahan  Saat Register', erorr)
+        return 'Terjadi Kesalahan'
     }
 }
 
@@ -40,7 +39,6 @@ export const verifyEmail = async (token: string): Promise<verifyResponse> =>  {
         const response = await api.get<verifyResponse>(`auth/verify/${token}`);
         return response.data;
     } catch (error) {
-        console.log('Terjadi Kesalahan Saat Verifikasi', error);
         return { message: 'Verification failed' };
     }
 };

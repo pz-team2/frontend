@@ -22,8 +22,8 @@ export interface PaginationData {
 // Tipe untuk Events
 export interface Events {
   _id: string;
-  organizer: string; // ID organizer untuk tambah/update
-  category: string;  // ID kategori untuk tambah/update
+  organizer: string;
+  category: string; 
   title: string;
   date: Date;
   address: string;
@@ -38,8 +38,8 @@ export interface Events {
 
 export interface EventsData {
   _id: string;
-  organizer: Organizer; // ID organizer untuk tambah/update
-  category: Category;  // ID kategori untuk tambah/update
+  organizer: Organizer; 
+  category: Category;  
   title: string;
   date: Date;
   address: string;
@@ -54,10 +54,10 @@ export interface EventsData {
 
 // Tipe untuk eventType (menambahkan pagination)
 export interface eventType {
-  events: Events[];      // Array data event
-  selectedEvent: EventsData | null;  // Event yang terpilih
-  isEvent: boolean;      // Status event
-  message: string;       // Pesan terkait event
-  loading: boolean;      // Status loading
-  pagination: PaginationData;  // Menyimpan informasi pagination
+  events: Events[];     
+  selectedEvent: EventsData | null;  
+  isEvent: boolean;      
+  message: string;      
+  loading: boolean;      
+  pagination: PaginationData;
 }

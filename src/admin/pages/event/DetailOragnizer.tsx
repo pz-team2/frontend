@@ -167,7 +167,7 @@ const DetailOrganizer = () => {
             />
           ))
         ) : (
-          <div>No events found.</div>
+          <div>Tidak Ada Event Yang di Temukan.</div>
         )}
       </div>
 

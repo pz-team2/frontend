@@ -22,9 +22,12 @@ export const tambahEventApi = async (id: string, data: eventType,) => {
                 'Content-Type': 'multipart/form-data',
             }
         })
+        console.log(respon)
         return respon.data
     } catch (error) {
+        console.log(error)
         return error
+
     }
 }
 
