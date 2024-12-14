@@ -1,6 +1,6 @@
 // Table.test.tsx
 import { render, screen } from "@testing-library/react";
-import { Table } from "../components/Layout/Table";
+import { Table } from "../components/Table";
 import React from "react";
 
 describe("Table Component", () => {

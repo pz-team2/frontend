@@ -2,11 +2,11 @@ import React from 'react'
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { FaCirclePlus } from "react-icons/fa6";
-import { Search } from "../../../components/Layout/Search";
-import { Button } from "../../../components/Fragments/Button";
-import { CardEvent } from "../../../components/Layout/CardEvent";
+import { Search } from "../../../components/Search";
+import { Button } from "../../../components/Button";
+import { CardEvent } from "../../../components/CardEvent";
 import { getOrganizerByIdApi, IOrganizer } from "../../../Redux/features/organizer/organizerApi";
-import { CardProfile } from "../../../components/Layout/CardProfile";
+import { CardProfile } from "../../../components/CardProfile";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hook";
 import { deleteEventById, getEventsByOrganizer } from "../../../Redux/features/events-redux/EventSlice";
 import { RootState } from "../../../Redux/store";

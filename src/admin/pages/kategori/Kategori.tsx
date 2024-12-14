@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from "../../../components/Layout/Table";
+import { Table } from "../../../components/Table";
 import { TambahKategori } from "./TambahKategori";
 import { FaTrashCan } from "react-icons/fa6"; // Importing the edit icon
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook';

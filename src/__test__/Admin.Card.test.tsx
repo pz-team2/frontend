@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { FaUser } from 'react-icons/fa';
-import Card from '../components/Layout/Card';
+import Card from '../components/Card';
 
 describe('Card Component', () => {
     it('renders the correct title and jumlah', () => {

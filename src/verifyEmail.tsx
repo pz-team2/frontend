@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { CardVerify } from './components/Layout/CardVerify';
+import { CardVerify } from './components/CardVerify';
 import { FcApproval } from "react-icons/fc";
 import { FcHighPriority } from "react-icons/fc";
-import { Button } from './components/Fragments/Button';
+import { Button } from './components/Button';
 import { useAppDispatch, useAppSelector } from './Redux/hook';
 import { verify } from './Redux/features/auth/authslice';
 

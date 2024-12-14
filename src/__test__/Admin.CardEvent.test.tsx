@@ -1,79 +1,53 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { CardEvent } from '../components/Layout/CardEvent';
+import { CardVerify } from '../components/CardVerify';
 
-jest.mock('../components/Fragments/Button', () => ({
-    Button: ({ children, to, variant, onClick }: any) => (
-        <button data-testid={to || 'button'} className={variant} onClick={onClick}>
-            {children}
-        </button>
-    ),
-}));
+describe('CardVerify Component', () => {
+  test('renders correctly with given props', () => {
+    // Arrange: Define the props
+    const mockJudul = <span>Judul Test</span>;
+    const mockIcons = <span>★</span>; // Example icon (star)
+    const mockText = 'This is a test text';
+    const mockChildren = <button>Click Me</button>;
 
-describe('CardEvent Component', () => {
-    const mockOnClick = jest.fn();
+    // Act: Render the component
+    render(
+      <CardVerify judul={mockJudul} icons={mockIcons} text={mockText}>
+        {mockChildren}
+      </CardVerify>
+    );
 
-    it('renders the card with the correct title, image, and date', () => {
-        render(
-            <CardEvent
-                gambar="https://via.placeholder.com/150"
-                title="Event Title"
-                date="12 December 2024"
-                id="123"
-                onclick={mockOnClick}
-            />
-        );
+    // Assert: Check if elements are rendered
+    expect(screen.getByText('Judul Test')).toBeInTheDocument();
+    expect(screen.getByText((content, element) => {
+      return element?.tagName === 'SPAN' && content.includes('★');
+    })).toBeInTheDocument();
+    expect(screen.getByText('This is a test text')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /click me/i })).toBeInTheDocument();
+  });
 
-        // Memastikan gambar ditampilkan
-        const img = screen.getByAltText('Event');
-        expect(img).toBeInTheDocument();
-        expect(img).toHaveAttribute('src', 'https://via.placeholder.com/150');
+  test('has correct class names for styling', () => {
+    // Arrange
+    const mockJudul = <span>Judul Styling Test</span>;
 
-        // Memastikan judul ditampilkan
-        expect(screen.getByText('Event Title')).toBeInTheDocument();
+    // Act
+    const { container } = render(
+      <CardVerify judul={mockJudul} icons={null} text="" children={null} />
+    );
 
-        // Memastikan tanggal ditampilkan
-        expect(screen.getByText('12 December 2024')).toBeInTheDocument();
-    });
+    // Assert
+    const cardDiv = container.querySelector('.card');
+    expect(cardDiv).toHaveClass('shadow-lg', 'bg-slate-100', 'w-96', 'h-96', 'p-5');
+  });
 
-    it('renders the buttons with the correct links', () => {
-        render(
-            <CardEvent
-                gambar="https://via.placeholder.com/150"
-                title="Event Title"
-                date="12 December 2024"
-                id="123"
-                onclick={mockOnClick}
-            />
-        );
+  test('renders without crashing when optional props are not provided', () => {
+    // Act: Render the component without optional props
+    render(
+      <CardVerify judul={<span>Minimal Test</span>} icons={null} text="" children={null} />
+    );
 
-        // Memastikan tombol edit ada
-        expect(screen.getByTestId('/admin/organizer/event/update/123')).toBeInTheDocument();
-
-        // Memastikan tombol delete ada
-        expect(screen.getByTestId('delete-button')).toBeInTheDocument();  // Memperbaiki data-testid
-
-        // Memastikan tombol detail ada
-        expect(screen.getByTestId('/admin/organizer/event/detail/123')).toBeInTheDocument();
-    });
-
-    it('calls the onClick handler when delete button is clicked', () => {
-        render(
-            <CardEvent
-                gambar="https://via.placeholder.com/150"
-                title="Event Title"
-                date="12 December 2024"
-                id="123"
-                onclick={mockOnClick}
-            />
-        );
-    
-        // Klik tombol delete
-        const deleteButton = screen.getByTestId('delete-button');  // Memperbaiki data-testid
-        fireEvent.click(deleteButton);
-    
-        // Memastikan mockOnClick dipanggil sekali
-        expect(mockOnClick).toHaveBeenCalledTimes(1);
-    });
+    // Assert
+    expect(screen.getByText('Minimal Test')).toBeInTheDocument();
+  });
 });

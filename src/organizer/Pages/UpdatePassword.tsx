@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input } from "../../components/Fragments/Input";
+import { Input } from "../../components/Input";
 import api from "../../services/api";
 import Swal from "sweetalert2";
 import { Eye, EyeOff } from "lucide-react";

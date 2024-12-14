@@ -3,7 +3,7 @@ import React from 'react'
 import { AiFillPlusCircle } from "react-icons/ai";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Input } from '../../../components/Fragments/Input';
+import { Input } from '../../../components/Input';
 import { Editor as TinyMCEEditor } from '@tinymce/tinymce-react';
 import { useAppDispatch } from "../../../Redux/hook";
 import { useEffect, useState } from "react";

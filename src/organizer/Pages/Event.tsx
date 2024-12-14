@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import api from '../../services/api';
 import React from 'react'
 import { format } from 'date-fns';
-import { Button } from '../../components/Fragments/Button';
+import { Button } from '../../components/Button';
 const PICTURE = import.meta.env.VITE_API_URL_PICTURE
 export const Event = () => {
   const [events, setEvents] = useState<any[]>([]);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { Input } from '../components/Fragments/Input';
+import { Input } from '../components/Input';
 
 describe('Input Component', () => {
     it('renders the input with the correct label', () => {
