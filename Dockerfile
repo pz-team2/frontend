@@ -1,29 +1,23 @@
-# Gunakan Node.js sebagai base image untuk build
-FROM node:18-alpine as build
+# Gunakan base image Node.js
+FROM node:18-alpine AS build
 
-# Set working directory dalam container
+# Set working directory
 WORKDIR /app
 
-# Salin file package.json dan package-lock.json
+# Salin file package.json dan install dependencies
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy seluruh source code ke dalam container
+# Salin seluruh source code
 COPY . .
 
-# Build aplikasi frontend
+# Build aplikasi dengan Vite
 RUN npm run build
 
-# Gunakan NGINX untuk serve aplikasi frontend
-FROM nginx:stable-alpine
+# Production stage dengan NGINX
+FROM nginx:1.25-alpine AS production
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# Salin hasil build ke direktori default NGINX
-COPY --from=build /app/build /usr/share/nginx/html
-
-# Ekspose port untuk akses aplikasi
-EXPOSE 80
-
-# Jalankan NGINX
+# Expose port sesuai kebutuhan
+EXPOSE 5173
 CMD ["nginx", "-g", "daemon off;"]
