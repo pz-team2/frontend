@@ -7,7 +7,7 @@ import { FaRegUser } from "react-icons/fa6";
 import { IoHomeOutline, IoSettingsSharp } from "react-icons/io5";
 import { BsCalendarEventFill } from "react-icons/bs";
 import gambar from '../assets/img/admin.png'
-import { Sidebar } from "../components/Layout/Sidebar";
+import { Sidebar } from "../components/Sidebar";
 
 
 const Layout = () => {

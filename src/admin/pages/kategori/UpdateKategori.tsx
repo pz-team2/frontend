@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAppDispatch } from "../../../Redux/hook";
 import { updatecategory } from "../../../Redux/features/category/categorySlice";
-import { Input } from "../../../components/Fragments/Input";
+import { Input } from "../../../components/Input";
 import Swal from "sweetalert2";
 
 interface UpdateKategoriModalProps {

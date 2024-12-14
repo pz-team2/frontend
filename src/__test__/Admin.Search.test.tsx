@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { Search } from '../components/Layout/Search';
+import { Search } from '../components/Search';
 
 describe('Search Component', () => {
   const mockOnChange = jest.fn();

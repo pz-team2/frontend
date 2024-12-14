@@ -9,7 +9,7 @@ import {
   setMessage,
 } from "../../../Redux/features/organizer/organizerSlice";
 
-import { Input } from "../../../components/Fragments/Input";
+import { Input } from "../../../components/Input";
 import { FaCirclePlus } from "react-icons/fa6";
 import Swal from "sweetalert2";
 // import {useNavigate } from "react-router-dom";

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { CardProfile } from '../components/Layout/CardProfile';
+import { CardProfile } from '../components/CardProfile';
 
 describe('CardProfile Component', () => {
     it('renders profile information correctly', () => {

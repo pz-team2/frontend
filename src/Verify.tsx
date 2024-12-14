@@ -1,5 +1,5 @@
-import { Button } from "./components/Fragments/Button";
-import { CardVerify } from "./components/Layout/CardVerify"
+import { Button } from "./components/Button";
+import { CardVerify } from "./components/CardVerify"
 import { FcHighPriority } from "react-icons/fc";
 import React from "react";
 

@@ -2,7 +2,7 @@
   import { IoIosCalendar, IoIosPricetags } from "react-icons/io";
   import { FaLocationDot } from "react-icons/fa6";
   import { Link } from "react-router-dom";
-  import { Button } from "../../components/Fragments/Button";
+  import { Button } from "../../components/Button";
   import { FaTicket } from "react-icons/fa6";
 
 

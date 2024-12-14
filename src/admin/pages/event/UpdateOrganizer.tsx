@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import React from 'react'
 import { IOrganizer, getOrganizerByIdApi, updateOrganizer } from "../../../Redux/features/organizer/organizerApi";
-import { Input } from "../../../components/Fragments/Input";
+import { Input } from "../../../components/Input";
 
 interface EditOrganizerProps {
     organizerId: string;

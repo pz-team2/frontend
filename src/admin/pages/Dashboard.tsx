@@ -2,8 +2,8 @@ import { VscOrganization } from "react-icons/vsc";
 import React from 'react'
 import { MdEventNote } from "react-icons/md";
 import { FaUser } from "react-icons/fa6";
-import Card from "../../components/Layout/Card";
-import { Table } from "../../components/Layout/Table";
+import Card from "../../components/Card";
+import { Table } from "../../components/Table";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../Redux/hook";
 import { useEffect } from "react";

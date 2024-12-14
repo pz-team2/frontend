@@ -4,7 +4,7 @@ import { FaCalendarCheck } from "react-icons/fa6";
 import { AiFillHome } from "react-icons/ai";
 import gambar from "../assets/img/organizer.png"
 import React from 'react'
-import { Sidebar } from "../components/Layout/Sidebar";
+import { Sidebar } from "../components/Sidebar";
 
 export const LayoutOrg = () => {
 
