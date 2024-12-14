@@ -1,0 +1,65 @@
+name: Frontend CI/CD 
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Langkah 1: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Langkah 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # Langkah 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          npm ci
+
+      # Langkah 4: Jalankan component testing
+      - name: Run Component Tests
+        run: |
+          npm run tes
+
+      # Langkah 5: Build frontend
+      - name: Build frontend
+        run: |
+          npm run build
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+      # Langkah 1: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Langkah 2: Login to Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Langkah 3: Build dan push Docker image
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: goevent/frontend-app:latest
