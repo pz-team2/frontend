@@ -32,7 +32,7 @@ jobs:
       # Langkah 4: Jalankan component testing
       - name: Run Component Tests
         run: |
-          npm run tes
+          npm run test
 
       # Langkah 5: Build frontend
       - name: Build frontend
