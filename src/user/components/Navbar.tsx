@@ -105,7 +105,7 @@
                 <span>Hubungi Kami</span>
               </Link>
               <Link
-                to="/user/login"
+                to="/login-option"
                 className="flex items-center justify-center border-2 border-white text-white px-6 py-2 rounded-md text-sm font-medium"
               >
                 Login
@@ -137,7 +137,7 @@
                 <>
                   <li>
                     <Link
-                      to="/user/login"
+                      to="/login-option"
                       className="flex items-center space-x-2 text-white"
                     >
                       <span>Log in</span>

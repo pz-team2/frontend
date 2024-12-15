@@ -67,10 +67,10 @@ export const Sidebar: React.FC<dataSidebar> = ({ menuItems, gambar }) => {
             <li key={index}>
               <Link
                 to={item.path}
-                className={`flex flex-col items-center justify-center p-2 ${location.pathname === item.path ? 'text-secondary' : 'text-gray-600'}`}
+                className={`flex flex-col items-center justify-center p-2 ${location.pathname === item.path ? 'text-white bg-secondary rounded-lg' : 'text-gray-600'}`}
               >
-                <span>{item.icon}</span>
-                <span className="text-xs font-medium">{item.text}</span>
+                <h1>{item.icon}</h1>
+                {/* <span className="text-xs font-medium">{item.text}</span> */}
               </Link>
             </li>
           ))}

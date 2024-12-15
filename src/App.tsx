@@ -72,7 +72,7 @@ export default function App() {
             <Route path="/hubungi-kami" element={<Hubungi />} />
             <Route path="/detail/:id" element={<EventDetail />} />
           </Route>
-          <Route path="/page" element={<Pages />} />
+          <Route path="/login-option" element={<Pages />} />
           <Route path="/user/login" element={<Login />} />
           <Route path="/user/register" element={<Register />} />
           <Route path="/organizer/login" element={<LoginOrganizer />} />

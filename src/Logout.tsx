@@ -7,7 +7,7 @@ export const Logout = () => {
         localStorage.removeItem('token')
         localStorage.removeItem('username')
         localStorage.removeItem('role')
-        window.location.href = '/page'
+        window.location.href = '/login-option'
     }, [])
   return (
     <div></div>
