@@ -90,7 +90,7 @@ export const Detail = () => {
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <FaWindowMaximize />
-                                    <h6>Kuota: {data.quota} Tiket</h6>
+                                    <h6>Kuota: {data.quotaall} Tiket</h6>
                                 </div>
                             </div>
                         </div>
