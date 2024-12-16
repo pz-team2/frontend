@@ -1,5 +1,5 @@
 import { VscOrganization } from "react-icons/vsc";
-import React from 'react'
+import React, { useState } from 'react'
 import { MdEventNote } from "react-icons/md";
 import { FaUser } from "react-icons/fa6";
 import Card from "../../components/Card";
@@ -8,17 +8,34 @@ import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../Redux/hook";
 import { useEffect } from "react";
 import { dataStatic, dataterbaru } from "../../Redux/features/dashboard/dashboardSlice";
+import { getOrganizersApi, IOrganizer } from "../../Redux/features/organizer/organizerApi";
 const PICTURE = import.meta.env.VITE_API_URL_PICTURE
 
 export const Dashboard = () => {
   const dispatch = useAppDispatch();
+  const [organizers, setOrganizers] = useState<IOrganizer[]>([]);
 
   const { isSucces, loading, stats, events } = useAppSelector((state) => state.dashboard);
+
+  const fetchOrganizers = async () => {
+    try {
+      const data = await getOrganizersApi();
+      if (data.code === 200) {
+        setOrganizers(data.data || []);
+      } else {
+        return 'erorr menampilkan tambah data'
+      }
+    } catch (err) {
+      return err;
+    }
+  };
 
   useEffect(() => {
     dispatch(dataStatic());
     dispatch(dataterbaru());
+    fetchOrganizers()
   }, [dispatch]);
+
 
   const limitPage = events.slice(0, 5)
 
@@ -38,7 +55,7 @@ export const Dashboard = () => {
     { key: 'gambar', label: 'Gambar' },
     { key: 'event', label: 'Nama Event' },
     { key: 'tiket', label: 'Tiket Terjual' },
-    { key: 'name', label: 'Tanggal - Event' }, 
+    { key: 'name', label: 'Tanggal - Event' },
     // { key: 'status', label: 'Status' },
     // { key: 'tanggal', label: 'Tanggal Event' },
   ];
@@ -75,12 +92,12 @@ export const Dashboard = () => {
         <div className="card w-full lg:w-96 shadow-md p-4 md:p-6">
           <h4 className="text-center text-black font-semibold text-base md:text-lg mb-3">Organizer Latest</h4>
           <ol className="list-decimal text-black text-sm md:text-base space-y-2">
-            {events.slice(0, 10).map((event, index) => (
+            {organizers.slice(0, 10).map((org, index) => (
               <li className="flex flex-row gap-5 card shadow-lg p-3 w-full bg-slate-50 mt-2" key={index}>
                 {/* <img src={`${PICTURE}${event.picture}`} alt={'gagal data img'} className="w-20 h-14 rounded-xl" /> */}
                 {/* <div className="flex gap-3"> */}
-                  <span className="text-black font-semibold tracking-wider">{index + 1}. </span>
-                  <h5 className="text-black font-semibold tracking-wider">{event.organizerName}</h5>
+                <span className="text-black font-semibold tracking-wider">{index + 1}. </span>
+                <h5 className="text-black font-semibold tracking-wider">{org.organizerName}</h5>
                 {/* </div> */}
               </li>
             ))}
