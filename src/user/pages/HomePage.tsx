@@ -49,9 +49,9 @@ const HomePage: React.FC = () => {
             .filter(
               (event) => new Date(event.date).getTime() > Date.now()
             )
-            .slice(0, 5) 
+            .slice(0, 5)
             .map((event) => event.picture);
-          setSliderImages(upcomingEventImages); 
+          setSliderImages(upcomingEventImages);
         } else {
           console.error("Unexpected data structure", eventResponse.data);
         }
@@ -134,7 +134,7 @@ const HomePage: React.FC = () => {
         <h2 className="text-black text-2xl font-bold">Event</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
           {filteredEvents.length > 0 ? (
-            filteredEvents.map((event) => (
+            filteredEvents.slice(0, 6).map((event) => (
               <Card
                 key={event._id}
                 _id={event._id}
@@ -151,6 +151,7 @@ const HomePage: React.FC = () => {
             <p>No events found</p>
           )}
         </div>
+
         <div className="mx-auto">
           <Link to="/selengkapnya">
             <button className="btn btn-wide bg-primary text-white mx-auto">
