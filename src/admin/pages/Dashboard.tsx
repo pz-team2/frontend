@@ -51,9 +51,9 @@ export const Dashboard = () => {
         <span className="loading loading-dots loading-lg"></span>
       ) : isSucces && stats ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-11">
-          <Card title={"Organizer"} jumlah={stats.totalUsers.toString()} icons={<VscOrganization />} />
+          <Card title={"Organizer"} jumlah={stats.totalOrganizers.toString()} icons={<VscOrganization />} />
           <Card title={"Event"} jumlah={stats.totalEvents.toString()} icons={<MdEventNote />} />
-          <Card title={"User"} jumlah={stats.totalOrganizers.toString()} icons={<FaUser />} />
+          <Card title={"User"} jumlah={stats.totalUsers.toString()} icons={<FaUser />} />
         </div>
       ) : (
         <p> Static Tidak Ada</p>
