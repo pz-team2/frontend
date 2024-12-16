@@ -18,25 +18,19 @@ export const getTicketsByUserId = async () => {
     });
     return response.data.data; // Mengembalikan data tiket
   } catch (error) {
-    console.error("Gagal Mengambil Data Ticket", error);
-    return { success: false, message: "Gagal Mengambil Data Ticket" };
+    // console.error("Gagal Mengambil Data Ticket", error);
+    // return 'gagal ';
   }
 };
 
 // Fungsi untuk mengambil tiket berdasarkan ID
 export const getTicketByPaymentId = async (ticketId: string) => {
   try {
-    // const token = localStorage.getItem("token");
-    // if (!token) {
-    //   throw new Error("Token tidak ditemukan. Silakan login terlebih dahulu.");
-    // }
-
-    // Mengirim permintaan ke API untuk mendapatkan detail tiket berdasarkan ID tiket
     const response = await api.get(`/tickets/${ticketId}`);
 
     return response.data.data; // Mengembalikan data tiket
   } catch (error) {
-    console.error("Gagal Mengambil Data Ticket", error);
-    return { success: false, message: "Gagal Mengambil Data Ticket" };
+    // console.error("Gagal Mengambil Data Ticket", error);
+    // return { success: false, message: "Gagal Mengambil Data Ticket" };
   }
 };

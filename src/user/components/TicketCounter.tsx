@@ -21,11 +21,9 @@ const TicketCounter: React.FC<TicketCounterProps> = ({ price, quota, eventId }) 
     const token = localStorage.getItem("token");
 
     if (!token) {
-      // Tidak perlu login untuk melihat event, tapi jika mau lanjutkan pembayaran, login
-      return; // Tidak perlu lakukan request ke API jika tidak ada token
+      return;
     }
 
-    // Jika ada token, ambil profil pengguna
     const fetchUserProfile = async () => {
       try {
         const response = await api.get("/users/detail");

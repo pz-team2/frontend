@@ -31,7 +31,7 @@ export const Detail = () => {
         <h1> Event Tidak Ada</h1>
     }
 
-    const tiketTersisa = (data.quota || 0) - (data.ticketsSold || 0);
+    // const tiketTersisa = (data.quota || 0) - (data.ticketsSold || 0);
     useEffect(() => {
         fetchData()
     })
@@ -63,7 +63,7 @@ export const Detail = () => {
                                 <h2 className="text-md font-bold text-white">Ticket Terjual</h2>
                             </div>
                             <div className="bg-secondary p-4 text-center shadow-md rounded-lg">
-                                <h1 className='text-xl text-white'>{tiketTersisa }</h1>
+                                <h1 className='text-xl text-white'>{data.quota }</h1>
                                 <h2 className="text-md font-bold text-white">Tiket Tersisa</h2>
                             </div>
                         </div>

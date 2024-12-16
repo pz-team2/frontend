@@ -20,7 +20,7 @@ export const fetchTicketsByUserId = createAsyncThunk(
         return rejectWithValue("Gagal Mengambil Data Tiket");
       }
     } catch (error) {
-      return rejectWithValue("Gagal Mengambil Data Tiket");
+      console.log("Terjadi kesalahan saat mengambil data transaksi.");
     }
   }
 );
@@ -36,7 +36,7 @@ export const fetchTicketsByPaymentId = createAsyncThunk(
         return rejectWithValue("Gagal Mengambil Detail Tiket");
       }
     } catch (error) {
-      return rejectWithValue("Gagal Mengambil Detail Tiket");
+      console.log("Terjadi kesalahan saat mengambil data transaksi.");
     }
   }
 );
