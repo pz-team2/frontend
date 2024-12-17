@@ -60,7 +60,6 @@ const TicketCounter: React.FC<TicketCounterProps> = ({ price, quota, eventId }) 
         title: "Profil Belum Lengkap",
         text: "Silakan lengkapi nomor telepon Anda di profil sebelum melanjutkan pembayaran.",
       }).then(() => {
-        // Arahkan ke halaman profil jika nomor telepon belum ada
         navigate("/user/profile");
       });
       return;

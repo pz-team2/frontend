@@ -1,25 +1,57 @@
-import { useEffect } from 'react';
-import React from 'react'
+import { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '../Redux/hook';
 import { setEmail, setPassword, login } from '../Redux/features/auth/authslice';
+import api from '../services/api';
 
 const FormLogin: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { email, password, message, isLogged } = useAppSelector((state) => state.auth);
+  const [userProfile, setUserProfile] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      navigate('/');
-    }
+    const fetchUserProfile = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await api.get('/users/detail', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserProfile(response.data.data.user);
+
+        // Check if phone number is empty
+        if (!userProfile?.phoneNumber?.trim()) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Profil Belum Lengkap',
+            text: 'Silakan lengkapi nomor telepon Anda di profil sebelum melanjutkan.',
+          }).then(() => {
+            navigate('/user/profile');
+          });
+        } else {
+          navigate('/');
+        }
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserProfile();
   }, [navigate]);
-  
+
   useEffect(() => {
-    console.log(isLogged);
     if (isLogged) {
       Swal.fire({
         title: 'Login Berhasil!',
@@ -27,11 +59,11 @@ const FormLogin: React.FC = () => {
         icon: 'success',
         confirmButtonText: 'OK',
       }).then(() => {
-        navigate("/");
+        navigate('/');
       });
     } else if (message) {
       Swal.fire({
-        title: 'Login Gagal! ',
+        title: 'Login Gagal!',
         text: message,
         icon: 'error',
         confirmButtonText: 'Coba Lagi',
@@ -44,6 +76,10 @@ const FormLogin: React.FC = () => {
     dispatch(login({ email, password }));
   };
 
+
+  if(loading){
+    return 'Data Sedang Di Proses Tunggu Sebentar';
+  }
   return (
     <>
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -80,7 +116,6 @@ const FormLogin: React.FC = () => {
         </button>
       </form>
 
-      {/* Tampilkan pesan kesalahan jika ada */}
       {message && (
         <div className="mt-4 text-center text-red-500">
           {message}
