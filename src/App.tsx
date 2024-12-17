@@ -38,6 +38,7 @@ import { EventData } from "./admin/pages/event/Event";
 import HomeLayout from "./user/Layouts/HomeLayout";
 import PrivateRoute from "./services/ProtectedRoute";
 import { Notfound } from "./NotFound";
+import { Data } from "./organizer/Pages/Data";
 
 export default function App() {
   // const [loading, setLoading] = useState(true); // State untuk loading
@@ -126,6 +127,7 @@ export default function App() {
               element={<DashboardOrganizer />}/>
             <Route path="organizer/event" element={<Event />} />
             <Route path="organizer/event/detail/:id" element={<Detail />} />
+            <Route path="organizer/event/data/:id" element={<Data />} />
             {/* <Route path="organizer/event/detail/:id" element={<Detail />} /> */}
             <Route path="organizer/event/profile" element={<Profile />} />
           </Route>

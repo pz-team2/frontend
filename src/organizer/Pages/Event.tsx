@@ -42,7 +42,13 @@ export const Event = () => {
                     to={`/organizer/event/detail/${event._id}`}
                     variant="btn bg-secondary hover:bg-cyan-600 border-0 text-white text-lg font-bold"
                   >
-                    Lihat Detail
+                     Detail
+                  </Button>
+                  <Button
+                    to={`/organizer/event/data/${event._id}`}
+                    variant="btn bg-primary hover:bg-cyan-600 border-0 text-white text-lg font-bold"
+                  >
+                    Data
                   </Button>
                 </div>
               </div>
