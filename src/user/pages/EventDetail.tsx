@@ -6,6 +6,7 @@ import TicketCounter from "../components/TicketCounter";
 import CardDetail from "../components/CardDetail";
 import { useParams } from "react-router-dom";
 import api from "../../services/api";
+import { VscOrganization } from "react-icons/vsc";
 
 interface EventProps {
   id: string;
@@ -19,6 +20,7 @@ interface EventProps {
   startTime: string;
   finishTime: string;
   price: number;
+  OrganizerName?: string;
 }
 
 const EventDetail: React.FC = () => {
@@ -43,6 +45,7 @@ const EventDetail: React.FC = () => {
             picture: eventData.data.picture
               ? `${PICTURE}${eventData.data.picture}`
               : "Banner",
+              OrganizerName: eventData.data.organizer?.organizerName || "Tidak Diketahui",
           };
 
           setEvent(formattedEvent);
@@ -93,6 +96,10 @@ const EventDetail: React.FC = () => {
           <h2 className="text-primary text-4xl font-bold">{event.title}</h2>
           <div className="pb-4 border-b-4 border-gray-200">
             <div className="flex flex-col md:flex-row gap-2 lg:gap-4 text-gray-600">
+              <div className="flex items-center gap-2">
+                <VscOrganization className="text-gray-500 flex-shrink-0" />
+                <span className="text-base">{event.OrganizerName}</span>
+              </div>
               <div className="flex items-center gap-2">
                 <IoIosCalendar className="text-gray-500 flex-shrink-0" size={20} />
                 <span className="text-base">{event.date.toLocaleDateString("id-ID")}</span>
