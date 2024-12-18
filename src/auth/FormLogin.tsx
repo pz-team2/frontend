@@ -28,19 +28,6 @@ const FormLogin: React.FC = () => {
           },
         });
         setUserProfile(response.data.data.user);
-
-        // Check if phone number is empty
-        if (!userProfile?.phoneNumber?.trim()) {
-          Swal.fire({
-            icon: 'warning',
-            title: 'Profil Belum Lengkap',
-            text: 'Silakan lengkapi nomor telepon Anda di profil sebelum melanjutkan.',
-          }).then(() => {
-            navigate('/user/profile');
-          });
-        } else {
-          navigate('/');
-        }
       } catch (error) {
         console.error('Error fetching user profile:', error);
       } finally {
@@ -49,7 +36,7 @@ const FormLogin: React.FC = () => {
     };
 
     fetchUserProfile();
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     if (isLogged) {
@@ -59,7 +46,19 @@ const FormLogin: React.FC = () => {
         icon: 'success',
         confirmButtonText: 'OK',
       }).then(() => {
-        navigate('/');
+        if (!userProfile?.phoneNumber?.trim()) {
+          // Jika phoneNumber kosong, arahkan ke halaman profil
+          Swal.fire({
+            icon: 'warning',
+            title: 'Lengkapi Profile',
+            text: 'Silakan lengkapi profil Anda sebelum melanjutkan.',
+          }).then(() => {
+            navigate('/user/profile');
+          });
+        } else {
+          // Jika phoneNumber sudah terisi, arahkan ke halaman utama
+          navigate('/');
+        }
       });
     } else if (message) {
       Swal.fire({
@@ -69,17 +68,17 @@ const FormLogin: React.FC = () => {
         confirmButtonText: 'Coba Lagi',
       });
     }
-  }, [isLogged, message, navigate]);
+  }, [isLogged, message, navigate, userProfile]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(login({ email, password }));
   };
 
-
-  if(loading){
-    return 'Data Sedang Di Proses Tunggu Sebentar';
+  if (loading) {
+    return <div>Data Sedang Diproses, Tunggu Sebentar...</div>;
   }
+
   return (
     <>
       <form onSubmit={handleSubmit} className="space-y-4">
