@@ -85,6 +85,7 @@ const DetailTiket: React.FC = () => {
                       ${ticket.status === "AVAILABLE"
                         ? "bg-[#30BFCA] text-white"
                         : ticket.status === "USED"
+
                           ? "bg-red-500 text-white"
                           : "bg-red-500 text-white"}`}
                   >

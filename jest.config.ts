@@ -7,14 +7,9 @@ module.exports = {
   moduleNameMapper: {
     '^.+\\.(css|scss|png|jpg|svg)$': 'identity-obj-proxy', // Mock file CSS/images
   },
-  // collectCoverageFrom: [
-  //   'src/**/*.{ts,tsx}',   // Semua file TS/TSX dalam folder src
-  //   '!src/**/*.test.{ts,tsx}', // Kecualikan file test
-  //   '!src/index.tsx',      // Kecualikan entry point utama
-  //   '!src/reportWebVitals.ts',
-  // ],
   transform: {
-    "^.+\\.tsx?$": ["ts-jest", { tsconfig: "tsconfig.app.json" }],
+    "^.+\\.tsx?$": ["ts-jest", { tsconfig: "tsconfig.app.json" }], // TypeScript transform
+    "^.+\\.jsx?$": "babel-jest", // Babel transform untuk file JS/JSX
   },
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   extensionsToTreatAsEsm: [".ts", ".tsx"], // Jika TypeScript digunakan

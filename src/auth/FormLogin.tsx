@@ -66,7 +66,7 @@ const FormLogin: React.FC = () => {
       });
     } else if (message) {
       Swal.fire({
-        title: 'Login Gagal!',
+        title: 'Login Gagal! ',
         text: message,
         icon: 'error',
         confirmButtonText: 'Coba Lagi',

@@ -1,0 +1,29 @@
+# Node.js dependencies (should not be copied, as they are installed inside the container)
+node_modules
+npm-debug.log
+
+# Git-related files
+.git
+.gitignore
+
+# Environment variables (keep secrets out of the image)
+.env
+
+# Markdown documentation files
+*.md
+
+# OS-specific or editor-specific files
+.DS_Store
+.vscode
+
+# Test coverage files
+coverage
+
+# Compiled output (should not be part of the source code copied into the container)
+dist
+
+# GitHub workflows or metadata (not needed for container build)
+.github
+
+# Logs
+*.log
